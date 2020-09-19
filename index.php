@@ -8,7 +8,7 @@ require_once 'modelo/Conexion.php';
     //el valor que coloquemos aquí será el primer controlador
     //que se llame cuando cargue el proyecto
   $controller = 'Login';
-
+  $controller = 'jaja';
   // Toda esta lógica hara el papel de un FrontController
   //comprobamos si la c "controlador" está vacía
   if(!isset($_REQUEST['c']))
