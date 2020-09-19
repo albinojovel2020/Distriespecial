@@ -1,0 +1,209 @@
+
+body{
+    font-family: 'Ubuntu', sans-serif;
+}
+
+/* color pestaña */
+.yy{
+  width: 150px!important;
+  border-radius: 20px;
+  margin-right: 10px!important;
+}
+.tabs li{
+  padding: 2px;
+  border-radius: 20px 20px 20px 20px!important;
+  background: #616161!important;
+}
+/* fondo y letra de los tabs */
+.tab-activos{
+  background-color: #00c853   !important;
+   border-radius: 10px 10px 0px 0px;
+  color: #ffffff !important;
+}
+.tab-inactivos{
+  background-color: #00c853  !important;
+  border-radius: 10px 10px 0px 0px;
+  color: #ffffff !important;
+}
+/* estilo para los formularios */
+  /* label color */
+   .input-field label {
+     color: #546E7A !important;
+   } 
+  /* icon color */
+  .form-icon{
+    color: #007396 !important;
+  }
+  /* icon active color */
+  .material-icons.active {
+    color: #00796b !important;
+  }
+  /* label focus color */
+  .input-field input:focus + label{
+    color: #ED8B00 !important;
+  }
+  /* label underline focus color */
+  .row .input-field input:focus {
+    border-bottom: 1px solid #ED8B00 !important;
+    box-shadow: 0 1px 0 0 #ED8B00 !important;
+  }
+  /* span color checked */
+  input:checked + span {
+    color:#ED8B00 !important;
+  }
+
+
+/* CSS de LOGIN */
+.lin{
+ /* width: 100px;*/
+}
+.linea_lg{
+  margin-right: 20px;
+  margin-left: 20px;
+ height: 5px;
+    background-color: #00c853;
+    border: 5px;
+}
+
+
+.login{
+   width: 100%
+}
+.login1{
+  
+  margin-top:3px !important;
+    height: 76vh;
+    
+    background-color:
+}
+.login1{
+    display: flex;
+    align-items: center;
+  margin: auto;
+}
+.dt{
+    display: block;
+    margin: auto;
+    justify-content: center;
+    color: #1565c0;
+}
+.login2{
+    display: flex;
+    align-items: center;
+    margin: auto;
+    height: 76vh;
+}
+.img_logo{
+  width: 500px;
+  height: 300px;
+}
+.lg{
+  display: block;
+  margin: auto;
+  justify-content: center;
+}
+
+.input-field input:focus + label {
+  color: #0d47a1!important;
+}
+.row .input-field input:focus {
+  border-bottom: 1px solid  #0d47a1 !important;
+  box-shadow: 0 1px 0 0  #0d47a1 !important
+}
+
+@media only screen and (max-width : 992px) {
+    .login1, .login2{
+        height: auto;
+    }
+    .btn{
+      margin: 10px;
+    }
+}
+
+.error_login{
+  width: 150px;
+  height: 150px;
+}
+/*FIN CSS Login*/
+
+/*Inicio Menu lateral*/
+/*menu lateral*/
+
+#sel > ul > li > a.seleccionado {
+    background: #b2dfdb;
+    color: #ffffff;
+}
+.container{
+    width: 95%;
+}
+
+header, main  {
+    padding-left: 300px;
+}
+@media only screen and (max-width : 992px) {
+    header, main, footer {
+        padding-left: 0;
+    }
+}
+.bar{
+    background: #04101e;
+    color: white;
+    height: 60px;
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    display: none;
+}
+@media only screen and (max-width: 992px) {
+    .bar {display: inline-block;}
+}
+.bar a i{
+    color: white;
+}
+.menu01{
+    margin-top: 15px;
+    margin-left: 10px;
+}
+#slide-out{
+    height: 100%;
+}
+.circular{
+    height: 160px;
+    width: 160px;
+    margin-top: -20px;
+    border-radius: 12px;
+}
+
+/*Fin Menu*/
+/*Inicio tablero*/
+
+.ll{
+
+    width: 100px;
+    height: 100px;
+    padding-top: 10px;
+}
+
+.badge{
+    border-radius: 20px;
+
+}
+
+.titulo{
+    margin: auto;
+}
+
+
+.card{
+    padding: 5px;
+    margin: 5px;
+}
+
+
+footer{
+  margin: 0;
+  padding: 0;
+  -webkit-box-shadow: 0px 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 2px rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
