@@ -7,8 +7,10 @@
     - Carga las vistas como respuesta al usuario
 */
 
+
 //para usar los métodos del modelo usuario
     require_once 'modelo/Usuario.php';
+    
 
     class LoginController{
 
@@ -34,7 +36,7 @@
             
         //captura todos los datos
             $usuario = $_REQUEST['usuario'];
-            $clave = $_REQUEST['clave'];
+            $clave = md5($_REQUEST['clave']);
 
         //consultar los datos
             $usuario = $this->model->Entrar($usuario, $clave);
@@ -60,6 +62,12 @@
 		    header('location: ?c='.base64_encode("Login").'');
 		    
   	    }
+
+        public function Error_inactivo(){
+             require_once 'vistas/pages/encabezadopagina.php';
+            require_once 'vistas/login/Error_inativo.php';
+            require_once 'vistas/pages/piepagina.php';
+        }
 
     }
 

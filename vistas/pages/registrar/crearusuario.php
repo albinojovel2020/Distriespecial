@@ -54,7 +54,7 @@
             </div>
 
             <div class="input-field col s12 m6">
-              <i class="material-icons prefix form-icon">mail</i>
+              <i class="material-icons prefix form-icon">account_circle</i>
               <input id="usuario" type="text" class="validate" name="usuario" required>
               <label for="usuario">Usuario</label>
             </div>
@@ -77,7 +77,6 @@
               <br>
             </div>
             <div class="input-field col s12">              
-            <i class="material-icons prefix form-icon">arrow_drop_down</i>
             <select id="idpreguntasecreta" name="idpreguntasecreta" class="validate" required>                
                 <?php foreach($this->modelPreguntaSecreta->ListarPreguntasSecretas() as $r): ?>
                     <option value="<?php echo $r->idpreguntasecreta; ?>"><?php echo $r->nombre; ?></option>

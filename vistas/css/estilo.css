@@ -74,13 +74,11 @@ body{
   margin-top:3px !important;
     height: 76vh;
     
-    background-color:
-}
-.login1{
-    display: flex;
+   display: flex;
     align-items: center;
   margin: auto;
 }
+
 .dt{
     display: block;
     margin: auto;

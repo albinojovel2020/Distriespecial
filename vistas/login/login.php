@@ -37,16 +37,18 @@
                                     <label for="icon_telephone">Contraseña</label>
                                     <span class="helper-text" data-error="Ingrese Contraseña" data-success="completado"></span>
                                 </div>
-                                
-                           <a href="?c=<?php echo base64_encode('Usuario');?>&a=<?php echo base64_encode('RecuperarPassword');?>">olvido su contraseña?</a>
                             </div>
                             <center>
+                                
                                 <button class="btn waves-effect waves-light green accent-4" type="submit">Iniciar
                                     <i class="material-icons right">check_circle</i>
                                 </button>
+                                <br><br>
+                                <a href="?c=<?php echo base64_encode('Usuario');?>&a=<?php echo base64_encode('RecuperarPassword');?>"><b>¿Olvidastes tu contraseña?</b></a>
                             </center>
-
+ 
                         </form>
+
                     </div>         
                 </div>
             </div>

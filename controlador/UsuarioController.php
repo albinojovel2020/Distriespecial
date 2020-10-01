@@ -44,11 +44,17 @@ class UsuarioController
 	//Registrar Usuario
 	public function RegistrarUsuario(){
 		//tomar todos los datos
+		date_default_timezone_set("America/Guatemala");
+		$fecha = date('Y-m-d');
+		$horas = date('H:i:s');
+		$tiempo = date('A');
+		$mifecha = $fecha.' a las '.$horas .' '.$tiempo;
 		$this->model->nombre = $_REQUEST['nombres'];
 		$this->model->apellido = $_REQUEST['apellidos'];
 		$this->model->telefono = $_REQUEST['telefono'];
 		$this->model->usuario = $_REQUEST['usuario'];
-		$this->model->clave = $_REQUEST['clave1'];
+		$this->model->clave = md5($_REQUEST['clave1']);
+		$this->model->fecha = $mifecha;
 		$this->model->idpreguntasecreta = $_REQUEST['idpreguntasecreta'];
 		$this->model->respuestasecreta = $_REQUEST['respuestasecreta1'];
 		$this->model->idtipousuario = $_REQUEST['idtipousuario'];
@@ -59,9 +65,9 @@ class UsuarioController
 
 		//La vista de usuarios registrados
 		echo "<script>
-				alert('CORRECTO: Los datos fueron guardados.');
-				window.location.href='?c=".base64_encode('Usuario')."';
-			 </script>";
+		alert('CORRECTO: Los datos fueron guardados.');
+		window.location.href='?c=".base64_encode('Usuario')."';
+		</script>";
 	}
 
 	//Editar Usuario
@@ -78,43 +84,54 @@ class UsuarioController
 		require_once 'vistas/pages/actualizar/actualizarusuario.php';
 		require_once 'vistas/pages/piepagina.php';
 	}
-    
-    public function RecuperarPassword(){
-       // $idusuario =  base64_decode($_REQUEST['idusuario']);
-        
-       
-        //$this->model->nombre = $_REQUEST['nombres'];
-        
-        require_once 'vistas/pages/encabezadopagina.php';
+
+	public function RecuperarPassword(){
+
+
+		require_once 'vistas/pages/encabezadopagina.php';
 		require_once 'vistas/login/recuperar_pass.php';
 		require_once 'vistas/pages/piepagina.php';
 		
-    }
-    
-    public function Recuperar(){
-    	$user= new Usuario();
-       $user = $_REQUEST['usuario'];
-         $user = $this->model->ConsulUser($user);
-        $this->model->Cambio($user);
-    }
+	}
+	public function RespuestasecretaNoCoiciden(){
+		require_once 'vistas/pages/encabezadopagina.php';
+		require_once 'vistas/login/error_restablecimiento.php';
+		require_once 'vistas/pages/piepagina.php';
+	}
 
-    public function NuevaPassword(){
-    	 require_once 'vistas/pages/encabezadopagina.php';
+	public function Recuperar(){
+		$user= new Usuario();
+		$user = $_REQUEST['usuario'];
+		$preguntasecreta = $_REQUEST['idpreguntasecreta'];
+		$respuestasecreta = $_REQUEST['respuestasecreta1'];
+		$user = $this->model->ConsulUser($user, $preguntasecreta, $respuestasecreta);
+
+		$this->model->Cambio($user);
+	}
+
+	public function NuevaPassword(){
+		require_once 'vistas/pages/encabezadopagina.php';
 		require_once 'vistas/login/from_pass.php';
 		require_once 'vistas/pages/piepagina.php';
-    }
+	}
 
-public function ActualizarContraseña(){
-	$idusuario=$_REQUEST['idusuario'];
-	$nuevapass=$_REQUEST['n_pass1'];
-	$this->model->CambioPass($nuevapass, $idusuario);
+	public function ActualizarContraseña(){
+		date_default_timezone_set("America/Guatemala");
+		$fecha = date('Y-m-d');
+		$horas = date('H:i:s');
+		$tiempo = date('A');
+		$mifecha = $fecha.' a las '.$horas .' '.$tiempo;
+		$idusuario=$_REQUEST['idusuario'];
+		$nuevapass=md5($_REQUEST['n_pass1']);
+		$fecha=$mifecha;
+		$this->model->CambioPass($nuevapass, $fecha, $idusuario);
 
-	echo "<script>
-				alert('Su contraseña se modifico con exito.');
-				window.location.href='?c=".base64_encode('Login')."';
-			 </script>";
+		echo "<script>
+		alert('Su contraseña se modifico con exito.');
+		window.location.href='?c=".base64_encode('Login')."';
+		</script>";
 
-}
+	}
 
 	//Actualizar usuario
 	public function ActualizarUsuario(){
@@ -132,9 +149,9 @@ public function ActualizarContraseña(){
 
 		//La vista de usuario y muestra la actualizacion de x usuario
 		echo "<script>
-				alert('CORRECTO: Registro Modificado.');
-				window.location.href='?c=".base64_encode('Usuario')."';
-			 </script>";
+		alert('CORRECTO: Registro Modificado.');
+		window.location.href='?c=".base64_encode('Usuario')."';
+		</script>";
 
 	}
 
@@ -149,9 +166,9 @@ public function ActualizarContraseña(){
 
 		//muestra la vista de usuario
 		echo "<script>
-				alert('CORRECTO: Registro Modificado.');
-				window.location.href='?c=".base64_encode('Usuario')."';
-			 </script>";
+		alert('CORRECTO: Registro Modificado.');
+		window.location.href='?c=".base64_encode('Usuario')."';
+		</script>";
 	}
 
 	public function Eliminar(){
@@ -160,10 +177,10 @@ public function ActualizarContraseña(){
 
 		$this->model->EliminarUsuario($idusuario);
 		echo "<script>
-				alert('Registro ELIMINADO.');
-				window.location.href='?c=".base64_encode('Usuario')."';
-			 </script>";
-	  }
+		alert('Registro ELIMINADO.');
+		window.location.href='?c=".base64_encode('Usuario')."';
+		</script>";
+	}
 
 }
 
