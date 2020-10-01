@@ -1,6 +1,9 @@
 /*
  * Table styles
  */
+ .buscador{
+margin-right: 100px!important;
+ }
  table.dataTable {
     width: 100%;
     margin: 0 auto;

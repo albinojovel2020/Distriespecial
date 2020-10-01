@@ -51,6 +51,16 @@
             require_once 'vistas/pages/piepagina.php';
         }
 
+
+	    public function CerrarSesion(){
+    	    // Eliminamos la sesión
+    	    session_start();
+    	    session_destroy();
+
+		    header('location: ?c='.base64_encode("Login").'');
+		    
+  	    }
+
     }
 
     ?>

@@ -1,5 +1,5 @@
 <!-- inicio del pie -->
-<footer class="page-footer teal white ">
+<!--<footer class="page-footer teal white ">
 
     <div class="footer-copyright  white">
         <div class="container grey-text text-darken-1">
@@ -7,7 +7,12 @@
          <a class="grey-text text-darken-1 right" href="#!"><b>Equipo #2 practicas profesionales ULS</b></a>
      </div>
  </div>
-</footer>
+</footer>-->
+<div class="container">
+    <!-- floating button -->
+    <div class="fixed-action-btn">
+    <a href="?c=<?php echo base64_encode('Login');?>&a=<?php echo base64_encode('CerrarSesion');?>" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">exit_to_app</i></a>
+</div>
 </main>
 <!--  Scripts-->
 <script src="vistas/js/jquery-2.1.1.min.js"></script>
@@ -15,7 +20,7 @@
 <!--Tablas-->
 <script src="vistas/js/dataTable.js"></script>
 <script src="vistas/js/jquery.dataTables.min.js"></script>
-<script src="vistas/js/init.js"></script>
+<script src="vistas/js/init_read.js"></script>
 
 <!--Validacion-->
 </body>

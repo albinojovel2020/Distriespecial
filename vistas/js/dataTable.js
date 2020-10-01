@@ -10,25 +10,28 @@ $(document).ready(function () {
             "sInfoEmpty": "<i class='red-text'>Mostrando registros del 0 al 0 de un total de 0 registros</i>",
             "sInfoFiltered": "<i class='black-text'>(filtrado de un total de _MAX_ registros)</i>",
             "sInfoPostFix": "",
-            "sSearch": "<i class='azul-ast-text'>BUSCAR ACTIVOS <i class='material-icons'>search</i></i>",
+            "sSearch": " <i class='material-icons bus'>search</i>",
+            "searchPlaceholder": "Click para buscar",
             "sUrl": "",
             "sInfoThousands": ",",
             "sLoadingRecords": "Cargando...",
             "oPaginate": {
-                "sFirst": "<i class='naranja-ast-text'>Primero</i>",
-                "sLast": "<i class='naranja-ast-text'>Último</i>",
-                "sNext": "<i class='naranja-ast-text'>Siguiente</i>",
-                "sPrevious": "<i class='naranja-ast-text'>Anterior</i>"
-            },
-            "oAria": {
-                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-            }
+             "sFirst": "<i class='naranja-ast-text'>Primero</i>",
+             "sLast": "<i class='naranja-ast-text'>Último</i>",
+             "sNext": "<i class='naranja-ast-text'>Siguiente</i>",
+             "sPrevious": "<i class='naranja-ast-text'>Anterior</i>"
+         },
+         "oAria": {
+            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
         }
-    });
+    }
+});
     $("select").val('10');
     $("select").addClass("browser-default");
-    
+   // $('label').addClass('form-inline');
+   $('input[type="search"]').addClass('browser-default buscador');
+
 });
 
 /* tabla dinámica para mostrar y buscar datos inactivos */
@@ -43,7 +46,8 @@ $(document).ready(function () {
             "sInfoEmpty": "<i class='red-text'>Mostrando registros del 0 al 0 de un total de 0 registros</i>",
             "sInfoFiltered": "<i class='black-text'>(filtrado de un total de _MAX_ registros)</i>",
             "sInfoPostFix": "",
-            "sSearch": "<i class='naranja-ast-text'>BUSCAR INACTIVOS <i class='material-icons'>search</i></i>",
+            "sSearch": " <i class='material-icons bus'>search</i>",
+            "searchPlaceholder": "Click para buscar",
             "sUrl": "",
             "sInfoThousands": ",",
             "sLoadingRecords": "Cargando...",
@@ -60,6 +64,7 @@ $(document).ready(function () {
         }
     });
     $("select").val('10');
-    $("select").addClass("browser-default");
+    $("select").addClass("browser-default ssl");
+     $('input[type="search"]').addClass('browser-default buscador');
     
 });

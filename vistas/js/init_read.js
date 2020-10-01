@@ -1,4 +1,4 @@
-(function($){
+  (function($){
     $(function(){
 
       $('.sidenav').sidenav();
@@ -32,5 +32,6 @@
   $(document).ready(function(){
     $('.tabs').tabs();
   });
+
 
       

@@ -1,60 +1,58 @@
 <?php
-/**
- * 
- */
-class PreguntaSecreta //inicio de clase
+class PreguntaSecreta //inicio clase
 {
-	
-	private $pdo; //para la BD
-	//atributos
-	public $idpreguntasecreta;
-	public $nombre;
+	private $pdo; //para la bd
+    //atributos
+    public $idpreguntasecreta;
+    public $nombre;
 
-	//constructor
 	public function __CONSTRUCT()
 	{
-		try 
+		try
 		{
-			$this->pdo = Conexion::Conectar();
-		} 
-		catch (Throwable $t) 
-		{
-			die($t->getMessage());
+			$this->pdo = Conexion::Conectar();     
 		}
+        catch (Throwable $t)
+        {
+			die($t->getMessage());
+        }
 	}
 
-	//generar lista de datos
 	public function ListarPreguntasSecretas()
 	{
-		try 
+		try
 		{
-			$stm = $this->pdo->prepare("SELECT * FROM pregunta_Secreta");
 
+            $stm = $this->pdo->prepare("SELECT * FROM preguntasecreta");
+            
 			$stm->execute();
 
 			return $stm->fetchAll(PDO::FETCH_OBJ);
-		} 
-		catch (Throwable $t) 
-		{
-			die($t->getMessage());
 		}
+        catch (Throwable $t)
+        {
+			die($t->getMessage());
+        }
 	}
 
-	//buscar registro por id
 	public function ObtenerPreguntaSecreta($id)
 	{
 		try 
 		{
-			$stm = $this->pdo->prepare("SELECT * FROM pregunta_Secreta WHERE id_pregunta_secreta = ?");
-
+			$stm = $this->pdo
+			          ->prepare("SELECT * FROM preguntasecreta WHERE idpreguntasecreta = ?");
+			         
 			$stm->execute(array($id));
 
 			return $stm->fetch(PDO::FETCH_OBJ);
-		} 
-		catch (Throwable $t) 
-		{
-			die($t->getMessage());
 		}
+        catch (Throwable $t)
+        {
+			die($t->getMessage());
+        }
 	}
-}// fin de la clase
+
+
+} //fin clase
+
 ?>

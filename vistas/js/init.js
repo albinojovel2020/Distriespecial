@@ -1,19 +1,44 @@
+  (function($){
+    $(function(){
 
+      $('.sidenav').sidenav();
 
-// para usar los tabs
-$(document).ready(function(){
-  $('.tabs').tabs();
-});
+    }); // end of document ready
+  })(jQuery); // end of jQuery name space
 
-//para modal
-    $(document).ready(function(){
-    $('.modal').modal();
-});
+  // dropdown (desplegable)
+  $('.dropdown-trigger').dropdown();
 
-//MenuLateral
-document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.sidenav');
-  var instances = M.Sidenav.init(elems, {});
-});
+  // tooltip (Mensajito emergente)
+  $(document).ready(function(){
+    $('.tooltipped').tooltip();
+  });
 
-          
+  // floatingActionButton (botón flotante)
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.fixed-action-btn');
+    var instances = M.FloatingActionButton.init(elems, {
+      direction: 'left',
+      hoverEnabled: false
+    });
+  });
+
+  // floatingActionButton (botón flotante)
+  $(document).ready(function(){
+    $('.fixed-action-btn').floatingActionButton();
+  });
+
+  // para usar los tabs
+  $(document).ready(function(){
+    $('.tabs').tabs();
+  });
+
+  // select
+  $(document).ready(function(){
+    $('select').formSelect();
+  });
+
+  // datepicker (Calendario)
+  $(document).ready(function(){
+    $('.datepicker').datepicker();
+  });

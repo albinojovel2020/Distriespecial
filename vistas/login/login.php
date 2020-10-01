@@ -17,17 +17,18 @@
             <div class="dt">
                 <div class="card-panel white">  
                     <div class="row">
-                        <form id="formValidate" name="formValidate" class="col s12" action="?c=<?php echo base64_encode('Login');?>&a=<?php echo base64_encode('Entrar');?>" method="post" enctype="multipart/form-data">
+                        <form  class="col s12" action="?c=<?php echo base64_encode('Login');?>&a=<?php echo base64_encode('Entrar');?>" method="post" enctype="multipart/form-data">
                             <center>
                                 <h5 class="azul-ast-text">Inicio sesión</h5>
                             </center> 
                             <div class="row">
                                 <div class="input-field col s12 lg_lt">
                                     <i class="material-icons prefix blue-text text-darken-4">account_circle</i>
-                                    <input data-error="wrong" data-success="right" id="usuario" name="usuario" id="icon_prefix" type="text" class="validate" required>
+                                    <input data-error="wrong" data-success="right" id="usuario" name="usuario" id="icon_prefix" type="text"  required>
                                     <!--<input id="uname" name="uname" type="text" >-->
-                                    <label for="icon_prefix">Usuario</label>
-                                    <span class="helper-text" data-error="Ingrese usuario" data-success="completado"></span>
+                                    <label for="usuario">Usuario</label>
+                                    <!--<span class="helper-text" data-error="Ingrese usuario" data-success="completado"></span>-->
+                                    <span class="error" aria-live="polite"></span>
 
                                 </div>
                                 <div class="input-field col s12">

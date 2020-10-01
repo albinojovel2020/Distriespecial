@@ -17,6 +17,10 @@ if(!isset($_SESSION["id"])){
   <link href="vistas/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="vistas/css/estilo.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="vistas/css/jquery.dataTables.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <style>
+.confirmacion{background:#000;border:1px solid green;}
+.negacion{background:#ffcccc;border:1px solid red}
+  </style>
 </head>
 <body>
      <ul id="slide-out" class="sidenav sidenav-fixed white">
@@ -30,8 +34,9 @@ if(!isset($_SESSION["id"])){
                 <hr class="linea_lg">
             </div>
             </li>
-           <li><a href="index.html" class="grey-text text-darken-1"><i class="material-icons grey-text text-darken-1">view_quilt</i><b>TABLERO</b></a></li>
+           <li><a href="?c=<?php echo base64_encode('Tablero');?>" class="grey-text text-darken-1"><i class="material-icons grey-text text-darken-1">view_quilt</i><b>TABLERO</b></a></li>
         <li><a href="?c=<?php echo base64_encode('Usuario');?>" class="grey-text text-darken-1" ><i class="material-icons">person_add</i><b>USUARIOS</b></a></li>
+        
         <li><a href="botones.html" class="grey-text text-darken-1"><i class="material-icons">local_mall</i><b>COMPRAS</b></a></li>
         <li><a href="tablas.html" class="grey-text text-darken-1"><i class="material-icons">add_shopping_cart</i><b>VENTAS</b></a></li>
         <li><a href="grid.html" class="grey-text text-darken-1"><i class="material-icons">offline_pin</i><b>CATEGORIAS</b></a></li>
