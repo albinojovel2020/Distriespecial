@@ -76,4 +76,6 @@
         </div>
     </div>
 </div>
+
+ <a href="?c=<?php echo base64_encode('Usuario');?>&a=<?php echo base64_encode('RecuperarPassword');?>">olvido su contraseña?</a>
 <!-- fin del cuerpo -->

@@ -238,7 +238,7 @@ class Usuario //inicio clase
  
 				if ($data->idtipousuario == 1) {
 					# entrar como encargado de inventario
-					header("Location: ?c=".base64_encode('Home'));
+					header("Location: ?c=".base64_encode('Tablero'));
 				} else {
 					# entrar como otro tipo de usuario
 					
@@ -246,7 +246,7 @@ class Usuario //inicio clase
 				
 			} else {
 				// enviar al login
-				header("Location: ?c=".base64_encode('Login'));
+				    header("Location: ?c=".base64_encode('Login')."&a=".base64_encode('Error'));
 			}
 
 		}
@@ -255,6 +255,68 @@ class Usuario //inicio clase
 			die($t->getMessage());
         }
 	}
+    
+    public function ConsulUser($user){
+    	try {
+
+    		$stm = $this->pdo
+			          ->prepare("SELECT * FROM usuario WHERE usuario = ?");
+			          
+
+			$stm->execute(array($user));
+			
+			return $stm->fetch(PDO::FETCH_OBJ);
+	
+    	} catch (Exception $t) {
+    		
+    	}
+    
+    }
+
+    //cambio 
+
+    public function Cambio($data){
+    	try {
+    	if($data != null){
+    		session_start();
+$_SESSION["iduser"] = $data->idusuario;
+
+
+    		 header("Location: ?c=".base64_encode('Usuario')."&a=".base64_encode('NuevaPassword'));
+    	}else{
+
+    		 header("Location: ?c=".base64_encode('Usuario')."&a=".base64_encode('RecuperarPassword'));
+    	}
+
+
+    	} catch (Exception $t) {
+    		
+    	}
+
+    }
+
+    public function CambioPass($nuevapass, $idusuario ){
+    	try 
+		{
+			$sql = "UPDATE usuario SET 
+						clave      = ?
+				    WHERE idusuario = ?";
+
+			$this->pdo->prepare($sql)
+							->execute(
+								array(
+									$nuevapass,
+									$idusuario
+								)
+							);
+            
+		}
+        catch (Throwable $t)
+        {
+			die($t->getMessage());
+        }
+
+    }
 
 
 } //fin clase

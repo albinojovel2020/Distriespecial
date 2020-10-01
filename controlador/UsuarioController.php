@@ -78,6 +78,43 @@ class UsuarioController
 		require_once 'vistas/pages/actualizar/actualizarusuario.php';
 		require_once 'vistas/pages/piepagina.php';
 	}
+    
+    public function RecuperarPassword(){
+       // $idusuario =  base64_decode($_REQUEST['idusuario']);
+        
+       
+        //$this->model->nombre = $_REQUEST['nombres'];
+        
+        require_once 'vistas/pages/encabezadopagina.php';
+		require_once 'vistas/login/recuperar_pass.php';
+		require_once 'vistas/pages/piepagina.php';
+		
+    }
+    
+    public function Recuperar(){
+    	$user= new Usuario();
+       $user = $_REQUEST['usuario'];
+         $user = $this->model->ConsulUser($user);
+        $this->model->Cambio($user);
+    }
+
+    public function NuevaPassword(){
+    	 require_once 'vistas/pages/encabezadopagina.php';
+		require_once 'vistas/login/from_pass.php';
+		require_once 'vistas/pages/piepagina.php';
+    }
+
+public function ActualizarContraseña(){
+	$idusuario=$_REQUEST['idusuario'];
+	$nuevapass=$_REQUEST['n_pass1'];
+	$this->model->CambioPass($nuevapass, $idusuario);
+
+	echo "<script>
+				alert('Su contraseña se modifico con exito.');
+				window.location.href='?c=".base64_encode('Login')."';
+			 </script>";
+
+}
 
 	//Actualizar usuario
 	public function ActualizarUsuario(){

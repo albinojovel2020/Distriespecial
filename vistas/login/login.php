@@ -37,6 +37,8 @@
                                     <label for="icon_telephone">Contraseña</label>
                                     <span class="helper-text" data-error="Ingrese Contraseña" data-success="completado"></span>
                                 </div>
+                                
+                           <a href="?c=<?php echo base64_encode('Usuario');?>&a=<?php echo base64_encode('RecuperarPassword');?>">olvido su contraseña?</a>
                             </div>
                             <center>
                                 <button class="btn waves-effect waves-light green accent-4" type="submit">Iniciar
@@ -49,6 +51,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="login2 col s12 m6 l6">
             <div class="lg">
                 <a href="?c=<?php echo base64_encode('Tablero'); ?>"><img class="img_logo responsive-img" src="vistas/img/blanco_transparente.png" alt=""></a>
