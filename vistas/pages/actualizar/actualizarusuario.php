@@ -44,6 +44,12 @@
               <input id="usuario" type="text" class="validate" value="<?php echo $usuario->usuario; ?>" name="usuario" required>
               <label for="usuario">Usuario</label>
             </div>
+
+            <!--<div class="input-field col s12 m6">
+              <i class="material-icons prefix form-icon">person_outline</i>
+              <input id="idusuario" type="text" class="validate" value="<?php echo $usuario->idtipousuario; ?>" name="idusuario" required>
+              <label for="idusuario">Usuario</label>
+            </div>-->
            
             <div class="input-field col s12">
               <select class="" name="idtipousuario" id="idtipousuario" class="validate" required>

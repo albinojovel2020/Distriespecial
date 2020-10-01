@@ -31,7 +31,7 @@
 
             <div class="input-field col s12 m6">
               <i class="material-icons prefix form-icon">person</i>
-              <input id="nombres" type="text" class="validate" name="nombres" required autofocus>
+              <input  id="nombres" type="text" class="validate" name="nombres" required autofocus>
               <label for="nombres">Nombres</label>
             </div>
 
@@ -55,13 +55,13 @@
 
             <div class="input-field col s12 m6">
               <i class="material-icons prefix form-icon">vpn_key</i>
-              <input id="clave1" type="password" class="validate" name="clave1" minlength="4" maxlength="10" required>
+              <input id="input_text" id="clave1" type="password"  class="validate" name="clave1" minlength="6" maxlength="12" required>
               <label for="clave1">Clave</label>
             </div>
 
             <div class="input-field col s12 m6">
               <i class="material-icons prefix form-icon">check_circle</i>
-              <input id="clave2" type="password" class="validate" name="clave2" minlength="4" maxlength="10" required>
+              <input id="input_text" id="clave2" type="password" class="validate" name="clave2" minlength="6" maxlength="12" required>
               <label for="clave2">Confirmar clave</label>
             </div>
             <div class="input-field col s12">              

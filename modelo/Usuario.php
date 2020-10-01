@@ -223,7 +223,7 @@ class Usuario //inicio clase
 		}
 	}
 
-	public function Entrar($email, $clave)
+	public function Entrar($usuario, $clave)
 	{
 		try 
 		{
@@ -231,7 +231,7 @@ class Usuario //inicio clase
 			->prepare("SELECT * FROM usuario WHERE usuario = ? AND clave = ?");
 
 
-			$stm->execute(array($email, $clave));
+			$stm->execute(array($usuario, $clave));
 			
 			return $stm->fetch(PDO::FETCH_OBJ);
 		}
@@ -254,15 +254,17 @@ class Usuario //inicio clase
                      $_SESSION["apellido"] = $data->apellido;
                      $_SESSION["usuario"] = $data->usuario;
  
-                     if ($data->idtipousuario == 1 & $data->estado == 1) {
+                     if ($data->idtipousuario == 1 && $data->estado == 1) {
                     # entrar como encargado de inventario                       
                          header("Location: ?c=".base64_encode('Tablero')."&idusuario=".base64_encode($_SESSION["id"]));
 
-                    } elseif ($data->idtipousuario == 2 & $data->estado == 1) {
+                    } elseif ($data->idtipousuario == 2 && $data->estado == 1) {
                          # code...
                          # # entrar como otro tipo de usuario        
 
                      } else{
+                     	# code...
+                     
                          header("Location: ?c=".base64_encode('Login')."&a=".base64_encode('Error_inactivo'));    
                      }
 
@@ -285,6 +287,7 @@ class Usuario //inicio clase
 			$stm->execute(array($user, $preguntasecreta, $respuestasecreta));
 			return $stm->fetch(PDO::FETCH_OBJ);
 		} catch (Exception $t) {
+			die($t->getMessage());
 		}
 	}
 
@@ -295,18 +298,22 @@ class Usuario //inicio clase
 			if($data != null){
 				session_start();
 				$_SESSION["iduser"] = $data->idusuario;
+				//$_SESSION['usuario'] = $data->usuario;
 				$_SESSION["pregunta"] = $data->preguntasecreta;
 				$_SESSION["respuesta"] = $data->respuestasecreta;
+				
 				header("Location: ?c=".base64_encode('Usuario')."&a=".base64_encode('NuevaPassword'));
+			
 			}else{
 				header("Location: ?c=".base64_encode('Usuario')."&a=".base64_encode('RespuestasecretaNoCoiciden'));
 			}
 
 		} catch (Exception $t) {
+			die($t->getMessage());
 
 		}
 	}
-	public function CambioPass($nuevapass, $fecha, $idusuario){
+	public function CambioPass ($nuevapass, $fecha, $idusuario){
 		try 
 		{
 			$sql = "UPDATE usuario SET 
@@ -339,6 +346,7 @@ class Usuario //inicio clase
 			$stm->execute(array($user, $actual));
 			return $stm->fetch(PDO::FETCH_OBJ);
 		} catch (Exception $t) {
+			die($t->getMessage());
 		}
 	}
 
@@ -357,11 +365,12 @@ class Usuario //inicio clase
 			}
 
 		} catch (Exception $t) {
+			die($t->getMessage());
 
 		}
 	}
 
-	public function CambioPasss( $nuevapass, $fecha, $idusuario ){
+	public function CambioPasss($nuevapass, $fecha, $idusuario){
 		try 
 		{
 		

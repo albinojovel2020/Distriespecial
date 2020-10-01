@@ -1,6 +1,6 @@
 SET FOREIGN_KEY_CHECKS=0;
 
-CREATE DATABASE IF NOT EXISTS distribuidora_especial DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE IF NOT EXISTS distribuidora_especial;
 
 USE distribuidora_especial;
 

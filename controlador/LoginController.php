@@ -66,7 +66,7 @@
 
         public function Error_inactivo(){
              require_once 'vistas/pages/encabezadopagina.php';
-            require_once 'vistas/login/Error_inativo.php';
+            require_once 'vistas/login/error_inativo.php';
             require_once 'vistas/pages/piepagina.php';
         }
 

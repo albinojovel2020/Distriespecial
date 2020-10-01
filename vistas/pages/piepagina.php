@@ -37,7 +37,9 @@
  --><script src="vistas/js/materialize.js"></script>
  <script src="vistas/js/validacion_text_num.js"></script>
 <script src="vistas/js/dui_nit_tel.js"></script>
+<script src="vistas/js/previa.js"></script>
 <script src="vistas/js/init.js"></script>
+
 
 
 
@@ -79,7 +81,10 @@ $(document).ready(function() {
     if(valor1.length==0 || valor1==""){
       span.text(vacio).addClass('negacion'); 
     }
-    if(valor1.length<4 || valor1.length>10){
+    if(valor1.length<6 || valor1.length>12){
+      span.text(longitud).addClass('negacion');
+    }
+    if(valor2.length<6 || valor2.length>12){
       span.text(longitud).addClass('negacion');
     }
     if(valor1.length!=0 && valor1==valor2){
@@ -163,7 +168,9 @@ $(document).ready(function() {
   nombresCorrecto();
   });*/
 });
-</script> 
+</script>
+
+
 
 </body>
 
