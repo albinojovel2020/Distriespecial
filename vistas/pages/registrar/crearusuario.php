@@ -1,5 +1,15 @@
 
 <!-- inicio del cuerpo -->
+<script language="JavaScript">
+   function validaselecttipousu(){
+    if (document.frm.idtipousuario.value == "")
+     alert("Favor asignar un tipo de usuario");
+    else
+     document.frm.idtipousuario.submit();
+   }
+</script>
+
+<!-- inicio del cuerpo -->
 <nav>
   <div class="nav-wrapper white  ">
     <ul id="nav-mobile" class="left hide-on-med-and-down">
@@ -18,7 +28,7 @@
 
     <!--   Form Section   -->
     <div class="row form-background">
-      <form class="col s12" action="?c=<?php echo base64_encode('Usuario'); ?>&a=<?php echo base64_encode('RegistrarUsuario'); ?>" method="post">
+      <form name="frm"class="col s12" action="?c=<?php echo base64_encode('Usuario'); ?>&a=<?php echo base64_encode('RegistrarUsuario'); ?>" method="post">
         <div class="row top20px bottom20px">
             <div class="input-field col s12"> 
 
@@ -85,7 +95,7 @@
             </div> 
             <div class="input-field col s12">
               <center>
-                <button class="btn waves-effect waves-light green accent-4 hoverable" type="submit" name="guardar" title="Guardar registro">Guardar
+                <button class="btn waves-effect waves-light green accent-4 hoverable" type="submit" name="guardar" title="Guardar registro" onclick="validaselecttipousu()">Guardar
                 <i class="material-icons right">save</i>
               </button>
               </center>
