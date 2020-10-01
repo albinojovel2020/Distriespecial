@@ -14,7 +14,7 @@
 </nav>  
 <br>
 <br>
-<br>
+
 <div class="container">
     <div class="row">
         <div class="col s12 m6 l6 offset-l3">
@@ -22,7 +22,8 @@
             <div class="row">
                 <form  class="col s12 m6 l12" action="?c=<?php echo base64_encode('Usuario');?>&a=<?php echo base64_encode('Recuperar');?>" method="post" enctype="multipart/form-data">
                     <center>
-                        <h5 class="blue-text">Recuperar contraseña</h5>
+                        <h5 class="grey-text text-darken-1t">Recuperar contraseña</h5>
+                        <b><p class="grey-text text-darken-1">Por favor ingrese los datos que coincidan con los que el admistrador le proporciono al momento de la creación de su usuario</p></b>
                     </center> 
                     <div class="input-field col s12 m12 l12 lg_lt">
                         <i class="material-icons prefix blue-text text-darken-4">account_circle</i>
@@ -35,7 +36,7 @@
                     </div>
                      <div class="input-field col s12">              
            
-            <select id="idpreguntasecreta" name="idpreguntasecreta" class="validate" required>                
+            <select id="idpreguntasecreta" name="idpreguntasecreta" class="validate" required>      <option value="" disabled selected>Seleccione una pregunta</option>          
                 <?php foreach($this->modelPreguntaSecreta->ListarPreguntasSecretas() as $r): ?>
                     <option value="<?php echo $r->idpreguntasecreta; ?>"><?php echo $r->nombre; ?></option>
                 <?php endforeach; ?>

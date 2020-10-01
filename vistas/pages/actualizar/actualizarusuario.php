@@ -40,18 +40,14 @@
               <label for="telefono">Teléfono</label>
             </div>
             <div class="input-field col s12 m6">
-              <i class="material-icons prefix form-icon">mail</i>
+              <i class="material-icons prefix form-icon">account_circle</i>
               <input id="usuario" type="text" class="validate" value="<?php echo $usuario->usuario; ?>" name="usuario" required>
               <label for="usuario">Email</label>
             </div>
+           
             <div class="input-field col s12">
-              <i class="material-icons prefix form-icon">contacts</i>
-              <label for="idtipousuario">Tipo de usuario</label>
-              <br>
-            </div>
-            <div class="input-field col s12">
-              <i class="material-icons prefix form-icon">arrow_drop_down</i>
-              <select class="browser-default" name="idtipousuario" id="idtipousuario" class="validate" required>
+              <select class="" name="idtipousuario" id="idtipousuario" class="validate" required>
+
                             <option value="<?php echo $usuario->idtipousuario; ?>"><?php echo $usuario->tipo; ?></option>
                             <?php foreach($this->modelTipoUsuario->ListarTiposUsuarios() as $r): ?>
                               <option value="<?php echo $r->idtipousuario; ?>"><?php echo $r->nombre; ?></option>
@@ -61,9 +57,12 @@
             </div>
 
             <div class="input-field col s12">
-              <button class="btn waves-effect waves-light azul-ast hoverable" type="submit" name="editar" title="Editar registro">Editar
-                <i class="material-icons right">send</i>
+              <center>
+                 <button class="btn waves-effect waves-light  green accent-4 hoverable" type="submit" name="editar" title="Editar registro">Guardar
+                <i class="material-icons right">save</i>
               </button>
+              </center>
+             
             </div>
 
           </div>

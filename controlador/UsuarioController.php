@@ -46,7 +46,7 @@ class UsuarioController
 		//tomar todos los datos
 		date_default_timezone_set("America/Guatemala");
 		$fecha = date('Y-m-d');
-		$horas = date('H:i:s');
+		$horas = date('h:i:s');
 		$tiempo = date('A');
 		$mifecha = $fecha.' a las '.$horas .' '.$tiempo;
 		$this->model->nombre = $_REQUEST['nombres'];
@@ -56,7 +56,7 @@ class UsuarioController
 		$this->model->clave = md5($_REQUEST['clave1']);
 		$this->model->fecha = $mifecha;
 		$this->model->idpreguntasecreta = $_REQUEST['idpreguntasecreta'];
-		$this->model->respuestasecreta = $_REQUEST['respuestasecreta1'];
+		$this->model->respuestasecreta = md5($_REQUEST['respuestasecreta1']);
 		$this->model->idtipousuario = $_REQUEST['idtipousuario'];
 		
 
@@ -85,6 +85,12 @@ class UsuarioController
 		require_once 'vistas/pages/piepagina.php';
 	}
 
+	public function Ver_datos_usuario(){
+		require_once 'vistas/pages/encabezadopagina1.php';
+		require_once 'vistas/pages/verdatos/Ver_datos_usuario.php';
+		require_once 'vistas/pages/piepagina.php';
+	}
+
 	public function RecuperarPassword(){
 
 
@@ -103,7 +109,7 @@ class UsuarioController
 		$user= new Usuario();
 		$user = $_REQUEST['usuario'];
 		$preguntasecreta = $_REQUEST['idpreguntasecreta'];
-		$respuestasecreta = $_REQUEST['respuestasecreta1'];
+		$respuestasecreta =md5($_REQUEST['respuestasecreta1']);
 		$user = $this->model->ConsulUser($user, $preguntasecreta, $respuestasecreta);
 
 		$this->model->Cambio($user);
@@ -118,7 +124,7 @@ class UsuarioController
 	public function ActualizarContraseña(){
 		date_default_timezone_set("America/Guatemala");
 		$fecha = date('Y-m-d');
-		$horas = date('H:i:s');
+		$horas = date('h:i:s');
 		$tiempo = date('A');
 		$mifecha = $fecha.' a las '.$horas .' '.$tiempo;
 		$idusuario=$_REQUEST['idusuario'];

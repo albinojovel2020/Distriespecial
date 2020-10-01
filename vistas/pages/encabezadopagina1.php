@@ -43,7 +43,7 @@ if(!isset($_SESSION["id"])){
         <li><a href="formulario.html" class="grey-text text-darken-1"><i class="material-icons">person</i><b>PROVEEDORES</b></a></li>
         <li><a href="tarjetas.html" class="grey-text text-darken-1"><i class="material-icons">cloud_download</i><b>BACKUP</b></a></li>
         <li><a href="footer.html" class="grey-text text-darken-1"><i class="material-icons">settings_backup_restore</i><b>RESTAURAR</b></a></li>
-        <li><a href="media.html" class="grey-text text-darken-1"><i class="material-icons">perm_identity</i><b>MI USUARIO</b></a></li>
+        <li><a href="?c=<?php echo base64_encode('Usuario');?>&a=<?php echo base64_encode('Ver_datos_usuario');?>" class="grey-text text-darken-1"><i class="material-icons">perm_identity</i><b>MI USUARIO</b></a></li>
         <li><a href="color.html" class="grey-text text-darken-1"><i class="material-icons">info</i><b>ACERCA DE</b></a></li>
         </ul>
         <div class="bar">

@@ -211,7 +211,7 @@ class Usuario //inicio clase
 		try 
 		{
 			$stm = $this->pdo
-			->prepare("SELECT * FROM usuario WHERE usuario = ? AND clave = ? AND estado = 1");
+			->prepare("SELECT * FROM usuario WHERE usuario = ? AND clave = ?");
 
 
 			$stm->execute(array($email, $clave));
@@ -229,37 +229,30 @@ class Usuario //inicio clase
 		try 
 		{
 			//condicionar el inicio de sesión
-			if ($data->estado ==1) {
-				# code...
-				if ($data != null) {
-				#tomar los valores es variables de sesión
-					session_start();
-					$_SESSION["id"] = $data->idusuario;
-					$_SESSION["nombre"] = $data->nombre;
-					$_SESSION["apellido"] = $data->apellido;
-					$_SESSION["usuario"] = $data->usuario;
+			if ($data != null) {           
+                 #tomar los valores es variables de sesión
+                     session_start();
+                     $_SESSION["id"] = $data->idusuario;
+                     $_SESSION["nombre"] = $data->nombre;
+                     $_SESSION["apellido"] = $data->apellido;
+                     $_SESSION["usuario"] = $data->usuario;
+ 
+                     if ($data->idtipousuario == 1 & $data->estado == 1) {
+                    # entrar como encargado de inventario                       
+                         header("Location: ?c=".base64_encode('Tablero'));
 
+                    } elseif ($data->idtipousuario == 2 & $data->estado == 1) {
+                         # code...
+                         # # entrar como otro tipo de usuario        
 
-					if ($data->idtipousuario == 1) {
-					# entrar como encargado de inventario
-						# code...
-						header("Location: ?c=".base64_encode('Tablero'));
+                     } else{
+                         header("Location: ?c=".base64_encode('Login')."&a=".base64_encode('Error_inactivo'));    
+                     }
 
-					} else {
-					# entrar como otro tipo de usuario		
-					}
-
-				} else {
-				// enviar al login
-					header("Location: ?c=".base64_encode('Login')."&a=".base64_encode('Error'));
-				}
-
-			}else{
-				header("Location: ?c=".base64_encode('Login')."&a=".base64_encode('Error_inactivo'));
-			}
-
-			
-
+                 } else {
+                 // enviar al login
+                     header("Location: ?c=".base64_encode('Login')."&a=".base64_encode('Error'));
+                 }
 		}
 		catch (Throwable $t)
 		{
@@ -272,20 +265,13 @@ class Usuario //inicio clase
 
 			$stm = $this->pdo
 			->prepare("SELECT * FROM usuario WHERE usuario = ? AND idpreguntasecreta = ? AND respuestasecreta = ?");
-
-
 			$stm->execute(array($user, $preguntasecreta, $respuestasecreta));
-			
 			return $stm->fetch(PDO::FETCH_OBJ);
-
 		} catch (Exception $t) {
-
 		}
-
 	}
 
     //cambio 
-
 	public function Cambio($data){
 		try {
 
@@ -294,19 +280,14 @@ class Usuario //inicio clase
 				$_SESSION["iduser"] = $data->idusuario;
 				$_SESSION["pregunta"] = $data->preguntasecreta;
 				$_SESSION["respuesta"] = $data->respuestasecreta;
-
-
 				header("Location: ?c=".base64_encode('Usuario')."&a=".base64_encode('NuevaPassword'));
 			}else{
-
 				header("Location: ?c=".base64_encode('Usuario')."&a=".base64_encode('RespuestasecretaNoCoiciden'));
 			}
-
 
 		} catch (Exception $t) {
 
 		}
-
 	}
 
 	public function CambioPass($nuevapass, $fecha, $idusuario ){
@@ -316,7 +297,6 @@ class Usuario //inicio clase
 			clave      = ?,
 			fecha      = ?
 			WHERE idusuario = ?";
-
 			$this->pdo->prepare($sql)
 			->execute(
 				array(

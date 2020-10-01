@@ -36,7 +36,7 @@
             </div>
 
             <div class="input-field col s12 m12">
-              <i class="material-icons prefix form-icon">vpn_key</i>
+              <i class="material-icons prefix form-icon">check_circle</i>
               <input id="n_pass2" type="password" class="validate" name="n_pass2" required>
               <label for="n_pass2">Confirmar clave</label>
             </div>
