@@ -20,7 +20,7 @@
     <div class="row form-background">
       <form class="col s12" action="?c=<?php echo base64_encode('Usuario'); ?>&a=<?php echo base64_encode('RegistrarUsuario'); ?>" method="post">
         <div class="row top20px bottom20px">
-            <div class="input-field col s6"> 
+            <div class="input-field col s12"> 
 
                 <select id="idtipousuario" name="idtipousuario" class="validate" required>      <option value="" disabled selected>Seleccione el tipo de usuario</option>            
                     <?php foreach($this->modelTipoUsuario->ListarTiposUsuarios() as $r): ?>
@@ -43,7 +43,7 @@
 
             <div class="input-field col s12 m6">
               <i class="material-icons prefix form-icon">phone</i>
-              <input id="telefono" type="text" class="validate" name="telefono" required>
+              <input id="telefono" type="text" class="validate" name="telefono" required onkeyup="mascara(this,'-',patron3,true);" onkeypress="return justNumbers(event);">
               <label for="telefono">Teléfono</label>
             </div>
 
@@ -55,16 +55,16 @@
 
             <div class="input-field col s12 m6">
               <i class="material-icons prefix form-icon">vpn_key</i>
-              <input id="clave1" type="password" class="validate" name="clave1" required>
+              <input id="clave1" type="password" class="validate" name="clave1" minlength="4" maxlength="10" required>
               <label for="clave1">Clave</label>
             </div>
 
             <div class="input-field col s12 m6">
               <i class="material-icons prefix form-icon">check_circle</i>
-              <input id="clave2" type="password" class="validate" name="clave2" required>
+              <input id="clave2" type="password" class="validate" name="clave2" minlength="4" maxlength="10" required>
               <label for="clave2">Confirmar clave</label>
             </div>
-            <div class="input-field col s6">              
+            <div class="input-field col s12">              
             <select id="idpreguntasecreta" name="idpreguntasecreta" class="validate" required>          <option value="" disabled selected>Seleccione una pregunta secreta</option>          
                 <?php foreach($this->modelPreguntaSecreta->ListarPreguntasSecretas() as $r): ?>
                     <option value="<?php echo $r->idpreguntasecreta; ?>"><?php echo $r->nombre; ?></option>
@@ -74,13 +74,13 @@
 
             <div class="input-field col s12 m6">
               <i class="material-icons prefix form-icon">help</i>
-              <input id="respuestasecreta1" type="password" class="validate" name="respuestasecreta1" required>
+              <input id="respuestasecreta1" type="password" class="validate" name="respuestasecreta1" minlength="4" maxlength="10" required>
               <label for="respuestasecreta1">Respuesta</label>
             </div>
 
             <div class="input-field col s12 m6">
               <i class="material-icons prefix form-icon">check_circle</i>
-              <input id="respuestasecreta2" type="password" class="validate" name="respuestasecreta2" required>
+              <input id="respuestasecreta2" type="password" class="validate" name="respuestasecreta2" minlength="4" maxlength="10" required>
               <label for="respuestasecreta2">Confirmar respuesta</label>
             </div> 
             <div class="input-field col s12">

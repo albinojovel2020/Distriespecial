@@ -11,6 +11,7 @@
 //para usar los métodos del modelo usuario
     require_once 'modelo/Usuario.php';
     
+    
 
     class LoginController{
 

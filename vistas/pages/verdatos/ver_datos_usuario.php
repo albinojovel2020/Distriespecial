@@ -1,10 +1,18 @@
+<!--<?php
+/*$mysqli = new mysqli('localhost', 'root', '', 'alquiler_Flores');
+$id=$_SESSION['id'];
+$query3 = $mysqli -> query ("SELECT U.nombre, U.apellido, U.edad, U.usuario, U.password, T.tipo_usuario from Usuarios U inner join tipo_Usuario T "
+. "on U.id_tipo_Usuario = T.id_tipo_Usuario WHERE U.id_Usuarios = $id");
+
+foreach ($query3 as $r):*/
+?>-->
 <nav>
     <div class="nav-wrapper white  ">
       <ul id="nav-mobile" class="left hide-on-med-and-down">
         <li ><a class="grey-text text-darken-1"><b>DISTRIBUIDORA ESPECIAL > USUARIOS</b></a></li> 
     </ul>
     <ul class="right">
-      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Usuario'); ?>&a=<?php echo base64_encode('CrearUsuario'); ?>" ><b>Nuevo usuario</b><i class="material-icons right grey-text text-darken-1">person_add</i></a></li>
+      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Usuario'); ?>&a=<?php echo base64_encode('CambiarPasss'); ?>" ><b>Cambiar Contraseña</b><i class="material-icons right grey-text text-darken-1">vpn_key</i></a></li>
   </ul>
 </div>
 </nav> 
@@ -17,16 +25,15 @@
                         <h4>Datos de usuario</h4>
 <!--                        <i class="material-icons circle small">account_circle</i>-->
                    </center>
-                   <!--<?php //echo $_SESSION['id']?>-->
+                   <!--<?php// foreach($this->model->ListarUsuario() as $r):?>-->
                     <div class="col s12 m12 l8 offset-l2">
                         <ul class="collection">
                             <li class="collection-item avatar">
-                                <!--<?php //foreach($this->model->DatosUsuario() as $usuario): ?>-->
-                                <!--<?php //echo $usuario->id_Usuarios; ?>-->
+                               <input type="hidden"  value="<?php echo $usuario->idusuario; ?>" name="idusuario">
                                 <i class="material-icons circle orange">account_circle</i>
                                 <b><span class="title">Nombre:</span></b>
                                 <p>
-                                    <?php echo $r['nombre']?> 
+                                    <?php echo $usuario->nombre;?> 
                                 </p>
                                 <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
                             </li>
@@ -34,15 +41,15 @@
                                  <i class="material-icons circle">account_box</i>
                                 <b><span class="title">Apellido:</span></b>
                                 <p>
-                                   <?php echo $r['apellido']?>
+                                   <?php echo $usuario->apellido;?>
                                 </p>
                                 <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
                             </li>
                             <li class="collection-item avatar">
-                                <i class="material-icons circle green">date_range</i>
-                                <b><span class="title">Edad:</span></b>
+                                <i class="material-icons circle green">local_phone</i>
+                                <b><span class="title">Telefono:</span></b>
                                 <p>
-                                    <?php echo $r['edad']?>
+                                    <?php echo $usuario->telefono;?>
                                 </p>
                                 <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
                             </li>
@@ -50,15 +57,7 @@
                                 <i class="material-icons circle red">assignment_ind</i>
                                 <b><span class="title">Usuario:</span></b>
                                 <p>
-                                    <?php echo $r['usuario']?>
-                                </p>
-                                <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                            </li>
-                             <li class="collection-item avatar">
-                                <i class="material-icons circle blue">security</i>
-                                <b><span class="title">Contraseña:</span></b>
-                                <p>
-                                    <?php echo $r['password']?>
+                                    <?php echo $usuario->usuario;?>
                                 </p>
                                 <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
                             </li>
@@ -66,14 +65,14 @@
                                 <i class="material-icons circle pink darken-4">beenhere</i>
                                 <b><span class="title">Tipo de usuario:</span></b>
                                 <p>
-                                    <?php echo $r['tipo_usuario']?>
+                                    <?php echo $usuario->tipo;?>
                                 </p>
                                 <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
                             </li>
                         </ul>
 
                     </div>
-                
+                    <!--<?php //endforeach; ?>  -->
                 </div>
             </div>
         </div>

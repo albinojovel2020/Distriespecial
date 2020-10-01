@@ -20,9 +20,9 @@
             <center>
 
               <img class="error_login img-responsive" src="vistas/img/error.svg" alt="">
-               <h5 class="grey-text text-darken-1">Error de restablecimiento</h5>
-              <p class="grey-text text-darken-3">Los datos ingresados no coinciden con su nombre de usuario o respuesta secreta por favor intente nuevamente.</p>
-              <a href="?c=<?php echo base64_encode('Usuario');?>&a=<?php echo base64_encode('RecuperarPassword');?>" class="waves-effect waves-light btn grey lighten-4 grey-text text-darken-1"><b>Volver</b></a>
+               <h5 class="grey-text text-darken-1">Error de Clave</h5>
+              <p class="grey-text text-darken-3">Los datos ingresados no coiciden con su clave actual por favor intente nuevamente.</p>
+              <a href="?c=<?php echo base64_encode('Usuario');?>&a=<?php echo base64_encode('CambiarPasss');?>" class="waves-effect waves-light btn grey lighten-4 grey-text text-darken-1"><b>Volver</b></a>
             </center>
           </span>
         </div>

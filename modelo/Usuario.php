@@ -86,6 +86,21 @@ class Usuario //inicio clase
 			die($t->getMessage());
 		}
 	}
+	/*public function ListarUsuario()
+	{
+		try
+		{
+
+			$stm = $this->pdo->prepare("SELECT u.idusuario AS idusuario, u.nombre AS nombre, u.apellido AS apellido, u.telefono AS telefono, u.usuario AS usuario, u.fecha AS fecha, tp.nombre AS tipo  FROM usuario AS u INNER JOIN tiposusuario AS tp ON u.idtipousuario = tp.idtipousuario WHERE u.estado = 1 AND u.idusuario = $_SESSION["id"]");
+			$stm->execute();
+
+			return $stm->fetchAll(PDO::FETCH_OBJ);
+		}
+		catch (Throwable $t)
+		{
+			die($t->getMessage());
+		}
+	}*/
 
 	public function ObtenerUsuario($id)
 	{
@@ -112,7 +127,8 @@ class Usuario //inicio clase
 			nombre            = ?, 
 			apellido          = ?,
 			telefono          = ?,
-			usuario             = ?,
+			usuario           = ?,
+			fecha			  = ?,		
 			idtipousuario     = ?
 			WHERE idusuario = ?";
 
@@ -123,6 +139,7 @@ class Usuario //inicio clase
 					$data->apellido,
 					$data->telefono,
 					$data->usuario,
+					'Modificación: '.$data->fecha,
 					$data->idtipousuario,
 					$data->idusuario
 				)
@@ -239,7 +256,7 @@ class Usuario //inicio clase
  
                      if ($data->idtipousuario == 1 & $data->estado == 1) {
                     # entrar como encargado de inventario                       
-                         header("Location: ?c=".base64_encode('Tablero'));
+                         header("Location: ?c=".base64_encode('Tablero')."&idusuario=".base64_encode($_SESSION["id"]));
 
                     } elseif ($data->idtipousuario == 2 & $data->estado == 1) {
                          # code...
@@ -289,8 +306,7 @@ class Usuario //inicio clase
 
 		}
 	}
-
-	public function CambioPass($nuevapass, $fecha, $idusuario ){
+	public function CambioPass($nuevapass, $fecha, $idusuario){
 		try 
 		{
 			$sql = "UPDATE usuario SET 
@@ -314,6 +330,64 @@ class Usuario //inicio clase
 
 	}
 
+
+	public function ConsulActual($user, $actual){
+		try {
+
+			$stm = $this->pdo
+			->prepare("SELECT idusuario, clave FROM usuario WHERE idusuario = ? AND clave = ?");
+			$stm->execute(array($user, $actual));
+			return $stm->fetch(PDO::FETCH_OBJ);
+		} catch (Exception $t) {
+		}
+	}
+
+    //cambio 
+	public function Cambioo($data){
+		try {
+
+			if($data != null){
+				//session_start();
+				$_SESSION["iduser"] = $data->idusuario;
+				$_SESSION["actualclave"] = $data->actual;
+				//$_SESSION["respuesta"] = $data->respuestasecreta;
+				header("Location: ?c=".base64_encode('Usuario')."&a=".base64_encode('NuevaPasswords'));
+			}else{
+				header("Location: ?c=".base64_encode('Usuario')."&a=".base64_encode('RespuestasecretaNoCoicidenn'));
+			}
+
+		} catch (Exception $t) {
+
+		}
+	}
+
+	public function CambioPasss( $nuevapass, $fecha, $idusuario ){
+		try 
+		{
+		
+			$sql = "UPDATE usuario SET 
+			clave      = ?,
+			fecha      = ?
+			WHERE idusuario = ?";
+			$this->pdo->prepare($sql)
+			->execute(
+				array(
+					$nuevapass,
+					'Ultima modificación: '.$fecha,
+					$idusuario
+				)
+			);
+			
+			
+
+		}
+		catch (Throwable $t)
+		{
+			die($t->getMessage());
+		}
+
+	}
+	
 
 } //fin clase
 

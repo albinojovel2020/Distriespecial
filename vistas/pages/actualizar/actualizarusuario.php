@@ -36,23 +36,23 @@
             </div>
             <div class="input-field col s12 m6">
               <i class="material-icons prefix form-icon">phone</i>
-              <input id="telefono" type="text" class="validate" value="<?php echo $usuario->telefono; ?>" name="telefono" required>
+              <input id="telefono" type="text" class="validate" value="<?php echo $usuario->telefono; ?>" name="telefono" required onkeyup="mascara(this,'-',patron3,true);" onkeypress="return justNumbers(event);">
               <label for="telefono">Teléfono</label>
             </div>
             <div class="input-field col s12 m6">
               <i class="material-icons prefix form-icon">account_circle</i>
               <input id="usuario" type="text" class="validate" value="<?php echo $usuario->usuario; ?>" name="usuario" required>
-              <label for="usuario">Email</label>
+              <label for="usuario">Usuario</label>
             </div>
            
             <div class="input-field col s12">
               <select class="" name="idtipousuario" id="idtipousuario" class="validate" required>
 
-                            <option value="<?php echo $usuario->idtipousuario; ?>"><?php echo $usuario->tipo; ?></option>
-                            <?php foreach($this->modelTipoUsuario->ListarTiposUsuarios() as $r): ?>
-                              <option value="<?php echo $r->idtipousuario; ?>"><?php echo $r->nombre; ?></option>
-                            <?php endforeach; ?>
-                          </select>
+                <option value="<?php echo $usuario->idtipousuario; ?>"><?php echo $usuario->tipo; ?></option>
+                <?php foreach($this->modelTipoUsuario->ListarTiposUsuarios() as $r): ?>
+                  <option value="<?php echo $r->idtipousuario; ?>"><?php echo $r->nombre; ?></option>
+                <?php endforeach; ?>
+              </select>
 
             </div>
 

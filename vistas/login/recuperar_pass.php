@@ -27,11 +27,11 @@
                     </center> 
                     <div class="input-field col s12 m12 l12 lg_lt">
                         <i class="material-icons prefix blue-text text-darken-4">account_circle</i>
-                        <input data-error="wrong" data-success="right" id="usuario" name="usuario" id="icon_prefix" type="text"  required>
+                        <input id="usuario" name="usuario" id="icon_prefix" type="text"  required>
                         <!--<input id="uname" name="uname" type="text" >-->
                         <label for="usuario">Ingrese su usuario</label>
                         <!--<span class="helper-text" data-error="Ingrese usuario" data-success="completado"></span>-->
-                        <span class="error" aria-live="polite"></span>
+                        <!--<span class="error" aria-live="polite"></span>-->
 
                     </div>
                      <div class="input-field col s12">              

@@ -21,13 +21,14 @@
                     </div>
                     <div class="card-content">
                         <div class="collection">
-                            <a href="#!" class="collection-item black-text"><span class="badge cyan white-text">Brayan</span>Nombre de usuario:</a>
-                            <a href="#!" class="collection-item black-text"><span class="badge cyan white-text">Rosales</span>Apellido:</a>
+                            <input type="hidden"  value="<?php echo $usuario->idusuario; ?>" name="idusuario">
+                            <a href="#!" class="collection-item black-text"><span class="badge cyan white-text"><?php echo $usuario->nombre;?></span>Nombre de usuario:</a>
+                            <a href="#!" class="collection-item black-text"><span class="badge cyan white-text"><?php echo $usuario->apellido;?></span>Apellido:</a>
 
                         </div>
                     </div>
                     <div class="card-action">
-                        <a class="green-text text-accent-4" href="#"><b>Ver usuarios</b></a>
+                        <a class="green-text text-accent-4" href="?c=<?php echo base64_encode('Usuario');?>"><b>Ver usuarios</b></a>
                     </div>
                 </div>
             </div>

@@ -11,6 +11,19 @@
   <link href="vistas/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="vistas/css/estilo.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="vistas/css/jquery.dataTables.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+   <style>
+/*Mensaje de Confirmación*/
+.confirmacion{
+  background:#e0e0e0;
+  border:1px solid #e0e0e0;
+  color:#00c853;
+}
+.negacion{
+  background:#ffcccc;
+  border:1px solid #ffcccc; 
+  color:#00c853;
+}
+  </style>
 </head>
 <body>
   
