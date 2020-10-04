@@ -34,6 +34,7 @@ $(document).ready(function () {
 
 });
 
+
 /* tabla dinámica para mostrar y buscar datos inactivos */
 $(document).ready(function () {
     $('#tabla-inactivos').DataTable({
