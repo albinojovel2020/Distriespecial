@@ -26,7 +26,7 @@ if(!isset($_SESSION["id"])){
 }
 .negacion{
   background:#ffcccc;
-  border:1px solid #ffcccc; 
+  border:1px solid #ffcccc;
   color:#00c853;
 }
   </style>
@@ -45,13 +45,13 @@ if(!isset($_SESSION["id"])){
             </li>
            <li><a href="?c=<?php echo base64_encode('Tablero');?>&idusuario=<?php echo base64_encode($_SESSION["id"]); ?>" class="grey-text text-darken-1"><i class="material-icons grey-text text-darken-1">view_quilt</i><b>TABLERO</b></a></li>
         <li><a href="?c=<?php echo base64_encode('Usuario');?>" class="grey-text text-darken-1" ><i class="material-icons">person_add</i><b>USUARIOS</b></a></li>
-        
-        
+
+
         <li><a href="?c=<?php echo base64_encode('Categoria');?>" class="grey-text text-darken-1"><i class="material-icons">offline_pin</i><b>CATEGORIAS</b></a></li>
         <li><a href="?c=<?php echo base64_encode('Proveedor');?>" class="grey-text text-darken-1"><i class="material-icons">person</i><b>PROVEEDORES</b></a></li>
         <li><a href="?c=<?php echo base64_encode('Producto');?>" class="grey-text text-darken-1"><i class="material-icons">playlist_add_check</i><b>PRODUCTOS</b></a></li>
-        <li><a href="botones.html" class="grey-text text-darken-1"><i class="material-icons">local_mall</i><b>COMPRAS</b></a></li>
-        <li><a href="tablas.html" class="grey-text text-darken-1"><i class="material-icons">add_shopping_cart</i><b>VENTAS</b></a></li>
+        <li><a href="?c=<?php echo base64_encode('Movimientos');?>" class="grey-text text-darken-1"><i class="material-icons">local_mall</i><b>INGRESO A ALMACEN</b></a></li>
+        <li><a href="?c=<?php echo base64_encode('Movimientos');?>" class="grey-text text-darken-1"><i class="material-icons">add_shopping_cart</i><b>VENTAS</b></a></li>
         <li><a href="?c=<?php echo base64_encode('Respaldar');?>" class="grey-text text-darken-1"><i class="material-icons">cloud_download</i><b>BACKUP</b></a></li>
         <li><a href="?c=<?php echo base64_encode('Respaldar');?>&a=<?php echo base64_encode('Restore');?>" class="grey-text text-darken-1"><i class="material-icons">settings_backup_restore</i><b>RESTAURAR</b></a></li>
         <li><a href="?c=<?php echo base64_encode('Usuario');?>&a=<?php echo base64_encode('Ver_datos_usuario');?>&idusuario=<?php echo base64_encode($_SESSION["id"]); ?>" class="grey-text text-darken-1"><i class="material-icons">perm_identity</i><b>MI USUARIO</b></a></li>

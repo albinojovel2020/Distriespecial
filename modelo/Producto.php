@@ -142,6 +142,27 @@ class Producto //inicio clase
 		}
 	}
 
+		public function ActualizarStockProducto($data)
+	{
+		try 
+		{
+			$sql = "INSERT INTO ingreso_producto VALUES (null,?,?)";
+
+			$this->pdo->prepare($sql)
+			->execute(
+				array(
+					$data->idproducto,
+					$data->stock
+				)
+			);
+
+		}
+		catch (Throwable $t)
+		{
+			die($t->getMessage());
+		}
+	}
+
 	public function CambiarEstadoProducto($nuevo_estado, $id)
 	{
 		try 

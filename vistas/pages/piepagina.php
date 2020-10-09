@@ -2,29 +2,29 @@
 <!-- Modal Structure -->
 <div id="modal1" class="modal">
     <div class="modal-content">
-      
+
       <div class="row">
           <div class="col s12 m12 l6">
             <center>
                  <i class="material-icons large grey-text text-darken-1">location_city</i>
             </center>
-           
+
             <h5 class="grey-text text-darken-1"><b>Distribuidora Especial</b></h5>
               <p class="grey-text text-darken-3" style="text-align: justify;">Para hornear y más, somos una empresa dedicada a la venta de productos de pasteleria ofreciendo una variedad de productos de alta calidad, que en convenio con la Universidad Luterana Salvadoreña y el grupo n°2 de Practicas Profecionales se desarrollo el presente sistema de inventario y facturación con el objetivo de automatizar los procesos administrativos de la antes mencionada empresa.</p>
-               
+
           </div>
           <div class="col s12 m12 l6">
              <center>
                  <i class="material-icons large grey-text text-darken-1">assignment_ind</i>
              </center>
-           
+
             <h5 class="grey-text text-darken-1"><b>Practica Profesional</b></h5>
               <p class="grey-text text-darken-3">Integrantes:<br> * Jacqueline Ivette Hernández Vásquez<br> * Brayan Eleazar Rosales Alfaro<br> * Andrés Josué Hernández Pineda<br> * Luis Alberto Carranza Muñoz<br> * Norberto Alexander Fuentes Velado<br> * Rafael Albino Jovel</p>
 
           </div>
 
       </div>
-      
+
   </div>
   <div class="modal-footer">
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cerrar</a>
@@ -76,10 +76,10 @@ $(document).ready(function() {
     span.show().removeClass();
     //condiciones dentro de la función
     if(valor1 != valor2){
-      span.text(negacion).addClass('negacion');  
+      span.text(negacion).addClass('negacion');
     }
     if(valor1.length==0 || valor1==""){
-      span.text(vacio).addClass('negacion'); 
+      span.text(vacio).addClass('negacion');
     }
     if(valor1.length<6 || valor1.length>12){
       span.text(longitud).addClass('negacion');
@@ -105,10 +105,10 @@ $(document).ready(function() {
     span2.show().removeClass();
     //condiciones dentro de la función
     if(respu1 != respu2){
-      span2.text(negacion2).addClass('negacion'); 
+      span2.text(negacion2).addClass('negacion');
     }
     if(respu1.length==0 || respu1==""){
-      span2.text(vacio2).addClass('negacion');  
+      span2.text(vacio2).addClass('negacion');
     }
     if(respu1.length<4 || respu1.length>10){
       span2.text(longitud2).addClass('negacion');
@@ -132,10 +132,10 @@ $(document).ready(function() {
     span3.show().removeClass();
     //condiciones dentro de la función
     if(respuu1 != respuu2){
-      span3.text(negacion).addClass('negacion'); 
+      span3.text(negacion).addClass('negacion');
     }
     if(respuu1.length==0 || respuu1==""){
-      span3.text(vacio).addClass('negacion');  
+      span3.text(vacio).addClass('negacion');
     }
     if(respuu1.length<4 || respuu1.length>10){
       span3.text(longitud).addClass('negacion');
@@ -155,9 +155,9 @@ $(document).ready(function() {
     var nombre1 = nombre.val();
     //muestro el span
     span1.show().removeClass();
-    
+
     if(nombre1.length==0 || nombre1==""){
-        span1.text(vacio1).addClass('negacion');  
+        span1.text(vacio1).addClass('negacion');
       }
     if(nombre1.length!=0){
         span1.text(confirmacion1).removeClass("negacion").addClass('confirmacion');

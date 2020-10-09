@@ -69,7 +69,7 @@
                         </div>
                     </div>
                     <div class="card-action">
-                        <a class="green-text text-accent-4"  href="?c=<?php echo base64_encode('Compra');?>"><b>Ir a modulo de compras</b></a>
+                        <a class="green-text text-accent-4"  href="?c=<?php echo base64_encode('Movimientos');?>"><b>Ir a modulo de movimientos de almacen</b></a>
                     </div>
                 </div>
 

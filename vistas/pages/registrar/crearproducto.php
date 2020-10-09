@@ -64,8 +64,8 @@
             </div>
 
             <div class="input-field col s12 m6">
-              <select id="idusuario" name="idusuario" class="validate" required>
-                <option value="<?php echo $_SESSION['id']; ?>"><?php echo $_SESSION['usuario']; ?></option>                    
+              <select disabled id="idusuario" name="idusuario" class="validate" required>
+                <option  value="<?php echo $_SESSION['id']; ?>"><?php echo $_SESSION['usuario']; ?></option>                    
               </select>
             </div>
 

@@ -105,6 +105,25 @@ class ProductoController
 		
 	}
 
+	public function IngresoProducto(){
+		//Tomar el id
+		$idproducto = base64_decode($_REQUEST['idproducto']);
+
+		//Obtener el registro con ese id
+		$producto = $this->model->ObtenerProducto($idproducto);
+
+		/*if ($categoria->idusuario == $_SESSION['id']) {*/
+			# code...
+			//muestra todas las partes de la vista Registrar
+		require_once 'vistas/pages/encabezadopagina1.php';
+		require_once 'vistas/pages/actualizar/actualizarstockproducto.php';
+		require_once 'vistas/pages/piepagina.php';
+		/*}else{
+			echo "No puede";
+		}*/
+		
+	}
+
 	public function ActualizarProducto(){
 
 		$rutas='img';
@@ -146,6 +165,27 @@ class ProductoController
 		</script>";
 
 	}
+
+public function ActualizarStockProducto(){
+
+	
+		//Tomar todos los datos
+		$this->model->idproducto = $_REQUEST['idproducto'];
+		$this->model->stock = $_REQUEST['stock'];
+
+		
+
+		//Actualiza el Usuario
+		$this->model->ActualizarStockProducto($this->model);
+
+		//La vista de usuario y muestra la actualizacion de x usuario
+		echo "<script>
+		alert('CORRECTO: Stock actualizado.');
+		window.location.href='?c=".base64_encode('Movimientos')."';
+		</script>";
+
+	}
+	
 
 	public function Eliminar(){
 		//Tomar el id
