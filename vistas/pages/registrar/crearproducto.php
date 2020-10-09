@@ -45,10 +45,16 @@
               <label for="precio">Precio Unitario</label>
             </div>
 
-            <div class="input-field col s12 m6">
+            <div class="input-field col s12 m6" hidden>
               <i class="material-icons prefix form-icon">loupe</i>
-              <input id="stock" type="number" minlength="1" class="validate" name="stock" required>
+              <input id="stock" type="number" minlength="1" value="0" class="validate" name="stock" required>
               <label for="stock">Stock</label>
+            </div>
+
+            <div class="input-field col s12 m6" >
+              <i class="material-icons prefix form-icon">loupe</i>
+              <input id="mstock" type="number" minlength="1" class="validate" name="mstock" required value="0" disabled>
+              <label for="mstock">Stock</label>
             </div>
 
             <div class="input-field col s12 m6"> 
@@ -70,7 +76,7 @@
             </div>
 
             <div class="input-field col s12 m6">
-              <select disabled id="idusuario" name="idusuario" class="validate" required>
+              <select  id="idusuario" name="idusuario" class="validate" required>
                 <option  value="<?php echo $_SESSION['id']; ?>"><?php echo $_SESSION['usuario']; ?></option>                    
               </select>
             </div>
