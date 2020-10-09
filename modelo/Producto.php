@@ -9,11 +9,15 @@ class Producto //inicio clase
 	public $descripcion;
 	public $precio;
 	public $stock;
+	public $stockanterior;
 	public $img;
 	public $idcategoria;
 	public $idproveedor;
 	public $estado;
 	public $idusuario;
+    public $fecha;
+    public $idingreso;
+    public $cantidadingreso;
 
 	public function __CONSTRUCT()
 	{
@@ -62,6 +66,37 @@ class Producto //inicio clase
 		{
 
 			$stm = $this->pdo->prepare("SELECT pro.idproducto AS idproducto, pro.nombre AS nombre, pro.descripcion AS descripcion, pro.preciounitario AS precio, pro.stock AS stock, pro.imagen AS img, pro.idcategoria AS idcategoria, pro.idproveedor AS idproveedor, pro.idusuario AS idusuario, c.nombre AS nombrecate, CONCAT(p.nombre,' ', p.apellido) AS nombreprove, u.usuario AS nombreusuario, pro.estado AS estado FROM producto AS pro INNER JOIN categoria AS c ON pro.idcategoria = c.idcategoria INNER JOIN proveedor AS p ON pro.idproveedor = p.idproveedor INNER JOIN usuario AS u ON pro.idusuario = u.idusuario WHERE pro.estado = 1");
+			$stm->execute();
+
+			return $stm->fetchAll(PDO::FETCH_OBJ);
+		}
+		catch (Throwable $t)
+		{
+			die($t->getMessage());
+		}
+	}
+
+
+		public function ListarIngresoProductos()
+	{
+		try
+		{
+
+			$stm = $this->pdo->prepare("select
+     ip.id,
+     p.idproducto,
+     p.nombre nprod,
+     p.descripcion,
+     p.preciounitario,
+     p.stock,
+     ip.stockanterior,
+     ip.cantidad,
+     ip.usuario,
+     u.nombre,
+     ip.fcrea
+from ingreso_producto ip 
+inner join producto p on p.idproducto = ip.idproducto
+inner join usuario u on u.idusuario = ip.usuario;");
 			$stm->execute();
 
 			return $stm->fetchAll(PDO::FETCH_OBJ);
@@ -146,13 +181,16 @@ class Producto //inicio clase
 	{
 		try 
 		{
-			$sql = "INSERT INTO ingreso_producto VALUES (null,?,?)";
+			$sql = "INSERT INTO ingreso_producto VALUES (null,?,?,?,?,?)";
 
 			$this->pdo->prepare($sql)
 			->execute(
 				array(
 					$data->idproducto,
-					$data->stock
+					$data->stockanterior,
+					$data->stock,
+					$data->idusuario,
+					$data->fecha
 				)
 			);
 

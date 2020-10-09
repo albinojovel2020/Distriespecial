@@ -8,6 +8,9 @@
     <ul class="right">
       <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Producto'); ?>&a=<?php echo base64_encode('CrearProducto'); ?>" ><b>Registrar nuevo producto</b><i class="material-icons right grey-text text-darken-1">playlist_add</i></a></li>
   </ul>
+  <ul class="right">
+      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Producto'); ?>&a=<?php echo base64_encode('VerIngresos'); ?>" ><b>Ver registros de ingreso</b><i class="material-icons right grey-text text-darken-1">playlist_add</i></a></li>
+  </ul>
    
 </div>
 </nav>  
@@ -19,7 +22,7 @@
       <div class="row">
           <div class="col s12">
             <ul class="tabs">
-              <li class="tab col s3 m6 l3 yy"><a class="active tab-activos" href="#activos">Existencia</a></li>
+              <li class="tab col"><a class="active tab-activos" href="#activos">Productos disponibles</a></li>
           </ul>
       </div>
       <!-- tabla de activos -->

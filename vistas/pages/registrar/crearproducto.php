@@ -6,7 +6,13 @@
       <li ><a class="grey-text text-darken-1"><b>DISTRIBUIDORA ESPECIAL > PRODUCTO</b></a></li> 
     </ul>
     <ul class="right">
-      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Producto'); ?>" ><b>Volver</b><i class="material-icons right grey-text text-darken-1">arrow_back</i></a></li>
+      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Producto'); ?>&a=<?php echo base64_encode('VerIngresos'); ?>" ><b>Ver Ingresos</b><i class="material-icons right grey-text text-darken-1">playlist_add</i></a></li>
+  </ul>
+     <ul class="right">
+      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Movimientos'); ?>" ><b>Ingresar a stock de productos</b><i class="material-icons right grey-text text-darken-1">local_mall</i></a></li>
+    </ul>
+    <ul class="right">
+      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Producto'); ?>" ><b>Lista de productos</b><i class="material-icons right grey-text text-darken-1">arrow_back</i></a></li>
     </ul>
   </div>
 </nav>

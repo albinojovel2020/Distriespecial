@@ -25,6 +25,15 @@ class ProductoController
 		require_once 'vistas/pages/piepagina1.php';
 	}
 
+      public function VerIngresos(){
+		
+		require_once 'vistas/pages/encabezadopagina1.php';
+		require_once 'vistas/pages/verdatos/vermovimientosproductos.php';
+		require_once 'vistas/pages/piepagina1.php';
+	
+		
+	}
+
 	public function CrearProducto(){
 		//Todas las partes de la vista
 		require_once 'vistas/pages/encabezadopagina1.php';
@@ -171,7 +180,10 @@ public function ActualizarStockProducto(){
 	
 		//Tomar todos los datos
 		$this->model->idproducto = $_REQUEST['idproducto'];
+		$this->model->stockanterior = $_REQUEST['stockanterior'];
 		$this->model->stock = $_REQUEST['stock'];
+		$this->model->idusuario = $_REQUEST['usuario'];
+		$this->model->fecha = $_REQUEST['fecha'];
 
 		
 

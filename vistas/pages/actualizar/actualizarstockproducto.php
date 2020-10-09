@@ -1,4 +1,4 @@
-
+ 
 <!-- inicio del cuerpo -->
 <nav>
   <div class="nav-wrapper white  ">
@@ -8,6 +8,12 @@
     <ul class="right">
       <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Movimientos'); ?>" ><b>Volver</b><i class="material-icons right grey-text text-darken-1">arrow_back</i></a></li>
     </ul>
+    <ul class="right">
+      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Producto'); ?>&a=<?php echo base64_encode('CrearProducto'); ?>" ><b>Nuevo producto</b><i class="material-icons right grey-text text-darken-1">playlist_add</i></a></li>
+  </ul>
+  <ul class="right">
+      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Producto'); ?>&a=<?php echo base64_encode('VerIngresos'); ?>" ><b>Ver Ingresos</b><i class="material-icons right grey-text text-darken-1">playlist_add</i></a></li>
+  </ul>
   </div>
 </nav>
 <br>
@@ -41,11 +47,6 @@
               <label for="precio">Precio Unitario</label>
             </div>
 
-            <div class="input-field col s12 m6">
-              <i class="material-icons prefix form-icon">loupe</i>
-              <input id="stock" type="number" min="1" class="validate" value="0" name="stock" required>
-              <label for="stock">Cantidad a Ingresar</label>
-            </div>
 
             <div class="input-field col s12 m6"> 
 
@@ -63,15 +64,50 @@
                         <option value="<?php echo $r->idproveedor; ?>"><?php echo $r->nombreprove; ?></option>
                     <?php endforeach; ?>
                   </select>
+                  <label for="Proveedor">Proveedor</label>
             </div>
 
-            <div class="input-field col s12 m6" hidden>
-              
-              <select  id="idusuario" name="idusuario" class="validate" required>
-                <option value="<?php echo $producto->idusuario; ?>"><?php echo $producto->nombreusuario; ?></option>
-                <option value="<?php echo $_SESSION['id']; ?>"><?php echo $_SESSION['usuario']; ?></option>                    
-              </select>
+           
+              <input  id="usuario" type="text" class="validate" value="<?php echo $_SESSION['id']; ?>" name="usuario" required hidden>
+             
+
+            <div class="input-field col s12 m6">
+              <i class="material-icons prefix form-icon">person</i>
+              <input  id="musuario" type="text" class="validate" value="<?php echo $_SESSION['usuario']; ?>" name="musuario" required disabled >
+              <label for="musuario">Usuario que ingresa</label>
             </div>
+
+            
+              <input  id="fecha" type="text" class="validate" value="<?php echo date("Y-m-d"); ?>" name="fecha" required hidden>
+              
+
+            <div class="input-field col s12 m6">
+              <i class="material-icons prefix form-icon">calendar</i>
+              <input  id="mfecha" type="text" class="validate" value="<?php echo date("Y-m-d"); ?>" name="mfecha" required disabled>
+              <label for="mfecha">Fecha</label>
+            </div>
+
+
+             <input id="stockanterior" type="number"  class="validate" value="<?php echo $producto->stock; ?>" name="stockanterior" hidden>
+
+             <div class="input-field col s12 m6">
+              <i class="material-icons prefix form-icon">loupe</i>
+              <div class="card-panel #fce4ec pink lighten-5">
+                <input id="mstockanterior" type="number"  class="validate" value="<?php echo $producto->stock; ?>" name="mstockanterior" disabled>
+              <label for="stock">Cantidad en stock</label>
+            </div>
+              
+            </div>
+
+             <div class="input-field col s12"> 
+              Cantidad a Ingresar
+              <div class="card-panel #e0f7fa cyan lighten-5">
+                <input id="stock" type="number" min="1" class="validate" value="0" name="stock" required>
+              <label for="stock">Cantidad a Ingresar</label>
+            </div>
+              
+            </div>
+
 
             
 

@@ -78,15 +78,15 @@ CREATE TABLE `ingreso_producto` (
 -- Volcado de datos para la tabla `ingreso_producto`
 --
 
-INSERT INTO `ingreso_producto` (`id`, `idproducto`, `cantidad`) VALUES
-(1, 2, 40),
-(2, 2, 40),
-(3, 1, 2),
-(4, 1, 3),
-(5, 1, 10),
-(6, 2, 17),
-(7, 1, 1),
-(8, 2, 6);
+INSERT INTO `ingreso_producto` (`id`, `idproducto`, `cantidad`, `usuario`) VALUES
+(1, 2, 40, 1),
+(2, 2, 40, 1),
+(3, 1, 2, 1),
+(4, 1, 3, 1),
+(5, 1, 10, 1),
+(6, 2, 17, 1),
+(7, 1, 1, 1),
+(8, 2, 6, 1)
 
 --
 -- Disparadores `ingreso_producto`
