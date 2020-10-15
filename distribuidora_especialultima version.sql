@@ -98,9 +98,7 @@ INSERT INTO `ingreso_producto` (`id`, `idproducto`, `stockanterior`, `cantidad`,
 -- Disparadores `ingreso_producto`
 --
 DELIMITER $$
-CREATE TRIGGER `TIPRODUCTOS` AFTER INSERT ON `ingreso_producto` FOR EACH ROW UPDATE producto SET stock = stock + NEW.cantidad where idproducto = NEW.idproducto
-$$
-DELIMITER ;
+ 
 
 -- --------------------------------------------------------
 

@@ -182,6 +182,7 @@ public function ActualizarStockProducto(){
 		$this->model->idproducto = $_REQUEST['idproducto'];
 		$this->model->stockanterior = $_REQUEST['stockanterior'];
 		$this->model->stock = $_REQUEST['stock'];
+		$this->model->stockdespues = $_REQUEST['stockanterior']+$_REQUEST['stock'];
 		$this->model->idusuario = $_REQUEST['usuario'];
 		$this->model->fecha = $_REQUEST['fecha'];
 

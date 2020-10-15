@@ -35,8 +35,9 @@
                   <th>Descripción producto</th>
                   <th>Precio Unitario</th>
                   <td>Stock anterior</td>
-                  <td>Stock actual</td>
                   <td>Cantidad ingresada</td>
+                  <td>Cantidad despues ingreso</td>
+                  <td>Stock actual</td>
                   <td>Fecha ingreso</td>
                   <td>Usuario Ingresa</td>
                   
@@ -52,8 +53,9 @@
                       <td><?php echo $r->descripcion; ?></td>
                       <td><?php echo '$ ',$r->preciounitario; ?></td>
                       <td><?php echo $r->stockanterior; ?></td>
-                      <td><?php echo $r->stock; ?></td>
                       <td><?php echo $r->cantidad; ?></td>
+                      <td><?php echo $r->stockdespues; ?></td>
+                      <td><?php echo $r->stock; ?></td>
                       <td><?php echo $r->fcrea; ?></td>
                       <td><?php echo $r->nombre; ?></td>
                   </tr>

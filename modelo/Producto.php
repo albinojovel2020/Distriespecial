@@ -109,6 +109,7 @@ class Producto //inicio clase
     				 p.stock,
     				 ip.stockanterior,
     				 ip.cantidad,
+    				 ip.stockdespues,
     				 ip.usuario,
     				 u.nombre,
     				 ip.fcrea
@@ -200,7 +201,7 @@ class Producto //inicio clase
 	{
 		try 
 		{
-			$sql = "INSERT INTO ingreso_producto VALUES (null,?,?,?,?,?)";
+			$sql = "INSERT INTO ingreso_producto VALUES (null,?,?,?,?,?,?)";
 
 			$this->pdo->prepare($sql)
 			->execute(
@@ -208,6 +209,7 @@ class Producto //inicio clase
 					$data->idproducto,
 					$data->stockanterior,
 					$data->stock,
+					$data->stockdespues,
 					$data->idusuario,
 					$data->fecha
 				)
