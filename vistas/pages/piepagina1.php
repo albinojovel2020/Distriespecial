@@ -21,7 +21,7 @@
 <script src="vistas/js/dataTable.js"></script>
 <script src="vistas/js/jquery.dataTables.min.js"></script>
 <script src="vistas/js/init_read.js"></script>
-
+<script src="vistas/js/venta.js"></script>
 <!--Validacion-->
 </body>
 </html>

@@ -76,27 +76,46 @@ class Producto //inicio clase
 		}
 	}
 
+	public function ContarProductos()
+	{
+		try
+		{
+
+			$stm = $this->pdo->query("SELECT * FROM producto WHERE estado = 1");
+
+			$total = $stm->rowCount();
+
+			return $total;
+		}
+		catch (Throwable $t)
+		{
+			die($t->getMessage());
+		}
+	}
+
 
 		public function ListarIngresoProductos()
 	{
 		try
 		{
 
-			$stm = $this->pdo->prepare("select
-     ip.id,
-     p.idproducto,
-     p.nombre nprod,
-     p.descripcion,
-     p.preciounitario,
-     p.stock,
-     ip.stockanterior,
-     ip.cantidad,
-     ip.usuario,
-     u.nombre,
-     ip.fcrea
-from ingreso_producto ip 
-inner join producto p on p.idproducto = ip.idproducto
-inner join usuario u on u.idusuario = ip.usuario;");
+			$stm = $this->pdo->prepare("
+				select
+    				 ip.id,
+    				 p.idproducto,
+    				 p.nombre nprod,
+    				 p.descripcion,
+    				 p.preciounitario,
+    				 p.stock,
+    				 ip.stockanterior,
+    				 ip.cantidad,
+    				 ip.usuario,
+    				 u.nombre,
+    				 ip.fcrea
+				from ingreso_producto ip 
+				 	inner join producto p on p.idproducto = ip.idproducto
+				 	inner join usuario u on u.idusuario = ip.usuario;
+				");
 			$stm->execute();
 
 			return $stm->fetchAll(PDO::FETCH_OBJ);

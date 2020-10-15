@@ -18,6 +18,7 @@ if(!isset($_SESSION["id"])){
   <link href="vistas/css/estilo.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="vistas/css/jquery.dataTables.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <style>
+  
 /*Mensaje de Confirmación*/
 .confirmacion{
   background:#e0e0e0;
@@ -51,8 +52,8 @@ if(!isset($_SESSION["id"])){
         <li><a href="?c=<?php echo base64_encode('Proveedor');?>" class="grey-text text-darken-1"><i class="material-icons">person</i><b>PROVEEDORES</b></a></li>
         <li><a href="?c=<?php echo base64_encode('Producto');?>" class="grey-text text-darken-1"><i class="material-icons">playlist_add_check</i><b>PRODUCTOS</b></a></li>
         <li><a href="?c=<?php echo base64_encode('Movimientos');?>" class="grey-text text-darken-1"><i class="material-icons">local_mall</i><b>INGRESO A ALMACEN</b></a></li>
-        <li><a href="?c=<?php echo base64_encode('Movimientos');?>" class="grey-text text-darken-1"><i class="material-icons">add_shopping_cart</i><b>VENTAS</b></a></li>
-        <li><a href="?c=<?php echo base64_encode('Respaldar');?>" class="grey-text text-darken-1"><i class="material-icons">cloud_download</i><b>BACKUP</b></a></li>
+        <li><a href="?c=<?php echo base64_encode('Movimientos');?>&a=<?php echo base64_encode('CrearVenta');?>" class="grey-text text-darken-1"><i class="material-icons">add_shopping_cart</i><b>VENTAS</b></a></li>
+        <li><a href="?c=<?php echo base64_encode('Movimientos');?>" class="grey-text text-darken-1"><i class="material-icons">cloud_download</i><b>BACKUP</b></a></li>
         <li><a href="?c=<?php echo base64_encode('Respaldar');?>&a=<?php echo base64_encode('Restore');?>" class="grey-text text-darken-1"><i class="material-icons">settings_backup_restore</i><b>RESTAURAR</b></a></li>
         <li><a href="?c=<?php echo base64_encode('Usuario');?>&a=<?php echo base64_encode('Ver_datos_usuario');?>&idusuario=<?php echo base64_encode($_SESSION["id"]); ?>" class="grey-text text-darken-1"><i class="material-icons">perm_identity</i><b>MI USUARIO</b></a></li>
         <li><a href="color.html" class="grey-text text-darken-1"><i class="material-icons">info</i><b>ACERCA DE</b></a></li>
