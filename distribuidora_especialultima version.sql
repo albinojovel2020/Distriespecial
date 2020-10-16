@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-10-2020 a las 23:03:20
--- Versión del servidor: 10.4.8-MariaDB
--- Versión de PHP: 7.3.11
+-- Tiempo de generación: 16-10-2020 a las 23:04:53
+-- Versión del servidor: 10.4.11-MariaDB
+-- Versión de PHP: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -62,12 +62,8 @@ CREATE TABLE `detalleventa` (
   `iddetalleventa` int(11) NOT NULL,
   `idventa` int(11) NOT NULL,
   `idproducto` int(11) NOT NULL,
-  `fechaventa` date NOT NULL,
   `cantidadventa` int(11) NOT NULL,
-  `precioventa` decimal(3,2) NOT NULL,
-  `descuento` decimal(3,2) NOT NULL,
-  `totalventa` decimal(4,2) NOT NULL,
-  `idcategoria` int(11) NOT NULL
+  `precioventa` decimal(3,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -92,13 +88,20 @@ CREATE TABLE `ingreso_producto` (
 INSERT INTO `ingreso_producto` (`id`, `idproducto`, `stockanterior`, `cantidad`, `usuario`, `fcrea`) VALUES
 (16, 1, 0, 20, 18, '2020-10-09'),
 (17, 3, 0, 40, 18, '2020-10-09'),
-(18, 1, 20, 20, 18, '2020-10-09');
+(18, 1, 20, 20, 18, '2020-10-09'),
+(19, 1, 40, 60, 16, '2020-10-09'),
+(20, 2, 0, 200, 16, '2020-10-09'),
+(21, 9, 0, 20, 16, '2020-10-09'),
+(22, 1, 100, 10, 16, '2020-10-09'),
+(23, 2, 200, 20, 16, '2020-10-11');
 
 --
 -- Disparadores `ingreso_producto`
 --
 DELIMITER $$
- 
+CREATE TRIGGER `TIPRODUCTOS` AFTER INSERT ON `ingreso_producto` FOR EACH ROW UPDATE producto SET stock = stock + NEW.cantidad where idproducto = NEW.idproducto
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -143,9 +146,15 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`idproducto`, `nombre`, `descripcion`, `preciounitario`, `stock`, `imagen`, `idcategoria`, `idproveedor`, `idusuario`, `estado`) VALUES
-(1, 'Harina de maiz', 'Harina de maiz', '9.99', 40, 'img/FONDO.jpg', 8, 1, 1, 1),
-(2, 'Horchata de coco', 'Bebida de disolucion', '2.00', 0, 'img/PERRITO.JPG', 5, 1, 16, 1),
-(3, 'Topping de fresa', 'Topping para adornar sabor a fresa', '9.99', 40, 'img/FONDO.jpg', 7, 1, 1, 1);
+(1, 'Harina de maiz', 'Harina de maiz', '9.99', 110, 'img/FONDO.jpg', 8, 1, 1, 1),
+(2, 'Horchata de coco', 'Bebida de disolucion', '2.00', 220, 'img/PERRITO.JPG', 5, 1, 16, 1),
+(3, 'Topping de fresa', 'Topping para adornar sabor a fresa', '9.99', 40, 'img/FONDO.jpg', 7, 1, 1, 1),
+(4, 'aa', 'aa', '4.00', 4, 'img/producto.jpg', 1, 2, 16, 0),
+(5, 'CHOCOCRISPIS', 'CEREAL DE ARROZ DE CHOCOLATE', '2.65', 0, 'img/producto.jpg', 1, 1, 16, 1),
+(6, 'Harina de chocolate', 'Harina para hacer pan de chocolate', '2.00', 0, 'img/producto.jpg', 8, 3, 16, 1),
+(7, 'Queso crema', 'Queso crema para pasteles', '1.50', 0, 'img/producto.jpg', 5, 2, 16, 1),
+(8, 'Tres leches', 'Postre tres leches', '1.00', 0, 'img/producto.jpg', 5, 4, 16, 1),
+(9, 'Papel mantequilla', 'Papel para hornear', '1.90', 20, 'img/FONDO.jpg', 9, 2, 16, 1);
 
 -- --------------------------------------------------------
 
@@ -171,8 +180,9 @@ CREATE TABLE `proveedor` (
 
 INSERT INTO `proveedor` (`idproveedor`, `nombre`, `apellido`, `dui`, `telefono`, `direccionempresa`, `nombreempresa`, `idusuario`, `estado`) VALUES
 (1, 'Distribuidora Morazan', 'SA de CV', '00000000-0', '7777-7777', 'Calle a morazan #3', 'Distribuidora Morazan', 1, 1),
-(2, 'ALAJU AKBAR', 'SA de CV', '00000000-0', '7777-7777', 'CALLE EL NANCE', 'NESTLE', 16, 1),
-(3, 'ALBERTO', 'ALBERT', '88888888-8', '8787-8787', 'ALALALALA', 'ALALALALA', 16, 1);
+(2, 'Lido', 'SA de CV', '00000000-0', '7777-7777', 'CALLE EL NANCE', 'NESTLE', 16, 1),
+(3, 'Inversiones rugamas', 'sa de cv', '88888888-8', '8787-8787', 'ALALALALA', 'Inversiones rugamas', 16, 1),
+(4, 'Chocolate and co', 'sa de cv', '00000000-0', '7878-7878', 'calle a mariona', 'Chocolate and co', 16, 1);
 
 -- --------------------------------------------------------
 
@@ -236,10 +246,6 @@ CREATE TABLE `venta` (
   `idventa` int(11) NOT NULL,
   `numeroventa` int(11) NOT NULL,
   `fechaventa` date NOT NULL,
-  `cantidad` int(11) NOT NULL,
-  `preciounitario` decimal(10,0) NOT NULL,
-  `iva` decimal(3,2) NOT NULL,
-  `subtotal` decimal(3,2) NOT NULL,
   `total` decimal(4,2) NOT NULL,
   `idusuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -261,7 +267,6 @@ ALTER TABLE `categoria`
 ALTER TABLE `detalleventa`
   ADD PRIMARY KEY (`iddetalleventa`),
   ADD KEY `fk_detalleventa_venta` (`idventa`),
-  ADD KEY `fk_detalleventa_categoria` (`idcategoria`),
   ADD KEY `fk_detalleventa_producto` (`idproducto`);
 
 --
@@ -335,7 +340,7 @@ ALTER TABLE `detalleventa`
 -- AUTO_INCREMENT de la tabla `ingreso_producto`
 --
 ALTER TABLE `ingreso_producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntasecreta`
@@ -347,13 +352,13 @@ ALTER TABLE `preguntasecreta`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-  MODIFY `idproveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idproveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `tiposusuario`
@@ -387,7 +392,6 @@ ALTER TABLE `categoria`
 -- Filtros para la tabla `detalleventa`
 --
 ALTER TABLE `detalleventa`
-  ADD CONSTRAINT `fk_detalleventa_categoria` FOREIGN KEY (`idcategoria`) REFERENCES `categoria` (`idcategoria`),
   ADD CONSTRAINT `fk_detalleventa_producto` FOREIGN KEY (`idproducto`) REFERENCES `producto` (`idproducto`),
   ADD CONSTRAINT `fk_detalleventa_venta` FOREIGN KEY (`idventa`) REFERENCES `venta` (`idventa`);
 

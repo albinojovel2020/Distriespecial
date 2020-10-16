@@ -17,7 +17,8 @@
 
 <br>
 <br>
-
+    
+    <h1 class="center">MODULO DE VENTAS - FACTURACION</h1>
 
 <div class="contrainer">
     
@@ -27,7 +28,7 @@
   <!-- inicio de columna de datos de factura -->
       <div class="col s12">
          <a href="#idmodalproducto" class="btn modal-trigger"><i class="material-icons">shopping_cart</i>       AGREGAR PRODUCTO AL DETALLE</a>
-            <form name="fproductos"  class="col s12" action="?c=Venta&a=Guardar" method="post" enctype="multipart/form-data">
+            <form name="fproductos"  class="col s12 deep-purple lighten-5" action="?c=Venta&a=Guardar" method="post" enctype="multipart/form-data">
                <div class="input-field col s6">
                         <input id="txtNumeroCompra" type="text" class="validate" name="txtNumeroCompra" required>
                         <label for="txtNumeroCompra">Número</label>
@@ -48,12 +49,12 @@
                     <!-- para saber cual fue el último borrado -->
                     <input id="txtBorrado" hidden  name="txtBorrado" value="0">
 
-                                            <!-- tabla de activos -->
+                        <!-- tabla de activos -->
                         <div id="detalle" class="col s12">
                             <table class="display highlight">
                                 <thead class="green-text">
                                     <tr>
-                                        <th>ID</th>
+                                        <th>ID PRODUCTO</th>
                                         <th>NOMBRE</th>
                                         <th>PRECIO</th>
                                         <th>CANTIDAD</th>
@@ -61,41 +62,43 @@
                                         <th class="center">BORRAR</th>
                                     </tr>
                                 </thead>
-                                <tbody class="indigo-text">
-                                    <?php $cantproductos = $this->model->ContarProductos(); ?> 
+                                <tbody >
 
-                                    <?php for ($i=1; $i <= $cantproductos-1; $i++) { 
-                                        echo '<tr id="filaDetalle'.$i.'" style="display:none;">
+                                    <?php for ($i=1; $i <= 35; $i++) { 
+                                        echo '<tr class="indigo-text yellow lighten-4 " id="filaDetalle'.$i.'" style="display:none;">
+                                        
                                                 <td>
-                                                    <input id="txtIdproducto'.$i.'" name="txtIdproducto'.$i.'" value="" readonly/>
+                                                    <input id="txtIdproducto'.$i.'"  readonly name="txtIdproducto'.$i.'" value=""/>
 
-
-                                                    <input id="txtCodigoBarra'.$i.'" hidden size="10" type="text" name="txtCodigoBarra'.$i.'" value="" readonly/>
+                                                    <input id="txtCodigoBarra'.$i.'" type="hidden" size="10" type="text" name="txtCodigoBarra'.$i.'" value="" readonly/>
                                                 </td>
                                                 <td>
                                                     <input id="txtNombre'.$i.'" type="text" name="txtNombre'.$i.'" value="" readonly/>
                                                 </td>
                                                 <td>
-                                                    <input id="txtPrecio'.$i.'" size="5" type="text" class="validate" name="txtPrecio'.$i.'" value="" style="width: 80px;" readonly/>
+                                                    <input id="txtPrecio'.$i.'" size="5" type="text" class="validate" name="txtPrecio'.$i.'" value="" style="width: 80px;" />
                                                 </td>
                                                 <td>
-                                                    <input id="txtCantidad'.$i.'"  style="width: 80px;" type="number" min="1" class="validate" name="txtCantidad'.$i.'" value="1"  onblur="calcularCantidad(this)" data-i="'.$i.'"/>
+                                                    <input id="txtCantidad'.$i.'"  style="width: 80px;" type="number" class="validate" name="txtCantidad'.$i.'" value="1"  onchange="calcularCantidad(this)" data-i="'.$i.'"/>
                                                 </td>
-                                                
-                                                <td>
+                                                <td hidden>
+                                                    <input id="txtDescuento'.$i.'" size="5" style="width: 80px;" type="text" class="validate" name="txtDescuento'.$i.'" value="0"  onblur="calcularDescuento(this)" data-i="'.$i.'"/>
+                                                </td>
+                                                 <td>
                                                     $<input class="right-align" id="txtSubTotal'.$i.'"  type="text" name="txtSubTotal'.$i.'" value="" style="width: 80px;" readonly />
                                                 </td>
+                                               
                                                 <td class="center">
                                                     <a onclick="borrardetalle(this)" data-i="'.$i.'" id="btnBorar'.$i.'" title="Borrar" class="waves-effect waves-light btn-small red"><i class="material-icons">remove_shopping_cart</i></a>
                                                 </td>
+
                                             </tr>';
                                     } ?>
-
                                         
                                     <tr id="filaTotal" style="display:none;">
                                         <td colspan="5" class="right-align"><strong>Total</strong></td>
                                         <td colspan="2">
-                                            $<input class="right-align" id="txtTotal"  type="text" name="txtTotal" value="" style="width: 80px;" readonly />
+                                            <span>$</span><input class="center-align deep-orange lighten-4" id="txtTotal"  type="text" name="txtTotal" value="" style="width: 80px;" readonly />
                                         </td>
                                     </tr>
                                 </tbody>
@@ -106,7 +109,7 @@
                             </div>     
 
                             <div class="input-field col s12 center">
-                                <button style="display:none;" onclick="return confirm('Seguro que desea guardar esta factura')" id="btnComprar" type="submit" class="waves-effect waves-light btn blue"><i class="material-icons right">send</i>Guardar</button>
+                                <button style="display:none;" onclick="return confirm('Seguro que desea eviar esta compra')" id="btnComprar" type="submit" class="waves-effect waves-light btn blue"><i class="material-icons right">send</i>GUARDAR</button>
                             </div>
                         </div>
 
@@ -244,7 +247,9 @@ function agregardetalle(producto) {
 
     //calcular Total
     calcularTotal(numeroDetalle+1);
-       
+  
+
+
 
 }
 </script>
@@ -280,9 +285,7 @@ function borrardetalle(detalle) {
         document.getElementById("txtSubTotal"+i).value = "";
         
         //nuevo total
-        document.getElementById("txtTotal").value = parseInt(total).toFixed(2);
-
-
+        document.getElementById("txtTotal").value = parseFloat(total).toFixed(2);
 
         if ((numero-1) == 1) {
             //ocultar el botón 
@@ -293,13 +296,8 @@ function borrardetalle(detalle) {
         }
 
     }
-
 }
 </script>
-
-
-
-
 
 <script>
 //para calcular el precio según la cantidad
@@ -318,8 +316,9 @@ function calcularCantidad(cantidad) {
 
         //tomar el valor del subTotal y total
         var precio = parseFloat(document.getElementById("txtPrecio"+i).value).toFixed(2);
+        var descuento = parseFloat(document.getElementById("txtDescuento"+i).value).toFixed(2);
         //calcular subtotal
-        calcularSubTotal(i, precio, cantidad);
+        calcularSubTotal(i, precio, cantidad, descuento);
 
         //calcular total
         calcularTotal(numeroDetalle);
@@ -360,7 +359,7 @@ function calcularDescuento(descuento) {
 //para calcular el subtotal
 function calcularSubTotal(i, precio, cantidad, descuento) {
     //calcular
-    var subtotal = (parseFloat(precio) * parseInt(cantidad)) - ((parseFloat(precio) * parseInt(cantidad)));
+    var subtotal = (parseFloat(precio) * parseInt(cantidad));
     //asignar el descuento
     document.getElementById("txtSubTotal"+i).value = parseFloat(subtotal).toFixed(2);
 }

@@ -30,6 +30,9 @@ class MovimientosController
 		require_once 'vistas/pages/registrar/crearventa.php';
 		require_once 'vistas/pages/piepagina1.php';
 	}
+
+
+	
 }
 
 ?>
