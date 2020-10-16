@@ -14,13 +14,19 @@
 </div>
 </nav>  
 
+
+<br>
+<br>
+
+
 <div class="contrainer">
     
 
  <div class="row">
 
   <!-- inicio de columna de datos de factura -->
-      <div class="col s6">
+      <div class="col s12">
+         <a href="#idmodalproducto" class="btn modal-trigger"><i class="material-icons">shopping_cart</i>       AGREGAR PRODUCTO AL DETALLE</a>
             <form name="fproductos"  class="col s12" action="?c=Venta&a=Guardar" method="post" enctype="multipart/form-data">
                <div class="input-field col s6">
                         <input id="txtNumeroCompra" type="text" class="validate" name="txtNumeroCompra" required>
@@ -47,7 +53,7 @@
                             <table class="display highlight">
                                 <thead class="green-text">
                                     <tr>
-                                        <th>CÓDIGO</th>
+                                        <th>ID</th>
                                         <th>NOMBRE</th>
                                         <th>PRECIO</th>
                                         <th>CANTIDAD</th>
@@ -61,9 +67,10 @@
                                     <?php for ($i=1; $i <= $cantproductos-1; $i++) { 
                                         echo '<tr id="filaDetalle'.$i.'" style="display:none;">
                                                 <td>
-                                                    <input id="txtIdproducto'.$i.'" type="hidden" name="txtIdproducto'.$i.'" value=""/>
+                                                    <input id="txtIdproducto'.$i.'" name="txtIdproducto'.$i.'" value="" readonly/>
 
-                                                    <input id="txtCodigoBarra'.$i.'" size="10" type="text" name="txtCodigoBarra'.$i.'" value="" readonly/>
+
+                                                    <input id="txtCodigoBarra'.$i.'" hidden size="10" type="text" name="txtCodigoBarra'.$i.'" value="" readonly/>
                                                 </td>
                                                 <td>
                                                     <input id="txtNombre'.$i.'" type="text" name="txtNombre'.$i.'" value="" readonly/>
@@ -83,6 +90,7 @@
                                                 </td>
                                             </tr>';
                                     } ?>
+
                                         
                                     <tr id="filaTotal" style="display:none;">
                                         <td colspan="5" class="right-align"><strong>Total</strong></td>
@@ -108,12 +116,17 @@
             </form>
       </div>
 
+      <div class="contrainer section">
+       
 
+         <div id="idmodalproducto" class="modal">
+           <div class="modal-content">
+             
 
-  <!-- inicio de columna de productos disponibles -->
+              <!-- inicio de columna de productos disponibles -->
 
-      <div class="col s6">
-
+      <div class="col s12">
+ 
 <!-- tabla de productos -->
                             <table id="tabla-activos" class="display highlight" cellspacing="0" width="100%">
                                 <thead class="indigo-text">
@@ -151,12 +164,26 @@
                                         <td ><?php echo $r->nombrecate; ?></td>
                                         <td ><?php echo $r->nombreprove; ?></td>
                                         <td> <!-- agregar el producto al detalle -->
-                                            <a onclick="agregardetalle(this)"  id="deshabilitar" title="Agregar" class="waves-effect waves-light btn-small" data-id="<?php echo $r->idproducto; ?>" data-codigo="<?php echo $r->codigobarra; ?>" data-nombre="<?php echo $r->nombre; ?>" data-precio="<?php echo $r->precio; ?>" ><i class="material-icons">add_shopping_cart</i></a>
+                                            <a onclick="agregardetalle(this)"  id="deshabilitar" title="Agregar" class="waves-effect waves-light btn-small modal-close"  data-id="<?php echo $r->idproducto; ?>" data-codigo="<?php echo $r->codigobarra; ?>" data-nombre="<?php echo $r->nombre; ?>" data-precio="<?php echo $r->precio; ?>" ><i class="material-icons">add_shopping_cart</i></a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?></tbody>
                             </table>
+
+                             <a href="" class="btn modal-close blue"> Cerrar </a>
   </div>
+
+
+
+           </div>
+           
+            
+     
+         </div>
+
+      </div>
+
+
 
       </div>
   
@@ -217,7 +244,7 @@ function agregardetalle(producto) {
 
     //calcular Total
     calcularTotal(numeroDetalle+1);
-
+       
 
 }
 </script>
@@ -255,6 +282,8 @@ function borrardetalle(detalle) {
         //nuevo total
         document.getElementById("txtTotal").value = parseInt(total).toFixed(2);
 
+
+
         if ((numero-1) == 1) {
             //ocultar el botón 
             document.getElementById("btnComprar").style.display = 'none';
@@ -264,6 +293,7 @@ function borrardetalle(detalle) {
         }
 
     }
+
 }
 </script>
 
@@ -288,9 +318,8 @@ function calcularCantidad(cantidad) {
 
         //tomar el valor del subTotal y total
         var precio = parseFloat(document.getElementById("txtPrecio"+i).value).toFixed(2);
-        var descuento = parseFloat(document.getElementById("txtDescuento"+i).value).toFixed(2);
         //calcular subtotal
-        calcularSubTotal(i, precio, cantidad, descuento);
+        calcularSubTotal(i, precio, cantidad);
 
         //calcular total
         calcularTotal(numeroDetalle);
@@ -331,7 +360,7 @@ function calcularDescuento(descuento) {
 //para calcular el subtotal
 function calcularSubTotal(i, precio, cantidad, descuento) {
     //calcular
-    var subtotal = (parseFloat(precio) * parseInt(cantidad)) - ((parseFloat(precio) * parseInt(cantidad)) * (parseInt(descuento)/100));
+    var subtotal = (parseFloat(precio) * parseInt(cantidad)) - ((parseFloat(precio) * parseInt(cantidad)));
     //asignar el descuento
     document.getElementById("txtSubTotal"+i).value = parseFloat(subtotal).toFixed(2);
 }
@@ -351,4 +380,12 @@ function calcularTotal(numeroDetalle) {
     //retornar el valor
     document.getElementById("txtTotal").value = parseFloat(total).toFixed(2);
 }
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems);
+  });
+  
 </script>
