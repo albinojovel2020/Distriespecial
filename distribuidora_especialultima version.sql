@@ -85,15 +85,11 @@ CREATE TABLE `ingreso_producto` (
 -- Volcado de datos para la tabla `ingreso_producto`
 --
 
-INSERT INTO `ingreso_producto` (`id`, `idproducto`, `stockanterior`, `cantidad`, `usuario`, `fcrea`) VALUES
-(16, 1, 0, 20, 18, '2020-10-09'),
-(17, 3, 0, 40, 18, '2020-10-09'),
-(18, 1, 20, 20, 18, '2020-10-09'),
-(19, 1, 40, 60, 16, '2020-10-09'),
-(20, 2, 0, 200, 16, '2020-10-09'),
-(21, 9, 0, 20, 16, '2020-10-09'),
-(22, 1, 100, 10, 16, '2020-10-09'),
-(23, 2, 200, 20, 16, '2020-10-11');
+INSERT INTO `ingreso_producto` (`id`, `idproducto`, `stockanterior`, `cantidad`, `stockdespues`, `usuario`, `fcrea`) VALUES
+(23, 1, 0, 10, 10, 16, '2020-10-15'),
+(24, 1, 10, 5, 15, 16, '2020-10-15'),
+(25, 3, 0, 80, 80, 16, '2020-10-15'),
+(26, 1, 15, 5, 20, 16, '2020-10-15');
 
 --
 -- Disparadores `ingreso_producto`
