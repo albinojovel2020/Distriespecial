@@ -57,7 +57,7 @@ class MovimientosController
         $numerodetalles = $_REQUEST['txtCantidadDetalle'];        
 
         //guardar la venta y obtener el id guardado
-        $nuevaventa = $this->modelVenta->guardarventa($venta);
+        $venta = $this->modelVenta->guardarventa($venta);
 
 
 
@@ -65,7 +65,7 @@ class MovimientosController
             for ($i=1; $i < $numerodetalles; $i++) { 
                 $detalleventa = new DetalleVenta();
                 # tomar todos los datos del detalle
-                $detalleventa->idventa = $nuevaventa;
+                $detalleventa->idventa = $venta->nuevoid;
                 $detalleventa->idproducto = $_REQUEST['txtIdproducto'.$i];
                 $detalleventa->cantidadventa = $_REQUEST['txtCantidad'.$i];
                 $detalleventa->precioventa = $_REQUEST['txtSubTotal'.$i];
@@ -76,7 +76,7 @@ class MovimientosController
             }
 
         
-        echo "<script>alert('Guardamos todo con éxito');</script>"; 
+
 
         		//La vista de usuarios registrados
 		echo "<script>

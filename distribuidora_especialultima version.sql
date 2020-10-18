@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-10-2020 a las 22:00:11
+-- Tiempo de generación: 18-10-2020 a las 23:42:52
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.3
 
@@ -33,12 +33,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `ps_guardar_detalleventa` (IN `val_i
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ps_guardar_venta` (IN `val_numeroventa` INT(11), IN `val_fechaventa` DATE, IN `val_total` INT, IN `val_idusuario` INT, IN `val_tipo_comprobante` INT)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ps_guardar_venta` (IN `val_numeroventa` INT, IN `val_fechaventa` DATE, IN `val_total` DECIMAL(6,2), IN `val_idusuario` INT, IN `val_tipo_comprobante` INT)  BEGIN
 	
 	INSERT INTO `venta`(`numeroventa`, `fechaventa`, `total`, `idusuario`, `tipo_comprobante`) 
 	VALUES (val_numeroventa,val_fechaventa,val_total,val_idusuario,val_tipo_comprobante);
     
-    SELECT last_insert_id() AS nuevoid;
+    SELECT last_insert_id(idventa) AS nuevoid FROM venta;
 END$$
 
 DELIMITER ;
@@ -107,6 +107,15 @@ CREATE TABLE `detalleventa` (
   `cantidadventa` int(11) DEFAULT NULL,
   `precioventa` decimal(3,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `detalleventa`
+--
+
+INSERT INTO `detalleventa` (`iddetalleventa`, `idventa`, `idproducto`, `cantidadventa`, `precioventa`) VALUES
+(47, 73, 1, 1, '9.99'),
+(48, 73, 2, 1, '2.00'),
+(49, 73, 3, 1, '9.99');
 
 -- --------------------------------------------------------
 
@@ -295,7 +304,7 @@ CREATE TABLE `venta` (
 --
 
 INSERT INTO `venta` (`idventa`, `numeroventa`, `fechaventa`, `total`, `idusuario`, `tipo_comprobante`) VALUES
-(52, 658, '2020-10-18', '12.00', 16, 1);
+(73, 98654, '2020-10-18', '21.98', 16, 1);
 
 --
 -- Índices para tablas volcadas
@@ -394,7 +403,7 @@ ALTER TABLE `cat_comprobante`
 -- AUTO_INCREMENT de la tabla `detalleventa`
 --
 ALTER TABLE `detalleventa`
-  MODIFY `iddetalleventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `iddetalleventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT de la tabla `ingreso_producto`
@@ -436,7 +445,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- Restricciones para tablas volcadas

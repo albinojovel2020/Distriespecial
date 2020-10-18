@@ -66,9 +66,9 @@
                    </div>
 
                     <!-- para saber cuantos detalles se enviaron -->
-                    <input id="txtCantidadDetalle"  hidden name="txtCantidadDetalle" value="1">
+                    <input id="txtCantidadDetalle"  hidden  name="txtCantidadDetalle" value="1">
                     <!-- para saber cual fue el último borrado -->
-                    <input id="txtBorrado"   hidden name="txtBorrado" value="0">
+                    <input id="txtBorrado"  hidden  name="txtBorrado" value="0">
 
                         <!-- tabla de activos -->
                         <div id="detalle" class="col s12">
@@ -79,6 +79,7 @@
                                         <th>NOMBRE</th>
                                         <th>PRECIO</th>
                                         <th>CANTIDAD</th>
+                                        <th>EXISTENCIA</th>
                                         <th>SUBTOTAL</th>
                                         <th class="center">BORRAR</th>
                                     </tr>
@@ -100,7 +101,10 @@
                                                     <input id="txtPrecio'.$i.'" size="5" type="text" class="validate" name="txtPrecio'.$i.'" value="" style="width: 80px;" />
                                                 </td>
                                                 <td>
-                                                    <input id="txtCantidad'.$i.'"  style="width: 80px;" type="number" class="validate" name="txtCantidad'.$i.'" value="1"  onchange="calcularCantidad(this)" data-i="'.$i.'"/>
+                                                    <input id="txtCantidad'.$i.'" style="width: 80px;" type="number" class="validate center" name="txtCantidad'.$i.'" value="1"  onchange="calcularCantidad(this)" data-i="'.$i.'"/>
+                                                </td>
+                                                 <td>
+                                                    <input id="txtStock'.$i.'"  style="width: 80px;" type="number" class="validate" name="txtStock'.$i.'" value="1"  data-i="'.$i.'" readonly/>
                                                 </td>
                                                 <td hidden>
                                                     <input id="txtDescuento'.$i.'" size="5" style="width: 80px;" type="text" class="validate" name="txtDescuento'.$i.'" value="0"  onblur="calcularDescuento(this)" data-i="'.$i.'"/>
@@ -184,7 +188,7 @@
                                         <td ><?php echo $r->nombrecate; ?></td>
                                         <td ><?php echo $r->nombreprove; ?></td>
                                         <td> <!-- agregar el producto al detalle -->
-                                            <a onclick="agregardetalle(this)"  id="deshabilitar" title="Agregar" class="waves-effect waves-light btn-small modal-close"  data-id="<?php echo $r->idproducto; ?>" data-codigo="<?php echo $r->codigobarra; ?>" data-nombre="<?php echo $r->nombre; ?>" data-precio="<?php echo $r->precio; ?>" ><i class="material-icons">add_shopping_cart</i></a>
+                                            <a onclick="agregardetalle(this)"  id="deshabilitar" title="Agregar" class="waves-effect waves-light btn-small modal-close" data-stock="<?php echo $r->stock; ?>" data-id="<?php echo $r->idproducto; ?>" data-codigo="<?php echo $r->codigobarra; ?>" data-nombre="<?php echo $r->nombre; ?>" data-precio="<?php echo $r->precio; ?>" ><i class="material-icons">add_shopping_cart</i></a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?></tbody>
@@ -224,6 +228,11 @@ function agregardetalle(producto) {
   var nombre = producto.getAttribute('data-nombre');
   //tomar el precio del producto 
   var precio = producto.getAttribute('data-precio');
+
+  var stock = producto.getAttribute('data-stock');
+
+
+
   
     var numero = null;
     var borrado = parseInt(document.getElementById("txtBorrado").value);
@@ -254,6 +263,7 @@ function agregardetalle(producto) {
     document.getElementById("txtCantidadDetalle").value = numeroDetalle+1;
     document.getElementById("txtCodigoBarra"+numero).value = codigo;
     document.getElementById("txtNombre"+numero).value = nombre;
+    document.getElementById("txtStock"+numero).value = stock;
     document.getElementById("txtPrecio"+numero).value = precio;
     document.getElementById("txtSubTotal"+numero).value = precio;
 
@@ -262,7 +272,8 @@ function agregardetalle(producto) {
 
     //calcular Total
     calcularTotal(numeroDetalle+1);
-  
+    
+
 
 
 
@@ -314,19 +325,32 @@ function borrardetalle(detalle) {
 }
 </script>
 
+
+
+
+
 <script>
 //para calcular el precio según la cantidad
 function calcularCantidad(cantidad) {
     //tomar el id del detalle 
     var i = cantidad.getAttribute('data-i');
+    
 
+    
     //comparar el valor de la cantidad 
     var cantidad = parseInt(document.getElementById("txtCantidad"+i).value);
+
+    var existencia = parseInt(document.getElementById("txtStock"+i).value);
     
     if (cantidad <= 0) {
         alert('La cantidad debe ser al menos uno');
+
         document.getElementById("txtCantidad"+i).value = 1;
-    }else{    
+    }else if(cantidad > existencia){
+        alert('La cantidad a vender no puede ser mayor a la cantidad en existencia');
+        document.getElementById("txtCantidad"+i).value = existencia;
+    }
+    else{    
         var numeroDetalle = parseInt(document.getElementById("txtCantidadDetalle").value);
 
         //tomar el valor del subTotal y total
@@ -349,7 +373,7 @@ function calcularDescuento(descuento) {
     var i = descuento.getAttribute('data-i');
 
     //comparar el valor de la cantidad 
-    var descuento = parseInt(document.getElementById("txtDescuento"+i).value);
+    var descuento = parseFloat(document.getElementById("txtDescuento"+i).value);
     
     if (descuento < 0) {
         alert('El descuento debe ser mayor o igual a cero');
@@ -377,6 +401,8 @@ function calcularSubTotal(i, precio, cantidad, descuento) {
     var subtotal = (parseFloat(precio) * parseInt(cantidad));
     //asignar el descuento
     document.getElementById("txtSubTotal"+i).value = parseFloat(subtotal).toFixed(2);
+
+
 }
 </script>
 

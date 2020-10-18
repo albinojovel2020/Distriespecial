@@ -31,7 +31,7 @@ class DetalleVenta
 		try 
 		{
 			$stm = $this->pdo
-			          ->prepare("INSERT INTO `detalleventa`(`idventa`, `idproducto`, `cantidadventa`, `precioventa`) VALUES (?,?,?,?)");
+			          ->prepare("CALL ps_guardar_detalleventa(?, ?, ?, ?)");
 			          
 
 			$stm->execute(array(
@@ -41,7 +41,7 @@ class DetalleVenta
                                     $data->precioventa
                 				));
 
-			return $stm->fetch(PDO::FETCH_OBJ);
+			return 0;
 		}
         catch (Throwable $t)//php7
         {
