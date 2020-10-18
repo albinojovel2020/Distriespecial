@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-10-2020 a las 23:04:53
+-- Tiempo de generación: 18-10-2020 a las 22:00:11
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.3
 
@@ -21,6 +21,27 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `distribuidora_especial`
 --
+
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ps_guardar_detalleventa` (IN `val_idventa` INT, IN `val_idproducto` INT, IN `val_cantidadventa` INT, IN `val_precioventa` DECIMAL)  BEGIN
+	
+	INSERT INTO `detalleventa` (`iddetalleventa`, `idventa`, `idproducto`, `cantidadventa`, `precioventa`) VALUES (NULL, val_idventa, val_idproducto, val_cantidadventa, val_precioventa);
+
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ps_guardar_venta` (IN `val_numeroventa` INT(11), IN `val_fechaventa` DATE, IN `val_total` INT, IN `val_idusuario` INT, IN `val_tipo_comprobante` INT)  BEGIN
+	
+	INSERT INTO `venta`(`numeroventa`, `fechaventa`, `total`, `idusuario`, `tipo_comprobante`) 
+	VALUES (val_numeroventa,val_fechaventa,val_total,val_idusuario,val_tipo_comprobante);
+    
+    SELECT last_insert_id() AS nuevoid;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -55,6 +76,27 @@ INSERT INTO `categoria` (`idcategoria`, `nombre`, `descripcion`, `idusuario`) VA
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `cat_comprobante`
+--
+
+CREATE TABLE `cat_comprobante` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `descripcion` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `cat_comprobante`
+--
+
+INSERT INTO `cat_comprobante` (`id`, `nombre`, `descripcion`) VALUES
+(1, 'Factura consumidor final', 'Factura para consumidor final'),
+(2, 'Comprobante de credito fiscal', 'Facctura con credito fiscal'),
+(3, 'Nota de envio', 'Comprobante de nota de envio');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `detalleventa`
 --
 
@@ -62,7 +104,7 @@ CREATE TABLE `detalleventa` (
   `iddetalleventa` int(11) NOT NULL,
   `idventa` int(11) NOT NULL,
   `idproducto` int(11) NOT NULL,
-  `cantidadventa` int(11) NOT NULL,
+  `cantidadventa` int(11) DEFAULT NULL,
   `precioventa` decimal(3,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -77,6 +119,7 @@ CREATE TABLE `ingreso_producto` (
   `idproducto` int(11) NOT NULL,
   `stockanterior` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL,
+  `stockdespues` int(11) NOT NULL,
   `usuario` int(11) NOT NULL,
   `fcrea` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -86,10 +129,10 @@ CREATE TABLE `ingreso_producto` (
 --
 
 INSERT INTO `ingreso_producto` (`id`, `idproducto`, `stockanterior`, `cantidad`, `stockdespues`, `usuario`, `fcrea`) VALUES
-(23, 1, 0, 10, 10, 16, '2020-10-15'),
-(24, 1, 10, 5, 15, 16, '2020-10-15'),
-(25, 3, 0, 80, 80, 16, '2020-10-15'),
-(26, 1, 15, 5, 20, 16, '2020-10-15');
+(27, 1, 0, 2, 2, 16, '2020-10-16'),
+(28, 2, 0, 50, 50, 16, '2020-10-16'),
+(29, 3, 0, 3, 3, 16, '2020-10-16'),
+(30, 1, 2, 6, 8, 16, '2020-10-18');
 
 --
 -- Disparadores `ingreso_producto`
@@ -142,15 +185,15 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`idproducto`, `nombre`, `descripcion`, `preciounitario`, `stock`, `imagen`, `idcategoria`, `idproveedor`, `idusuario`, `estado`) VALUES
-(1, 'Harina de maiz', 'Harina de maiz', '9.99', 110, 'img/FONDO.jpg', 8, 1, 1, 1),
-(2, 'Horchata de coco', 'Bebida de disolucion', '2.00', 220, 'img/PERRITO.JPG', 5, 1, 16, 1),
-(3, 'Topping de fresa', 'Topping para adornar sabor a fresa', '9.99', 40, 'img/FONDO.jpg', 7, 1, 1, 1),
-(4, 'aa', 'aa', '4.00', 4, 'img/producto.jpg', 1, 2, 16, 0),
+(1, 'Harina de maiz', 'Harina de maiz', '9.99', 8, 'img/FONDO.jpg', 8, 1, 1, 1),
+(2, 'Horchata de coco', 'Bebida de disolucion', '2.00', 50, 'img/PERRITO.JPG', 5, 1, 16, 1),
+(3, 'Topping de fresa', 'Topping para adornar sabor a fresa', '9.99', 3, 'img/FONDO.jpg', 7, 1, 1, 1),
+(4, 'aa', 'aa', '4.00', 0, 'img/producto.jpg', 1, 2, 16, 0),
 (5, 'CHOCOCRISPIS', 'CEREAL DE ARROZ DE CHOCOLATE', '2.65', 0, 'img/producto.jpg', 1, 1, 16, 1),
 (6, 'Harina de chocolate', 'Harina para hacer pan de chocolate', '2.00', 0, 'img/producto.jpg', 8, 3, 16, 1),
 (7, 'Queso crema', 'Queso crema para pasteles', '1.50', 0, 'img/producto.jpg', 5, 2, 16, 1),
 (8, 'Tres leches', 'Postre tres leches', '1.00', 0, 'img/producto.jpg', 5, 4, 16, 1),
-(9, 'Papel mantequilla', 'Papel para hornear', '1.90', 20, 'img/FONDO.jpg', 9, 2, 16, 1);
+(9, 'Papel mantequilla', 'Papel para hornear', '1.90', 0, 'img/FONDO.jpg', 9, 2, 16, 1);
 
 -- --------------------------------------------------------
 
@@ -243,8 +286,16 @@ CREATE TABLE `venta` (
   `numeroventa` int(11) NOT NULL,
   `fechaventa` date NOT NULL,
   `total` decimal(4,2) NOT NULL,
-  `idusuario` int(11) NOT NULL
+  `idusuario` int(11) NOT NULL,
+  `tipo_comprobante` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `venta`
+--
+
+INSERT INTO `venta` (`idventa`, `numeroventa`, `fechaventa`, `total`, `idusuario`, `tipo_comprobante`) VALUES
+(52, 658, '2020-10-18', '12.00', 16, 1);
 
 --
 -- Índices para tablas volcadas
@@ -256,6 +307,12 @@ CREATE TABLE `venta` (
 ALTER TABLE `categoria`
   ADD PRIMARY KEY (`idcategoria`),
   ADD KEY `fk_categoria_usuario` (`idusuario`);
+
+--
+-- Indices de la tabla `cat_comprobante`
+--
+ALTER TABLE `cat_comprobante`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `detalleventa`
@@ -314,7 +371,8 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `venta`
   ADD PRIMARY KEY (`idventa`),
-  ADD KEY `fk_venta_usuario` (`idusuario`);
+  ADD KEY `fk_venta_usuario` (`idusuario`),
+  ADD KEY `fk_venta_catcomprobante` (`tipo_comprobante`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -327,16 +385,22 @@ ALTER TABLE `categoria`
   MODIFY `idcategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
+-- AUTO_INCREMENT de la tabla `cat_comprobante`
+--
+ALTER TABLE `cat_comprobante`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `detalleventa`
 --
 ALTER TABLE `detalleventa`
-  MODIFY `iddetalleventa` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `iddetalleventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `ingreso_producto`
 --
 ALTER TABLE `ingreso_producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntasecreta`
@@ -372,7 +436,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- Restricciones para tablas volcadas
@@ -423,6 +487,7 @@ ALTER TABLE `usuario`
 -- Filtros para la tabla `venta`
 --
 ALTER TABLE `venta`
+  ADD CONSTRAINT `fk_venta_catcomprobante` FOREIGN KEY (`tipo_comprobante`) REFERENCES `cat_comprobante` (`id`),
   ADD CONSTRAINT `fk_venta_usuario` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`);
 COMMIT;
 
