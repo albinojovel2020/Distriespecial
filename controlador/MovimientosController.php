@@ -69,6 +69,10 @@ class MovimientosController
                 $detalleventa->idproducto = $_REQUEST['txtIdproducto'.$i];
                 $detalleventa->cantidadventa = $_REQUEST['txtCantidad'.$i];
                 $detalleventa->precioventa = $_REQUEST['txtSubTotal'.$i];
+
+                echo "<script>
+						alert('$detalleventa->precioventa');
+						</script>";
                 
 
          
