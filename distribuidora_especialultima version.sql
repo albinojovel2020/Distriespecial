@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-10-2020 a las 23:42:52
+-- Tiempo de generación: 19-10-2020 a las 08:37:42
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.3
 
@@ -113,9 +113,8 @@ CREATE TABLE `detalleventa` (
 --
 
 INSERT INTO `detalleventa` (`iddetalleventa`, `idventa`, `idproducto`, `cantidadventa`, `precioventa`) VALUES
-(47, 73, 1, 1, '9.99'),
-(48, 73, 2, 1, '2.00'),
-(49, 73, 3, 1, '9.99');
+(58, 79, 1, 2, '9.99'),
+(59, 79, 2, 2, '4.00');
 
 -- --------------------------------------------------------
 
@@ -138,10 +137,10 @@ CREATE TABLE `ingreso_producto` (
 --
 
 INSERT INTO `ingreso_producto` (`id`, `idproducto`, `stockanterior`, `cantidad`, `stockdespues`, `usuario`, `fcrea`) VALUES
-(27, 1, 0, 2, 2, 16, '2020-10-16'),
-(28, 2, 0, 50, 50, 16, '2020-10-16'),
-(29, 3, 0, 3, 3, 16, '2020-10-16'),
-(30, 1, 2, 6, 8, 16, '2020-10-18');
+(35, 1, 0, 2, 2, 16, '2020-10-18'),
+(36, 2, 0, 3, 3, 16, '2020-10-18'),
+(37, 3, 0, 100, 100, 16, '2020-10-18'),
+(38, 9, 0, 6, 6, 16, '2020-10-18');
 
 --
 -- Disparadores `ingreso_producto`
@@ -194,15 +193,15 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`idproducto`, `nombre`, `descripcion`, `preciounitario`, `stock`, `imagen`, `idcategoria`, `idproveedor`, `idusuario`, `estado`) VALUES
-(1, 'Harina de maiz', 'Harina de maiz', '9.99', 8, 'img/FONDO.jpg', 8, 1, 1, 1),
-(2, 'Horchata de coco', 'Bebida de disolucion', '2.00', 50, 'img/PERRITO.JPG', 5, 1, 16, 1),
-(3, 'Topping de fresa', 'Topping para adornar sabor a fresa', '9.99', 3, 'img/FONDO.jpg', 7, 1, 1, 1),
-(4, 'aa', 'aa', '4.00', 0, 'img/producto.jpg', 1, 2, 16, 0),
+(1, 'Harina de maiz', 'Harina de maiz', '9.99', 2, 'img/FONDO.jpg', 8, 1, 1, 1),
+(2, 'Horchata de coco', 'Bebida de disolucion', '2.00', 3, 'img/PERRITO.JPG', 5, 1, 16, 1),
+(3, 'Topping de fresa', 'Topping para adornar sabor a fresa', '9.99', 100, 'img/FONDO.jpg', 7, 1, 1, 1),
+(4, 'aa', 'aa', '4.00', 0, 'img/producto.jpg', 1, 2, 16, 1),
 (5, 'CHOCOCRISPIS', 'CEREAL DE ARROZ DE CHOCOLATE', '2.65', 0, 'img/producto.jpg', 1, 1, 16, 1),
 (6, 'Harina de chocolate', 'Harina para hacer pan de chocolate', '2.00', 0, 'img/producto.jpg', 8, 3, 16, 1),
 (7, 'Queso crema', 'Queso crema para pasteles', '1.50', 0, 'img/producto.jpg', 5, 2, 16, 1),
 (8, 'Tres leches', 'Postre tres leches', '1.00', 0, 'img/producto.jpg', 5, 4, 16, 1),
-(9, 'Papel mantequilla', 'Papel para hornear', '1.90', 0, 'img/FONDO.jpg', 9, 2, 16, 1);
+(9, 'Papel mantequilla', 'Papel para hornear', '1.90', 6, 'img/FONDO.jpg', 9, 2, 16, 1);
 
 -- --------------------------------------------------------
 
@@ -304,7 +303,7 @@ CREATE TABLE `venta` (
 --
 
 INSERT INTO `venta` (`idventa`, `numeroventa`, `fechaventa`, `total`, `idusuario`, `tipo_comprobante`) VALUES
-(73, 98654, '2020-10-18', '21.98', 16, 1);
+(79, 654, '2020-10-19', '23.98', 16, 1);
 
 --
 -- Índices para tablas volcadas
@@ -403,13 +402,13 @@ ALTER TABLE `cat_comprobante`
 -- AUTO_INCREMENT de la tabla `detalleventa`
 --
 ALTER TABLE `detalleventa`
-  MODIFY `iddetalleventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `iddetalleventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT de la tabla `ingreso_producto`
 --
 ALTER TABLE `ingreso_producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntasecreta`
@@ -445,7 +444,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- Restricciones para tablas volcadas

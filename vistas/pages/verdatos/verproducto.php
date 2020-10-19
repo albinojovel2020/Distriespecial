@@ -18,8 +18,8 @@
       <div class="row">
           <div class="col s12">
             <ul class="tabs">
-              <li class="tab col s3 m6 l3 yy"><a class="active tab-activos" href="#activos">Existencia</a></li>
-              <li class="tab col s3 m6 l3 yy"><a class="tab-inactivos" href="#inactivos">Agotados</a></li>
+              <li class="tab col s3 m6 l3 yy"><a class="active tab-activos" href="#activos">Activos</a></li>
+              <li class="tab col s3 m6 l3 yy"><a class="tab-inactivos" href="#inactivos">Inactivos</a></li>
           </ul>
       </div>
       <!-- tabla de activos -->

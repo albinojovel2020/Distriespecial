@@ -28,7 +28,7 @@
   <!-- inicio de columna de datos de factura -->
       <div class="col s12">
          <a href="#idmodalproducto" class="btn modal-trigger"><i class="material-icons">shopping_cart</i>       AGREGAR PRODUCTO AL DETALLE</a>
-         <form class="col s12" action="?c=<?php echo base64_encode('Movimientos'); ?>&a=<?php echo base64_encode('GuardarVenta'); ?>" method="post" enctype="multipart/form-data">
+         <form onkeydown="return event.key != 'Enter';" class="col s12" action="?c=<?php echo base64_encode('Movimientos'); ?>&a=<?php echo base64_encode('GuardarVenta'); ?>" method="post" enctype="multipart/form-data">
                <div class="input-field col s6">
                         <input id="txtNumeroVenta" type="text" class="validate" name="txtNumeroVenta" required>
                         <label for="txtNumeroVenta">Número</label>
@@ -134,7 +134,7 @@
                             </div>     
 
                             <div class="input-field col s12 center">
-                                <button style="display:none;" onclick="return confirm('Seguro que desea eviar esta venta')" id="btnComprar" type="submit" class="waves-effect waves-light btn blue"><i class="material-icons right">send</i>GUARDAR</button>
+                                <button style="display:none;"  onclick="return confirm('Seguro que desea eviar esta venta')" id="btnComprar" type="submit" class="waves-effect waves-light btn blue"><i class="material-icons right">send</i>GUARDAR</button>
                             </div>
                         </div>
             </form>
@@ -155,7 +155,7 @@
                             <table id="tabla-activos" class="display highlight" cellspacing="0" width="100%">
                                 <thead class="indigo-text">
                                     <tr>
-                                        <th hidden>Id Producto</th>
+                                        <th >Id Producto</th>
                                         <th>Nombre</th>
                                         <th>Descripción</th>
                                         <th>Precio Unitario</th>
@@ -167,7 +167,7 @@
                                 </thead>
                                 <tfoot class="indigo-text">
                                     <tr>
-                                         <th hidden>Id Producto</th>
+                                         <th >Id Producto</th>
                                         <th>Nombre</th>
                                         <th>Descripción</th>
                                         <th>Precio Unitario</th>
@@ -179,16 +179,17 @@
                                 </tfoot>
                                 <tbody>
                                <?php foreach($this->model->ListarProductosActivoConexistencia() as $r):?>
-                                    <tr>
-                                        <td hidden><?php echo $r->idproducto; ?></td>
+                                    <tr id="fila<?php echo $r->idproducto; ?>">
+                                        <td ><?php echo $r->idproducto; ?></td>
                                         <td><?php echo $r->nombre; ?></td>
-                                        <td><?php echo $r->descripcion; ?></td>
+                                        <td><?php echo $r->descripcion; ?></td> 
                                         <td><?php echo '$ ',$r->precio; ?></td>
                                         <td><?php echo $r->stock; ?></td>
                                         <td ><?php echo $r->nombrecate; ?></td>
                                         <td ><?php echo $r->nombreprove; ?></td>
                                         <td> <!-- agregar el producto al detalle -->
-                                            <a onclick="agregardetalle(this)"  id="deshabilitar" title="Agregar" class="waves-effect waves-light btn-small modal-close" data-stock="<?php echo $r->stock; ?>" data-id="<?php echo $r->idproducto; ?>" data-codigo="<?php echo $r->codigobarra; ?>" data-nombre="<?php echo $r->nombre; ?>" data-precio="<?php echo $r->precio; ?>" ><i class="material-icons">add_shopping_cart</i></a>
+                                            <button onclick="agregardetalle(this);" id="btnProd<?php echo $r->idproducto; ?>" title="Agregar" class="waves-effect waves-light btn-small modal-close" data-stock="<?php echo $r->stock; ?>" data-id="<?php echo $r->idproducto; ?>" data-codigo="<?php echo $r->codigobarra; ?>" data-nombre="<?php echo $r->nombre; ?>" data-habili="1" data-precio="<?php echo $r->precio; ?>" ><i class="material-icons">add_shopping_cart</i></button>
+                                                                       
                                         </td>
                                     </tr>
                                 <?php endforeach; ?></tbody>
@@ -231,7 +232,7 @@ function agregardetalle(producto) {
 
   var stock = producto.getAttribute('data-stock');
 
-
+  var estadoboton = producto.getAttribute('data-habili');
 
   
     var numero = null;
@@ -272,11 +273,12 @@ function agregardetalle(producto) {
 
     //calcular Total
     calcularTotal(numeroDetalle+1);
+
+   
+    document.getElementById("btnProd"+id).style.visibility = "hidden";
     
 
-
-
-
+    
 }
 </script>
 
@@ -284,11 +286,22 @@ function agregardetalle(producto) {
 //para borrar un detalle
 function borrardetalle(detalle) {
     //confirmar la operación
+
     var opcion = confirm("¿En verdad desea borrar?");
+     
+     
+     
+
+    
+
     if (opcion == true) {
-  
+        
+
+        
+
         //tomar el id del detalle 
         var i = detalle.getAttribute('data-i');
+        var idprobo = parseInt(document.getElementById("txtIdproducto"+i).value);
         var numero = parseInt(document.getElementById("txtCantidadDetalle").value);
         
 
@@ -317,11 +330,16 @@ function borrardetalle(detalle) {
             //ocultar el botón 
             document.getElementById("btnComprar").style.display = 'none';
             //ocultar el total
-            document.getElementById("filaTotal").style.display = 'none';
+            document.getElementById("filaTotal").style.display = 'none'; 
                 
         }
 
+       
     }
+
+         document.getElementById("btnProd"+idprobo).style.visibility = "visible";
+
+
 }
 </script>
 
@@ -341,7 +359,8 @@ function calcularCantidad(cantidad) {
     var cantidad = parseInt(document.getElementById("txtCantidad"+i).value);
 
     var existencia = parseInt(document.getElementById("txtStock"+i).value);
-    
+
+
     if (cantidad <= 0) {
         alert('La cantidad debe ser al menos uno');
 
@@ -427,7 +446,6 @@ function calcularTotal(numeroDetalle) {
     var elems = document.querySelectorAll('.modal');
     var instances = M.Modal.init(elems);
   });
-
-    
-  
 </script>
+
+
