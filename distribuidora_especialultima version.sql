@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-10-2020 a las 20:44:19
+-- Tiempo de generación: 19-10-2020 a las 23:32:54
 -- Versión del servidor: 10.4.8-MariaDB
 -- Versión de PHP: 7.3.11
 
@@ -26,7 +26,7 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ps_guardar_detalleventa` (IN `val_idventa` INT, IN `val_idproducto` INT, IN `val_cantidadventa` INT, IN `val_precioventa` DECIMAL)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ps_guardar_detalleventa` (IN `val_idventa` INT, IN `val_idproducto` INT, IN `val_cantidadventa` INT, IN `val_precioventa` DECIMAL(6,2))  BEGIN
 	
 	INSERT INTO `detalleventa` (`iddetalleventa`, `idventa`, `idproducto`, `cantidadventa`, `precioventa`) VALUES (NULL, val_idventa, val_idproducto, val_cantidadventa, val_precioventa);
 
@@ -113,13 +113,9 @@ CREATE TABLE `detalleventa` (
 --
 
 INSERT INTO `detalleventa` (`iddetalleventa`, `idventa`, `idproducto`, `cantidadventa`, `precioventa`) VALUES
-(74, 85, 1, 1, '9.99'),
-(75, 85, 9, 1, '2.00'),
-(76, 85, 2, 1, '2.00'),
-(77, 86, 2, 1, '2.00'),
-(78, 86, 3, 1, '9.99'),
-(79, 86, 9, 1, '2.00'),
-(80, 87, 9, 1, '2.00');
+(81, 88, 1, 2, '19.98'),
+(82, 88, 3, 3, '29.97'),
+(83, 88, 9, 1, '1.90');
 
 -- --------------------------------------------------------
 
@@ -308,9 +304,25 @@ CREATE TABLE `venta` (
 --
 
 INSERT INTO `venta` (`idventa`, `numeroventa`, `fechaventa`, `total`, `idusuario`, `tipo_comprobante`) VALUES
-(85, 654, '2020-10-19', '13.89', 16, 1),
-(86, 9878, '2020-10-19', '13.89', 16, 1),
-(87, 12312, '2020-10-19', '1.90', 16, 1);
+(88, 6548, '2020-10-19', '51.85', 16, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ventas_producto`
+--
+
+CREATE TABLE `ventas_producto` (
+  `id` int(11) NOT NULL,
+  `idventa` int(11) NOT NULL,
+  `idproducto` int(11) NOT NULL,
+  `stockanterior` int(11) NOT NULL,
+  `cantidadventa` int(11) NOT NULL,
+  `stockdespues` int(11) NOT NULL,
+  `usuario` int(11) NOT NULL,
+  `precioventa` decimal(6,2) NOT NULL,
+  `fcrea` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Índices para tablas volcadas
@@ -390,6 +402,14 @@ ALTER TABLE `venta`
   ADD KEY `fk_venta_catcomprobante` (`tipo_comprobante`);
 
 --
+-- Indices de la tabla `ventas_producto`
+--
+ALTER TABLE `ventas_producto`
+  ADD KEY `fk_idventa` (`idventa`),
+  ADD KEY `fk_idproducto` (`idproducto`),
+  ADD KEY `fk_usuarioid` (`usuario`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -409,7 +429,7 @@ ALTER TABLE `cat_comprobante`
 -- AUTO_INCREMENT de la tabla `detalleventa`
 --
 ALTER TABLE `detalleventa`
-  MODIFY `iddetalleventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `iddetalleventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT de la tabla `ingreso_producto`
@@ -451,7 +471,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- Restricciones para tablas volcadas
@@ -504,6 +524,14 @@ ALTER TABLE `usuario`
 ALTER TABLE `venta`
   ADD CONSTRAINT `fk_venta_catcomprobante` FOREIGN KEY (`tipo_comprobante`) REFERENCES `cat_comprobante` (`id`),
   ADD CONSTRAINT `fk_venta_usuario` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`);
+
+--
+-- Filtros para la tabla `ventas_producto`
+--
+ALTER TABLE `ventas_producto`
+  ADD CONSTRAINT `fk_idproducto` FOREIGN KEY (`idproducto`) REFERENCES `producto` (`idproducto`),
+  ADD CONSTRAINT `fk_idventa` FOREIGN KEY (`idventa`) REFERENCES `venta` (`idventa`),
+  ADD CONSTRAINT `fk_usuarioid` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`idusuario`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
