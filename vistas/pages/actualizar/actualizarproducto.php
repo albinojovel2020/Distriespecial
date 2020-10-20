@@ -6,7 +6,10 @@
       <li ><a class="grey-text text-darken-1"><b>DISTRIBUIDORA ESPECIAL > PRODUCTO > Editar > <u class="blue-text"><?php echo $producto->nombre; ?></u></b></a></li>
     </ul>
     <ul class="right">
-      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Producto'); ?>" ><b>Volver</b><i class="material-icons right grey-text text-darken-1">arrow_back</i></a></li>
+      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Producto'); ?>" ><b>Lista de productos Stock</b><i class="material-icons right grey-text text-darken-1">arrow_back</i></a></li>
+    </ul>
+     <ul class="right">
+      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Producto'); ?>&?c=<?php echo base64_encode('VerProductosEstado'); ?>" ><b>Lista de productos Por estado</b><i class="material-icons right grey-text text-darken-1">arrow_back</i></a></li>
     </ul>
   </div>
 </nav>
@@ -41,10 +44,16 @@
               <label for="precio">Precio Unitario</label>
             </div>
 
-            <div class="input-field col s12 m6">
+            <div class="input-field col s12 m6" hidden>
               <i class="material-icons prefix form-icon">loupe</i>
               <input id="stock" type="text" class="validate" value="<?php echo $producto->stock; ?>" name="stock" required>
               <label for="stock">Stock</label>
+            </div>
+
+              <div class="input-field col s12 m6">
+              <i class="material-icons prefix form-icon">loupe</i>
+              <input id="stocak" disabled type="text" class="validate" value="<?php echo $producto->stock; ?>" name="stocak" required>
+              <label for="stocak">Stock</label>
             </div>
 
             <div class="input-field col s12 m6"> 

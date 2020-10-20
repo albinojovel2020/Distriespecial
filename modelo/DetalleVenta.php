@@ -8,6 +8,10 @@ class DetalleVenta
     public $idproducto;
     public $cantidadventa;
     public $precioventa;
+	public $stockanterior;
+	public $stockdespues;
+	public $usuario;
+	public $fcrea;
 
 	public function __CONSTRUCT()
 	{
@@ -50,6 +54,33 @@ class DetalleVenta
 		catch(Exception $e)//php5
 		{
 			die($e->getMessage());
+		}
+	}
+
+	public function ActualizarStockProductoSalida($data)
+	{
+		try 
+		{
+			$sql = "INSERT INTO ventas_producto VALUES (null,?,?,?,?,?,?,?,?)";
+
+			$this->pdo->prepare($sql)
+			->execute(
+				array(
+					$data->idventa,
+					$data->idproducto,
+					$data->stockanterior,
+					$data->cantidadventa,
+					$data->stockdespues,
+					$data->usuario,
+					$data->precioventa,
+					$data->fcrea
+				)
+			);
+
+		}
+		catch (Throwable $t)
+		{
+			die($t->getMessage());
 		}
 	}
 

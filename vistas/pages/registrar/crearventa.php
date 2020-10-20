@@ -143,7 +143,7 @@
       <div class="contrainer section">
        
 
-         <div id="idmodalproducto" class="modal">
+         <div id="idmodalproducto" style="width: 90%;" class="modal">
            <div class="modal-content">
              
 

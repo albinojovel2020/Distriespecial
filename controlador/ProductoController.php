@@ -25,10 +25,27 @@ class ProductoController
 		require_once 'vistas/pages/piepagina1.php';
 	}
 
+	//Tablas de Usuario
+	public function VerProductosEstado(){
+		//muestra todas las partes de la vista de Usuario Almacenado
+		require_once 'vistas/pages/encabezadopagina1.php';
+		require_once 'vistas/pages/verdatos/verproductoestado.php';
+		require_once 'vistas/pages/piepagina1.php';
+	}
+
       public function VerIngresos(){
 		
 		require_once 'vistas/pages/encabezadopagina1.php';
 		require_once 'vistas/pages/verdatos/vermovimientosproductos.php';
+		require_once 'vistas/pages/piepagina1.php';
+	
+		
+	}
+
+	public function VerEgresos(){
+		
+		require_once 'vistas/pages/encabezadopagina1.php';
+		require_once 'vistas/pages/verdatos/vermovimientosproductosegreso.php';
 		require_once 'vistas/pages/piepagina1.php';
 	
 		
@@ -91,7 +108,7 @@ class ProductoController
 		//muestra la vista de usuario
 		echo "<script>
 		alert('CORRECTO: Registro Modificado.');
-		window.location.href='?c=".base64_encode('Producto')."';
+		window.location.href='?c=".base64_encode('Producto')."&?a=".base64_encode('VerProductosEstado')."';
 		</script>";
 	}
 

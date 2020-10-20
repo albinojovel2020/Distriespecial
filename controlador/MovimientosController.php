@@ -70,6 +70,14 @@ class MovimientosController
                 $detalleventa->cantidadventa = $_REQUEST['txtCantidad'.$i];
                 $detalleventa->precioventa = $_REQUEST['txtSubTotal'.$i];
 
+               
+               
+                $detalleventa->stockanterior = $_REQUEST['txtStock'.$i]; 
+				$detalleventa->stockdespues = $_REQUEST['txtStock'.$i]-$_REQUEST['txtCantidad'.$i];
+				$detalleventa->usuario = $_REQUEST['txtIdUsuario'];
+				$detalleventa->fcrea = $_REQUEST['txtFechaVenta'];
+
+
                 echo "<script>
 						alert('$detalleventa->precioventa');
 						</script>";
@@ -77,6 +85,8 @@ class MovimientosController
 
          
                 $this->modelDetalleVenta->guardardetalleventa($detalleventa); 
+                //actualiza stock
+                $this->modelDetalleVenta->ActualizarStockProductoSalida($detalleventa);
             }
 
         
