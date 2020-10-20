@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-10-2020 a las 23:32:54
--- Versión del servidor: 10.4.8-MariaDB
--- Versión de PHP: 7.3.11
+-- Tiempo de generación: 20-10-2020 a las 23:42:16
+-- Versión del servidor: 10.4.11-MariaDB
+-- Versión de PHP: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -113,9 +113,9 @@ CREATE TABLE `detalleventa` (
 --
 
 INSERT INTO `detalleventa` (`iddetalleventa`, `idventa`, `idproducto`, `cantidadventa`, `precioventa`) VALUES
-(81, 88, 1, 2, '19.98'),
-(82, 88, 3, 3, '29.97'),
-(83, 88, 9, 1, '1.90');
+(93, 95, 4, 5, '20.00'),
+(94, 95, 9, 2, '3.80'),
+(95, 96, 9, 1, '1.90');
 
 -- --------------------------------------------------------
 
@@ -141,7 +141,11 @@ INSERT INTO `ingreso_producto` (`id`, `idproducto`, `stockanterior`, `cantidad`,
 (35, 1, 0, 2, 2, 16, '2020-10-18'),
 (36, 2, 0, 3, 3, 16, '2020-10-18'),
 (37, 3, 0, 100, 100, 16, '2020-10-18'),
-(38, 9, 0, 6, 6, 16, '2020-10-18');
+(38, 9, 0, 6, 6, 16, '2020-10-18'),
+(39, 2, 3, 3, 6, 16, '2020-10-19'),
+(40, 2, 6, 1, 7, 16, '2020-10-19'),
+(41, 2, 7, 1, 8, 16, '2020-10-20'),
+(42, 4, 0, 200, 200, 16, '2020-10-20');
 
 --
 -- Disparadores `ingreso_producto`
@@ -194,15 +198,15 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`idproducto`, `nombre`, `descripcion`, `preciounitario`, `stock`, `imagen`, `idcategoria`, `idproveedor`, `idusuario`, `estado`) VALUES
-(1, 'Harina de maiz', 'Harina de maiz', '9.99', 2, 'img/FONDO.jpg', 8, 1, 1, 1),
-(2, 'Horchata de coco', 'Bebida de disolucion', '2.00', 3, 'img/PERRITO.JPG', 5, 1, 16, 1),
-(3, 'Topping de fresa', 'Topping para adornar sabor a fresa', '9.99', 100, 'img/FONDO.jpg', 7, 1, 1, 1),
-(4, 'aa', 'aa', '4.00', 0, 'img/producto.jpg', 1, 2, 16, 1),
+(1, 'Harina de maiz', 'Harina de maiz', '9.99', 0, 'img/FONDO.jpg', 8, 1, 1, 0),
+(2, 'Horchata de cocoa', 'Bebida de disolucion', '2.00', 8, 'img/haha.jpg', 11, 1, 16, 0),
+(3, 'Topping de fresa', 'Topping para adornar sabor a fresa', '9.99', 50, 'img/FONDO.jpg', 7, 1, 1, 0),
+(4, 'aa', 'aa', '4.00', 195, 'img/producto.jpg', 1, 2, 16, 1),
 (5, 'CHOCOCRISPIS', 'CEREAL DE ARROZ DE CHOCOLATE', '2.65', 0, 'img/producto.jpg', 1, 1, 16, 1),
 (6, 'Harina de chocolate', 'Harina para hacer pan de chocolate', '2.00', 0, 'img/producto.jpg', 8, 3, 16, 1),
 (7, 'Queso crema', 'Queso crema para pasteles', '1.50', 0, 'img/producto.jpg', 5, 2, 16, 1),
 (8, 'Tres leches', 'Postre tres leches', '1.00', 0, 'img/producto.jpg', 5, 4, 16, 1),
-(9, 'Papel mantequilla', 'Papel para hornear', '1.90', 6, 'img/FONDO.jpg', 9, 2, 16, 1);
+(9, 'Papel mantequilla', 'Papel para hornear', '1.90', 0, 'img/FONDO.jpg', 9, 2, 16, 1);
 
 -- --------------------------------------------------------
 
@@ -304,7 +308,8 @@ CREATE TABLE `venta` (
 --
 
 INSERT INTO `venta` (`idventa`, `numeroventa`, `fechaventa`, `total`, `idusuario`, `tipo_comprobante`) VALUES
-(88, 6548, '2020-10-19', '51.85', 16, 1);
+(95, 555, '2020-10-20', '23.80', 16, 1),
+(96, 123, '2020-10-20', '1.90', 16, 1);
 
 -- --------------------------------------------------------
 
@@ -323,6 +328,23 @@ CREATE TABLE `ventas_producto` (
   `precioventa` decimal(6,2) NOT NULL,
   `fcrea` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `ventas_producto`
+--
+
+INSERT INTO `ventas_producto` (`id`, `idventa`, `idproducto`, `stockanterior`, `cantidadventa`, `stockdespues`, `usuario`, `precioventa`, `fcrea`) VALUES
+(6, 95, 4, 200, 5, 195, 16, '20.00', '2020-10-20'),
+(7, 95, 9, 3, 2, 1, 16, '3.80', '2020-10-20'),
+(8, 96, 9, 1, 1, 0, 16, '1.90', '2020-10-20');
+
+--
+-- Disparadores `ventas_producto`
+--
+DELIMITER $$
+CREATE TRIGGER `TIVENTASPRODUCTO` AFTER INSERT ON `ventas_producto` FOR EACH ROW UPDATE producto SET stock = stock - NEW.cantidadventa where idproducto = NEW.idproducto
+$$
+DELIMITER ;
 
 --
 -- Índices para tablas volcadas
@@ -405,6 +427,7 @@ ALTER TABLE `venta`
 -- Indices de la tabla `ventas_producto`
 --
 ALTER TABLE `ventas_producto`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `fk_idventa` (`idventa`),
   ADD KEY `fk_idproducto` (`idproducto`),
   ADD KEY `fk_usuarioid` (`usuario`);
@@ -429,13 +452,13 @@ ALTER TABLE `cat_comprobante`
 -- AUTO_INCREMENT de la tabla `detalleventa`
 --
 ALTER TABLE `detalleventa`
-  MODIFY `iddetalleventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `iddetalleventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
 -- AUTO_INCREMENT de la tabla `ingreso_producto`
 --
 ALTER TABLE `ingreso_producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntasecreta`
@@ -471,7 +494,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+
+--
+-- AUTO_INCREMENT de la tabla `ventas_producto`
+--
+ALTER TABLE `ventas_producto`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Restricciones para tablas volcadas
