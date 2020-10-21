@@ -10,18 +10,24 @@
   </ul>
 </div>
 </nav>  
-
+<div class="containe">
 <div class="row">
-    <div class="section">
+<br>
 
       <!--   Data Section   -->
-      <div class="row">
-          <div class="col s12">
-            <ul class="tabs">
-              <li class="tab col s3 m6 l3 yy"><a class="active tab-activos" href="#activos">Activos</a></li>
-              <li class="tab col s3 m6 l3 yy"><a class="tab-inactivos" href="#inactivos">Inactivos</a></li>
+     
+         <div class="col s12">
+               <ul class="tabs">
+              <li class="tab col s2 yy"><a class="active tab-inactivos" href="#prueba">En existencia</a></li>
+              <li class="tab col s2 yy"><a class="tab-inactivos" href="#prueba1">Agotados</a></li>
+              <li class="tab col s2 yy"><a class="tab-activos" href="#activos">Activos</a></li>
+              <li class="tab col s2  yy"><a class="tab-inactivos" href="#inactivos">Inactivos</a></li>
+
+              
           </ul>
-      </div>
+         </div>
+         
+      
       <!-- tabla de activos -->
       <div id="activos" class="col s12">
         <table id="tabla-activos" class="striped responsive-table highlight">
@@ -83,35 +89,131 @@
             <th>Categoria</th>
             <th>Proveedor</th>
             <th>Usuario</th>
-              <th class="center">Activar</th>             
-          </tr>
-      </thead>
-      <tbody>
-          <!-- inicio del cuerpo de la tabla inactivos -->
-          <?php foreach($this->model->ListarProductosInactivos() as $r):?>
-              <tr>
-                <td><?php echo $r->idproducto; ?></td>
-                <td><?php echo $r->nombre; ?></td>
-                <td><?php echo $r->descripcion; ?></td>
-                <td><?php echo '$ ',$r->precio; ?></td>
-                <td><?php echo $r->stock; ?></td>
-                <td><img class="img-avatar img-circle" src="<?php echo $r->img; ?>" width="50px" height="50px" alt=""></td>
-                <!--<td><?php echo $r->img; ?></td>-->
-                <td><?php echo $r->nombrecate; ?></td>
-                <td><?php echo $r->nombreprove; ?></td>
-                <td><?php echo $r->nombreusuario; ?></td>
-                  <td class="center">
-                      <a onclick="javascript:return confirm('¿Seguro que desea activar este registro?');" href="?c=<?php echo base64_encode('Producto'); ?>&a=<?php echo base64_encode('CambiarEstado'); ?>&nuevo_estado=<?php echo base64_encode('1'); ?>&idproducto=<?php echo base64_encode($r->idproducto); ?>" title="Activar Registro"><i class="mini material-icons green-text hoverable circle">check_circle</i></a>
-                  </td>
-              </tr>
-          <?php endforeach; ?> 
-          <!-- fin del cuerpo de la tabla inactivos -->
-      </tbody>
-  </table>
+            <th class="center">Activar</th>             
+        </tr>
+    </thead>
+    <tbody>
+      <!-- inicio del cuerpo de la tabla inactivos -->
+      <?php foreach($this->model->ListarProductosInactivos() as $r):?>
+          <tr>
+            <td><?php echo $r->idproducto; ?></td>
+            <td><?php echo $r->nombre; ?></td>
+            <td><?php echo $r->descripcion; ?></td>
+            <td><?php echo '$ ',$r->precio; ?></td>
+            <td><?php echo $r->stock; ?></td>
+            <td><img class="img-avatar img-circle" src="<?php echo $r->img; ?>" width="50px" height="50px" alt=""></td>
+            <!--<td><?php echo $r->img; ?></td>-->
+            <td><?php echo $r->nombrecate; ?></td>
+            <td><?php echo $r->nombreprove; ?></td>
+            <td><?php echo $r->nombreusuario; ?></td>
+            <td class="center">
+              <a onclick="javascript:return confirm('¿Seguro que desea activar este registro?');" href="?c=<?php echo base64_encode('Producto'); ?>&a=<?php echo base64_encode('CambiarEstado'); ?>&nuevo_estado=<?php echo base64_encode('1'); ?>&idproducto=<?php echo base64_encode($r->idproducto); ?>" title="Activar Registro"><i class="mini material-icons green-text hoverable circle">check_circle</i></a>
+          </td>
+      </tr>
+  <?php endforeach; ?> 
+  <!-- fin del cuerpo de la tabla inactivos -->
+</tbody>
+</table>
 </div>
+
+
+
+<div id="prueba" class="col s12">
+    <table id="tabla-stok" class="striped responsive-table highlight">
+      <thead>
+          <tr>
+            <th>Id Producto</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Precio Unitario</th>
+            <th>Stock</th>
+            <th>Imagen</th>
+            <th>Categoria</th>
+            <th>Proveedor</th>
+            <th>Usuario</th>
+            <th class="center">Activar</th>             
+        </tr>
+    </thead>
+    <tbody>
+      <!-- inicio del cuerpo de la tabla inactivos -->
+      <?php foreach($this->model->ListarProductosActivoConexistencia() as $r):?>
+          <tr>
+            <td><?php echo $r->idproducto; ?></td>
+            <td><?php echo $r->nombre; ?></td>
+            <td><?php echo $r->descripcion; ?></td>
+            <td><?php echo '$ ',$r->precio; ?></td>
+            <td><?php echo $r->stock; ?></td>
+            <td><img class="img-avatar img-circle" src="<?php echo $r->img; ?>" width="50px" height="50px" alt=""></td>
+            <!--<td><?php echo $r->img; ?></td>-->
+            <td><?php echo $r->nombrecate; ?></td>
+            <td><?php echo $r->nombreprove; ?></td>
+            <td><?php echo $r->nombreusuario; ?></td>
+            <td class="center">
+              <a onclick="javascript:return confirm('¿Seguro que desea activar este registro?');" href="?c=<?php echo base64_encode('Producto'); ?>&a=<?php echo base64_encode('CambiarEstado'); ?>&nuevo_estado=<?php echo base64_encode('1'); ?>&idproducto=<?php echo base64_encode($r->idproducto); ?>" title="Activar Registro"><i class="mini material-icons green-text hoverable circle">check_circle</i></a>
+          </td>
+      </tr>
+  <?php endforeach; ?> 
+  <!-- fin del cuerpo de la tabla inactivos -->
+</tbody>
+</table>
 </div>
+
+
+
+
+<div id="prueba1" class="col s12">
+    <table id="tabla-1" class="striped responsive-table highlight">
+      <thead>
+          <tr>
+            <th>Id Producto</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Precio Unitario</th>
+            <th>Stock</th>
+            <th>Imagen</th>
+            <th>Categoria</th>
+            <th>Proveedor</th>
+            <th>Usuario</th>
+            <th class="center">Activar</th>             
+        </tr>
+    </thead>
+    <tbody>
+      <!-- inicio del cuerpo de la tabla inactivos -->
+      <?php foreach($this->model->ListarProductosActivoSinexistencia() as $r):?>
+          <tr>
+            <td><?php echo $r->idproducto; ?></td>
+            <td><?php echo $r->nombre; ?></td>
+            <td><?php echo $r->descripcion; ?></td>
+            <td><?php echo '$ ',$r->precio; ?></td>
+            <td><?php echo $r->stock; ?></td>
+            <td><img class="img-avatar img-circle" src="<?php echo $r->img; ?>" width="50px" height="50px" alt=""></td>
+            <!--<td><?php echo $r->img; ?></td>-->
+            <td><?php echo $r->nombrecate; ?></td>
+            <td><?php echo $r->nombreprove; ?></td>
+            <td><?php echo $r->nombreusuario; ?></td>
+            <td class="center">
+              <a onclick="javascript:return confirm('¿Seguro que desea activar este registro?');" href="?c=<?php echo base64_encode('Producto'); ?>&a=<?php echo base64_encode('CambiarEstado'); ?>&nuevo_estado=<?php echo base64_encode('1'); ?>&idproducto=<?php echo base64_encode($r->idproducto); ?>" title="Activar Registro"><i class="mini material-icons green-text hoverable circle">check_circle</i></a>
+          </td>
+      </tr>
+  <?php endforeach; ?> 
+  <!-- fin del cuerpo de la tabla inactivos -->
+</tbody>
+</table>
+</div>
+
+
+
+
+
+
+
+
+
+
 
 </div>
 
+
 </div>
+
 <!-- fin del cuerpo -->
