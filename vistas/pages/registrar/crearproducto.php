@@ -75,6 +75,15 @@
                   </select>
             </div>
 
+            <div class="input-field col s12 m6"> 
+
+                <select id="idproveedor" name="idproveedor" class="validate" required>      <option value="" disabled selected>Seleccione Proveedor</option>            
+                    <?php foreach($this->modelProveedor->ListarProveedorActivos() as $r): ?>
+                        <option value="<?php echo $r->idproveedor; ?>"><?php echo $r->nombreprove; ?></option>
+                    <?php endforeach; ?>
+                  </select>
+            </div>
+
             <div class="input-field col s12 m6">
               <select  id="idusuario" name="idusuario" class="validate" required>
                 <option  value="<?php echo $_SESSION['id']; ?>"><?php echo $_SESSION['usuario']; ?></option>                    

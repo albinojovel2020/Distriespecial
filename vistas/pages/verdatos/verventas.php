@@ -21,7 +21,7 @@
       <div class="row">
           <div class="col s12">
             <ul class="tabs">
-              <li class="tab col s3 m6 l3 yy"><a class="active tab-activos" href="#activos">Movimientos</a></li>
+              <li class="tab col s3 m6 l3 yy"><a class="active tab-activos" href="#activos">Ventas</a></li>
           </ul>
       </div>
       <!-- tabla de activos -->
@@ -29,14 +29,16 @@
         <table id="tabla-activos" class="striped responsive-table highlight">
           <thead>
               <tr>
-                  <th>Id Ingreso</th>
+                  <th>Id Egreso</th>
+                  <th>Id Venta</th>
+                  <th>Numero de factura</th>
                   <th>Id Producto</th>
                   <th>Nombre producto</th>
                   <th>Descripción producto</th>
                   <th>Precio Unitario</th>
                   <td>Stock anterior</td>
-                  <td>Cantidad ingresada</td>
-                  <td>Cantidad despues ingreso</td>
+                  <td>Cantidad vendida</td>
+                  <td>Cantidad en stock despues de venta</td>
                   <td>Stock actual</td>
                   <td>Fecha ingreso</td>
                   <td>Usuario Ingresa</td>
@@ -45,7 +47,7 @@
           </thead>
           <tbody>
               <!-- inicio del cuerpo de la tabla activos -->
-              <?php foreach($this->model->ListarIngresoProductos() as $r):?>
+              <?php foreach($this->model->ListarEgresoProductos() as $r):?>
                   <tr>
                       <td><?php echo $r->id; ?></td>
                       <td><?php echo $r->idproducto; ?></td>

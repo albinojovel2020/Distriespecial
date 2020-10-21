@@ -24,11 +24,15 @@ class MovimientosController
 
 	}
 
-	//Tablas de Usuario
 	public function Index(){
-		//muestra todas las partes de la vista de Usuario Almacenado
 		require_once 'vistas/pages/encabezadopagina1.php';
 		require_once 'vistas/pages/registrar/ingresoproducto.php';
+		require_once 'vistas/pages/piepagina1.php';
+	}
+
+	public function VerVentas(){
+		require_once 'vistas/pages/encabezadopagina1.php';
+		require_once 'vistas/pages/verdatos/verventas.php';
 		require_once 'vistas/pages/piepagina1.php';
 	}
 
@@ -95,7 +99,7 @@ class MovimientosController
         		//La vista de usuarios registrados
 		echo "<script>
 		alert('CORRECTO: Los datos fueron guardados.');
-		window.location.href='?c=".base64_encode('Producto')."';
+		window.location.href='?c=".base64_encode('Movimientos')."?a=".base64_encode('VerVentas')."';
 		</script>";
         
     }

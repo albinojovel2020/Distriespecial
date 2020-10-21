@@ -3,7 +3,7 @@
 <nav>
     <div class="nav-wrapper white  ">
       <ul id="nav-mobile" class="left hide-on-med-and-down">
-        <li ><a class="grey-text text-darken-1"><b>DISTRIBUIDORA ESPECIAL > PRODUCTOS</b></a></li> 
+        <li ><a class="grey-text text-darken-1"><b>DISTRIBUIDORA ESPECIAL > AGREGAR PRODUCTOS AL STOCK</b></a></li> 
     </ul>
     <ul class="right">
       <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Producto'); ?>&a=<?php echo base64_encode('CrearProducto'); ?>" ><b>Registrar nuevo producto</b><i class="material-icons right grey-text text-darken-1">playlist_add</i></a></li>
@@ -39,7 +39,7 @@
                   <th>Categoria</th>
                   <th>Proveedor</th>
                   <th>Usuario</th>
-                  <th class="center">Editar</th>
+                  <th class="center">Agregar</th>
                   
                   
               </tr>
@@ -59,7 +59,7 @@
                       <td><?php echo $r->nombreprove; ?></td>
                       <td><?php echo $r->nombreusuario; ?></td>
                       <td class="center">
-                          <a href="?c=<?php echo base64_encode('Producto'); ?>&a=<?php echo base64_encode('IngresoProducto'); ?>&idproducto=<?php echo base64_encode($r->idproducto); ?>" title="Editar Registro" ><i class="mini material-icons azul-ast-text hoverable circle ">edit</i></a>
+                          <a href="?c=<?php echo base64_encode('Producto'); ?>&a=<?php echo base64_encode('IngresoProducto'); ?>&idproducto=<?php echo base64_encode($r->idproducto); ?>" title="Agregar al stock" ><i class="mini material-icons azul-ast-text hoverable circle ">add_shopping_cart</i></a>
                       </td>
                       
                       

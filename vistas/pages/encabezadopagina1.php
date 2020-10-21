@@ -1,7 +1,7 @@
 <?php
   //validar la sesión
 if(!isset($_SESSION["id"])){
-    header("Location: ?c=".base64_encode('Login'));
+  header("Location: ?c=".base64_encode('Login'));
 
 }
 ?>
@@ -18,51 +18,52 @@ if(!isset($_SESSION["id"])){
   <link href="vistas/css/estilo.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="vistas/css/jquery.dataTables.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <style>
-  
-/*Mensaje de Confirmación*/
-.confirmacion{
-  background:#e0e0e0;
-  border:1px solid #e0e0e0;
-  color:#00c853;
-}
-.negacion{
-  background:#ffcccc;
-  border:1px solid #ffcccc;
-  color:#00c853;
-}
+    
+    /*Mensaje de Confirmación*/
+    .confirmacion{
+      background:#e0e0e0;
+      border:1px solid #e0e0e0;
+      color:#00c853;
+    }
+    .negacion{
+      background:#ffcccc;
+      border:1px solid #ffcccc;
+      color:#00c853;
+    }
   </style>
 </head>
 <body>
-     <ul id="slide-out" class="sidenav sidenav-fixed white">
-            <li>
-                <div class="user-view">
-                    <center>
-                        <a href="#!user"><img class="circular" src="vistas/img/logoblancocuadrado.jpg"></a>
-                    </center>
-                </div>
-                <div class="lin">
-                <hr class="linea_lg">
-            </div>
-            </li>
-           <li><a href="?c=<?php echo base64_encode('Tablero');?>&idusuario=<?php echo base64_encode($_SESSION["id"]); ?>" class="grey-text text-darken-1"><i class="material-icons grey-text text-darken-1">view_quilt</i><b>TABLERO</b></a></li>
-        <li><a href="?c=<?php echo base64_encode('Usuario');?>" class="grey-text text-darken-1" ><i class="material-icons">person_add</i><b>USUARIOS</b></a></li>
+ <ul id="slide-out" class="sidenav sidenav-fixed white">
+  <li>
+    <div class="user-view">
+      <center>
+        <a href="#!user"><img class="circular" src="vistas/img/logoblancocuadrado.jpg"></a>
+      </center>
+    </div>
+    <div class="lin">
+      <hr class="linea_lg">
+    </div>
+  </li>
+  <li><a href="?c=<?php echo base64_encode('Tablero');?>&idusuario=<?php echo base64_encode($_SESSION["id"]); ?>" class="grey-text text-darken-1"><i class="material-icons grey-text text-darken-1">view_quilt</i><b>TABLERO</b></a></li>
+  <li><a href="?c=<?php echo base64_encode('Usuario');?>" class="grey-text text-darken-1" ><i class="material-icons">person_add</i><b>USUARIOS</b></a></li>
 
 
-        <li><a href="?c=<?php echo base64_encode('Categoria');?>" class="grey-text text-darken-1"><i class="material-icons">offline_pin</i><b>CATEGORIAS</b></a></li>
-        <li><a href="?c=<?php echo base64_encode('Proveedor');?>" class="grey-text text-darken-1"><i class="material-icons">person</i><b>PROVEEDORES</b></a></li>
-        <li><a href="?c=<?php echo base64_encode('Producto');?>&a=<?php echo base64_encode('VerProductosEstado');?>" class="grey-text text-darken-1"><i class="material-icons">playlist_add_check</i><b>ESTADO DE PRODUCTOS</b></a></li>
-        <li><a href="?c=<?php echo base64_encode('Producto');?>" class="grey-text text-darken-1"><i class="material-icons">playlist_add_check</i><b>STOCK DE PRODUCTOS</b></a></li>
-        <li><a href="?c=<?php echo base64_encode('Movimientos');?>" class="grey-text text-darken-1"><i class="material-icons">local_mall</i><b>INGRESO A ALMACEN</b></a></li>
-        <li><a href="?c=<?php echo base64_encode('Movimientos');?>&a=<?php echo base64_encode('CrearVenta');?>" class="grey-text text-darken-1"><i class="material-icons">add_shopping_cart</i><b>VENTAS</b></a></li>
-        <li><a href="?c=<?php echo base64_encode('Movimientos');?>" class="grey-text text-darken-1"><i class="material-icons">cloud_download</i><b>BACKUP</b></a></li>
-        <li><a href="?c=<?php echo base64_encode('Respaldar');?>&a=<?php echo base64_encode('Restore');?>" class="grey-text text-darken-1"><i class="material-icons">settings_backup_restore</i><b>RESTAURAR</b></a></li>
-        <li><a href="?c=<?php echo base64_encode('Usuario');?>&a=<?php echo base64_encode('Ver_datos_usuario');?>&idusuario=<?php echo base64_encode($_SESSION["id"]); ?>" class="grey-text text-darken-1"><i class="material-icons">perm_identity</i><b>MI USUARIO</b></a></li>
-        <li><a href="color.html" class="grey-text text-darken-1"><i class="material-icons">info</i><b>ACERCA DE</b></a></li>
-        </ul>
-        <div class="bar">
-            <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="menu01 material-icons">menu</i></a>
-        </div>
- <main>
+  <li><a href="?c=<?php echo base64_encode('Categoria');?>" class="grey-text text-darken-1"><i class="material-icons">offline_pin</i><b>CATEGORIAS</b></a></li>
+  <li><a href="?c=<?php echo base64_encode('Proveedor');?>" class="grey-text text-darken-1"><i class="material-icons">person</i><b>PROVEEDORES</b></a></li>
+  <li><a href="?c=<?php echo base64_encode('Umedida');?>" class="grey-text text-darken-1"><i class="material-icons">pie_chart
+  </i><b>UNIDADES MEDIDA</b></a></li>
+  <li><a href="?c=<?php echo base64_encode('Producto');?>" class="grey-text text-darken-1"><i class="material-icons">playlist_add_check</i><b>PRODUCTOS</b></a></li>
+  <li><a href="?c=<?php echo base64_encode('Movimientos');?>" class="grey-text text-darken-1"><i class="material-icons">local_mall</i><b>INGRESO A ALMACEN</b></a></li>
+  <li><a href="?c=<?php echo base64_encode('Movimientos');?>&a=<?php echo base64_encode('CrearVenta');?>" class="grey-text text-darken-1"><i class="material-icons">add_shopping_cart</i><b>VENTAS</b></a></li>
+  <li><a href="?c=<?php echo base64_encode('Movimientos');?>" class="grey-text text-darken-1"><i class="material-icons">cloud_download</i><b>BACKUP</b></a></li>
+  <li><a href="?c=<?php echo base64_encode('Respaldar');?>&a=<?php echo base64_encode('Restore');?>" class="grey-text text-darken-1"><i class="material-icons">settings_backup_restore</i><b>RESTAURAR</b></a></li>
+  <li><a href="?c=<?php echo base64_encode('Usuario');?>&a=<?php echo base64_encode('Ver_datos_usuario');?>&idusuario=<?php echo base64_encode($_SESSION["id"]); ?>" class="grey-text text-darken-1"><i class="material-icons">perm_identity</i><b>MI USUARIO</b></a></li>
+  <li><a href="color.html" class="grey-text text-darken-1"><i class="material-icons">info</i><b>ACERCA DE</b></a></li>
+</ul>
+<div class="bar">
+  <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="menu01 material-icons">menu</i></a>
+</div>
+<main>
 
 
-    <!-- fin de la cabecera -->
+  <!-- fin de la cabecera -->
