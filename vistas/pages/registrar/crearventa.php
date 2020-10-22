@@ -21,7 +21,7 @@
         <br>
         <form onkeydown="return event.key != 'Enter';" class="col s12" action="?c=<?php echo base64_encode('Movimientos'); ?>&a=<?php echo base64_encode('GuardarVenta'); ?>" method="post" enctype="multipart/form-data">
          <div class="input-field col s6">
-            <input id="txtNumeroVenta" type="text" class="validate" name="txtNumeroVenta" required>
+            <input id="txtNumeroVenta" type="number" class="validate" name="txtNumeroVenta" required>
             <label for="txtNumeroVenta">Número</label>
         </div>
 
@@ -89,7 +89,7 @@
                         <input id="txtNombre'.$i.'" type="text" name="txtNombre'.$i.'" value="" readonly/>
                         </td>
                         <td>
-                        <input id="txtPrecio'.$i.'" size="5" type="text" class="validate" name="txtPrecio'.$i.'" value="" style="width: 80px;" />
+                        <input id="txtPrecio'.$i.'" size="5" type="text" class="validate" name="txtPrecio'.$i.'" value="" style="width: 80px;" readonly/>
                         </td>
                         <td>
                         <input id="txtCantidad'.$i.'" style="width: 80px;" type="number" class="validate center" name="txtCantidad'.$i.'" value="1"  onchange="calcularCantidad(this)" data-i="'.$i.'"/>
@@ -170,7 +170,6 @@
                     <td>
                       
                            <select id="preciov" name="preciov" class="validate">      
-                                <option value="<?php echo $r->precio1; ?>" disabled><?php echo $r->precio1; ?></option> 
                                 <option value="<?php echo $r->precio1; ?>"><?php echo $r->precio1; ?></option>  
                                 <option value="<?php echo $r->precio2; ?>"><?php echo $r->precio2; ?></option>
                                 <option value="<?php echo $r->precio3; ?>"><?php echo $r->precio3; ?></option>
@@ -197,7 +196,13 @@
 <script>
 //para seleccionar los productos
 function agregardetalle(producto) {
-  //tomar el id del producto 
+
+ if(document.getElementById('preciov').value == "")
+  {
+   alert("Selecciona Una opción de precio");
+   document.getElementById('preciov').focus();
+  }else if (document.getElementById('preciov').value != ""){
+    //tomar el id del producto 
   var id = producto.getAttribute('data-id');
   //tomar el codigobarra del producto 
   var codigo = producto.getAttribute('data-codigo');
@@ -255,6 +260,9 @@ function agregardetalle(producto) {
 
 
     document.getElementById("btnProd"+id).style.visibility = "hidden";
+
+  }
+  
     
 
     

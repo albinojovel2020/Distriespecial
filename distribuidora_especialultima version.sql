@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-10-2020 a las 06:01:38
+-- Tiempo de generación: 22-10-2020 a las 07:04:19
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.3
 
@@ -117,7 +117,8 @@ INSERT INTO `cat_medidas` (`id`, `nombre`, `descripcion`, `codigo`) VALUES
 (2, 'Libra', 'Medida de producto en libras', 'ULIBRA'),
 (3, 'Litro', 'Medida de producto en Litros', 'ULITRO'),
 (4, 'Galon', 'Medida de producto en galones', 'UGALON'),
-(5, 'Metro', 'Unidad de producto en metros', 'UMETRO');
+(5, 'Metro', 'Unidad de producto en metros', 'UMETRO'),
+(6, 'mililitros', 'mililitros', 'umili');
 
 -- --------------------------------------------------------
 
@@ -138,7 +139,11 @@ CREATE TABLE `detalleventa` (
 --
 
 INSERT INTO `detalleventa` (`iddetalleventa`, `idventa`, `idproducto`, `cantidadventa`, `precioventa`) VALUES
-(96, 97, 1, 1, '9.99');
+(96, 97, 1, 1, '9.99'),
+(97, 98, 1, 4, '200.00'),
+(98, 98, 2, 2, '100.00'),
+(99, 99, 1, 2, '100.00'),
+(100, 99, 2, 1, '50.00');
 
 -- --------------------------------------------------------
 
@@ -161,7 +166,11 @@ CREATE TABLE `ingreso_producto` (
 --
 
 INSERT INTO `ingreso_producto` (`id`, `idproducto`, `stockanterior`, `cantidad`, `stockdespues`, `usuario`, `fcrea`) VALUES
-(45, 1, 0, 10, 10, 1, '2020-10-20');
+(45, 1, 0, 10, 10, 1, '2020-10-20'),
+(46, 2, 0, 4, 4, 16, '2020-10-21'),
+(47, 3, 0, 3443, 3443, 16, '2020-10-21'),
+(48, 4, 0, 5, 5, 16, '2020-10-21'),
+(49, 5, 0, 2, 2, 16, '2020-10-21');
 
 --
 -- Disparadores `ingreso_producto`
@@ -218,16 +227,16 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`idproducto`, `nombre`, `descripcion`, `preciocompra`, `stock`, `imagen`, `idcategoria`, `idproveedor`, `idusuario`, `estado`, `umedida`, `precio1`, `precio2`, `precio3`) VALUES
-(1, 'Harina de maizena', 'Harina de maiz jajaja', '50.00', 9, 'img/FONDO.jpg', 8, 1, 1, 1, 3, '150.00', '0.00', '0.00'),
-(2, 'Horchata de cocoa', 'Bebida de disolucion', '3.50', 0, 'img/haha.jpg', 6, 1, 16, 1, 1, '0.00', '0.00', '0.00'),
-(3, 'Topping de fresa', 'Topping para adornar sabor a fresa', '9.99', 0, 'img/FONDO.jpg', 7, 1, 1, 1, 1, '0.00', '0.00', '0.00'),
-(4, 'aa', 'aa', '4.00', 0, 'img/producto.jpg', 1, 2, 16, 1, 1, '0.00', '0.00', '0.00'),
-(5, 'CHOCOCRISPIS', 'CEREAL DE ARROZ DE CHOCOLATE', '2.65', 0, 'img/producto.jpg', 1, 1, 1, 1, 1, '0.00', '0.00', '0.00'),
-(6, 'Harina de chocolate', 'Harina para hacer pan de chocolate', '2.00', 0, 'img/producto.jpg', 8, 3, 16, 1, 1, '0.00', '0.00', '0.00'),
-(7, 'Queso crema', 'Queso crema para pasteles', '1.50', 0, 'img/producto.jpg', 5, 2, 16, 1, 1, '0.00', '0.00', '0.00'),
-(8, 'Tres leches', 'Postre tres leches', '1.00', 0, 'img/producto.jpg', 5, 4, 16, 1, 1, '0.00', '0.00', '0.00'),
-(9, 'Papel mantequilla', 'Papel para hornear', '1.90', 0, 'img/FONDO.jpg', 9, 2, 16, 1, 1, '0.00', '0.00', '0.00'),
-(13, 'PRUEBAA', 'PRUEBAA', '0.00', 0, 'img/FONDO.jpg', 5, 1, 16, 1, 3, '0.00', '0.00', '0.00');
+(1, 'Harina de maizena', 'Harina de maiz jajaja', '50.00', 3, 'img/FONDO.jpg', 8, 1, 1, 1, 3, '50.00', '50.00', '50.00'),
+(2, 'Horchata de cocoa', 'Bebida de disolucion', '3.50', 1, 'img/haha.jpg', 6, 1, 16, 1, 1, '50.00', '50.00', '50.00'),
+(3, 'Topping de fresa', 'Topping para adornar sabor a fresa', '9.99', 3443, 'img/FONDO.jpg', 7, 1, 1, 1, 1, '50.00', '50.00', '50.00'),
+(4, 'aa', 'aa', '4.00', 5, 'img/producto.jpg', 1, 2, 16, 1, 1, '50.00', '50.00', '50.00'),
+(5, 'CHOCOCRISPIS', 'CEREAL DE ARROZ DE CHOCOLATE', '2.65', 2, 'img/producto.jpg', 1, 1, 1, 1, 1, '50.00', '50.00', '50.00'),
+(6, 'Harina de chocolate', 'Harina para hacer pan de chocolate', '2.00', 0, 'img/producto.jpg', 8, 3, 16, 1, 1, '50.00', '50.00', '50.00'),
+(7, 'Queso crema', 'Queso crema para pasteles', '1.50', 0, 'img/producto.jpg', 5, 2, 16, 1, 1, '50.00', '50.00', '50.00'),
+(8, 'Tres leches', 'Postre tres leches', '1.00', 0, 'img/producto.jpg', 5, 4, 16, 1, 1, '50.00', '50.00', '50.00'),
+(9, 'Papel mantequilla', 'Papel para hornear', '1.90', 0, 'img/FONDO.jpg', 9, 2, 16, 1, 1, '50.00', '50.00', '50.00'),
+(13, 'PRUEBAA', 'PRUEBAA', '0.00', 0, 'img/FONDO.jpg', 5, 1, 16, 1, 3, '50.00', '50.00', '50.00');
 
 -- --------------------------------------------------------
 
@@ -319,7 +328,7 @@ CREATE TABLE `venta` (
   `idventa` int(11) NOT NULL,
   `numeroventa` int(11) NOT NULL,
   `fechaventa` date NOT NULL,
-  `total` decimal(4,2) NOT NULL,
+  `total` decimal(10,2) NOT NULL,
   `idusuario` int(11) NOT NULL,
   `tipo_comprobante` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -331,7 +340,9 @@ CREATE TABLE `venta` (
 INSERT INTO `venta` (`idventa`, `numeroventa`, `fechaventa`, `total`, `idusuario`, `tipo_comprobante`) VALUES
 (95, 555, '2020-10-20', '23.80', 16, 1),
 (96, 123, '2020-10-20', '1.90', 16, 1),
-(97, 555, '2020-10-21', '9.99', 16, 1);
+(97, 555, '2020-10-21', '9.99', 16, 1),
+(98, 80, '2020-10-21', '99.99', 16, 1),
+(99, 5556, '2020-10-21', '150.00', 16, 1);
 
 -- --------------------------------------------------------
 
@@ -347,7 +358,7 @@ CREATE TABLE `ventas_producto` (
   `cantidadventa` int(11) NOT NULL,
   `stockdespues` int(11) NOT NULL,
   `usuario` int(11) NOT NULL,
-  `precioventa` decimal(6,2) NOT NULL,
+  `precioventa` decimal(10,2) NOT NULL,
   `fcrea` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -356,7 +367,11 @@ CREATE TABLE `ventas_producto` (
 --
 
 INSERT INTO `ventas_producto` (`id`, `idventa`, `idproducto`, `stockanterior`, `cantidadventa`, `stockdespues`, `usuario`, `precioventa`, `fcrea`) VALUES
-(9, 97, 1, 10, 1, 9, 16, '9.99', '2020-10-21');
+(9, 97, 1, 10, 1, 9, 16, '9.99', '2020-10-21'),
+(10, 98, 1, 9, 4, 5, 16, '200.00', '2020-10-21'),
+(11, 98, 2, 4, 2, 2, 16, '100.00', '2020-10-21'),
+(12, 99, 1, 5, 2, 3, 16, '100.00', '2020-10-21'),
+(13, 99, 2, 2, 1, 1, 16, '50.00', '2020-10-21');
 
 --
 -- Disparadores `ventas_producto`
@@ -479,19 +494,19 @@ ALTER TABLE `cat_comprobante`
 -- AUTO_INCREMENT de la tabla `cat_medidas`
 --
 ALTER TABLE `cat_medidas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `detalleventa`
 --
 ALTER TABLE `detalleventa`
-  MODIFY `iddetalleventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `iddetalleventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT de la tabla `ingreso_producto`
 --
 ALTER TABLE `ingreso_producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntasecreta`
@@ -527,13 +542,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas_producto`
 --
 ALTER TABLE `ventas_producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Restricciones para tablas volcadas
