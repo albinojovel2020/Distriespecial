@@ -5,9 +5,6 @@
       <ul id="nav-mobile" class="left hide-on-med-and-down">
         <li ><a class="grey-text text-darken-1"><b>DISTRIBUIDORA ESPECIAL > AGREGAR PRODUCTOS AL STOCK</b></a></li> 
     </ul>
-    <ul class="right">
-      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Producto'); ?>&a=<?php echo base64_encode('CrearProducto'); ?>" ><b>Registrar nuevo producto</b><i class="material-icons right grey-text text-darken-1">playlist_add</i></a></li>
-  </ul>
   <ul class="right">
       <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Producto'); ?>&a=<?php echo base64_encode('VerIngresos'); ?>" ><b>Ver registros de ingreso</b><i class="material-icons right grey-text text-darken-1">playlist_add</i></a></li>
   </ul>

@@ -38,11 +38,42 @@
               <label for="descripcion">Apellidos</label>
             </div>
 
-            <div class="input-field col s12 m6">
-              <i class="material-icons prefix form-icon">monetization_on</i>
-              <input id="precio" type="text" class="validate" name="precio" value="<?php echo $producto->precio; ?>" required maxlength="6" onkeypress="return justNumbers(event);">
-              <label for="precio">Precio Unitario</label>
+          </div>
+         <div class="input-field col s12 m6">
+            <i class="material-icons prefix form-icon">monetization_on</i>
+            <input id="preciocompra" type="text" maxlength="6" onkeypress="return justNumbers(event);" value="0.00" class="validate" name="preciocompra" required>
+            <label for="preciocompra">Precio Compra</label>
+          </div>
+
+
+          <div class="input-field col s12 m6">
+            <i class="material-icons prefix form-icon">monetization_on</i>
+            <input id="precio1" type="text" maxlength="6" onkeypress="return justNumbers(event);" value="0.00" class="validate" name="precio1" required>
+            <label for="precio1">Precio 1</label>
+          </div>
+
+          <div class="input-field col s12 m6">
+            <i class="material-icons prefix form-icon">monetization_on</i>
+            <input id="precio2" type="text" maxlength="6" onkeypress="return justNumbers(event);" value="0.00" class="validate" name="precio2" required>
+            <label for="precio2">Precio 2</label>
+          </div>
+
+          <div class="input-field col s12 m6">
+            <i class="material-icons prefix form-icon">monetization_on</i>
+            <input id="precio3" type="text" maxlength="6" onkeypress="return justNumbers(event);" value="0.00" class="validate" name="precio3" required>
+            <label for="precio3">Precio 3</label>
+          </div>
+
+           <div class="input-field col s12 m6"> 
+
+                <select id="idumedida" name="idumedida" class="validate" required>      
+                  <option value="<?php echo $producto->umedida; ?>"><?php echo $producto->nombreumedida; ?></option>              
+                    <?php foreach($this->modelUmedida->ListarUmedida() as $r): ?>
+                        <option value="<?php echo $r->id; ?>"><?php echo $r->nombre; ?></option>
+                    <?php endforeach; ?>
+                </select>
             </div>
+
 
             <div class="input-field col s12 m6" hidden>
               <i class="material-icons prefix form-icon">loupe</i>

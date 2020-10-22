@@ -3,16 +3,12 @@
 <nav>
   <div class="nav-wrapper white  ">
     <ul id="nav-mobile" class="left hide-on-med-and-down">
-      <li ><a class="grey-text text-darken-1"><b>DISTRIBUIDORA ESPECIAL > PRODUCTO</b></a></li> 
+      <li ><a class="grey-text text-darken-1"><b>DISTRIBUIDORA ESPECIAL > PRODUCTO.</b></a></li> 
     </ul>
+    
+
     <ul class="right">
-      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Producto'); ?>&a=<?php echo base64_encode('VerIngresos'); ?>" ><b>Ver Ingresos</b><i class="material-icons right grey-text text-darken-1">playlist_add</i></a></li>
-  </ul>
-     <ul class="right">
-      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Movimientos'); ?>" ><b>Ingresar a stock de productos</b><i class="material-icons right grey-text text-darken-1">local_mall</i></a></li>
-    </ul>
-    <ul class="right">
-      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Producto'); ?>" ><b>Lista de productos</b><i class="material-icons right grey-text text-darken-1">arrow_back</i></a></li>
+      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Producto'); ?>" ><b>volver a Lista de productos</b><i class="material-icons right grey-text text-darken-1">arrow_back</i></a></li>
     </ul>
   </div>
 </nav>
@@ -27,94 +23,114 @@
       <form class="col s12" action="?c=<?php echo base64_encode('Producto'); ?>&a=<?php echo base64_encode('RegistrarProducto'); ?>" method="post" enctype="multipart/form-data">
         <div class="row top20px bottom20px">
 
-            <div class="input-field col s12 m6">
-              <i class="material-icons prefix form-icon">person</i>
-              <input id="nombres" type="text" class="validate" name="nombres" required autofocus>
-              <label for="nombres">Nombre</label>
+          <div class="input-field col s12 m6">
+            <i class="material-icons prefix form-icon">person</i>
+            <input id="nombres" type="text" class="validate" name="nombres" required autofocus>
+            <label for="nombres">Nombre</label>
+          </div>
+
+          <div class="input-field col s12 m6">
+            <i class="material-icons prefix form-icon">description</i>
+            <input id="descripcion" type="text" class="validate" name="descripcion" required>
+            <label for="descripcion">Descripción</label>
+          </div>
+
+          <div class="input-field col s12 m6">
+            <i class="material-icons prefix form-icon">monetization_on</i>
+            <input id="preciocompra" type="text" maxlength="6" onkeypress="return justNumbers(event);" value="0.00" class="validate" name="preciocompra" required>
+            <label for="preciocompra">Precio Compra</label>
+          </div>
+
+
+          <div class="input-field col s12 m6">
+            <i class="material-icons prefix form-icon">monetization_on</i>
+            <input id="precio1" type="text" maxlength="6" onkeypress="return justNumbers(event);" value="0.00" class="validate" name="precio1" required>
+            <label for="precio1">Precio 1</label>
+          </div>
+
+          <div class="input-field col s12 m6">
+            <i class="material-icons prefix form-icon">monetization_on</i>
+            <input id="precio2" type="text" maxlength="6" onkeypress="return justNumbers(event);" value="0.00" class="validate" name="precio2" required>
+            <label for="precio2">Precio 2</label>
+          </div>
+
+          <div class="input-field col s12 m6">
+            <i class="material-icons prefix form-icon">monetization_on</i>
+            <input id="precio3" type="text" maxlength="6" onkeypress="return justNumbers(event);" value="0.00" class="validate" name="precio3" required>
+            <label for="precio3">Precio 3</label>
+          </div>
+
+
+          <div class="input-field col s12 m6" hidden>
+            <i class="material-icons prefix form-icon">loupe</i>
+            <input id="stock" type="number" minlength="1" value="0" class="validate" name="stock" required>
+            <label for="stock">Stock</label>
+          </div>
+
+          <div class="input-field col s12 m6" >
+            <i class="material-icons prefix form-icon">loupe</i>
+            <input id="mstock" type="number" minlength="1" class="validate" name="mstock" required value="0" disabled>
+            <label for="mstock">Stock</label>
+          </div>
+
+          <div class="input-field col s12 m6"> 
+
+            <select id="idcategoria" name="idcategoria" class="validate" required>      <option value="" disabled selected>Seleccione Categoría</option>            
+              <?php foreach($this->modelCategoria->ListarCategoria() as $r): ?>
+                <option value="<?php echo $r->idcategoria; ?>"><?php echo $r->nombre; ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+
+          <div class="input-field col s12 m6"> 
+
+            <select id="idproveedor" name="idproveedor" class="validate" required>      <option value="" disabled selected>Seleccione Proveedor</option>            
+              <?php foreach($this->modelProveedor->ListarProveedorActivos() as $r): ?>
+                <option value="<?php echo $r->idproveedor; ?>"><?php echo $r->nombreprove; ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+
+          <div class="input-field col s12 m6"> 
+            <select id="idumedida" name="idumedida" class="validate" required>      
+              <option value="" disabled selected>Seleccione Unidad de medida</option>            
+              <?php foreach($this->modelUmedida->ListarUmedida() as $r): ?>
+                <option value="<?php echo $r->id; ?>"><?php echo $r->nombre; ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+
+          <div class="input-field col s12 m6">
+            <select  id="idusuario" name="idusuario" class="validate" required>
+              <option  value="<?php echo $_SESSION['id']; ?>"><?php echo $_SESSION['usuario']; ?></option>                    
+            </select>
+          </div>
+
+          <div class="file-field input-field col s12 m6">
+            <div class="btn">
+              <!---->
+              <span id="file-select">File</span>
+              <input type="file" id="filename" name="producto1">
             </div>
-
-            <div class="input-field col s12 m6">
-              <i class="material-icons prefix form-icon">description</i>
-              <input id="descripcion" type="text" class="validate" name="descripcion" required>
-              <label for="descripcion">Descripción</label>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text" id="file-info"  >
             </div>
-
-            <div class="input-field col s12 m6">
-              <i class="material-icons prefix form-icon">monetization_on</i>
-              <input id="precio" type="text" maxlength="6" onkeypress="return justNumbers(event);" class="validate" name="precio" required>
-              <label for="precio">Precio Unitario</label>
+            <br>
+            <div id="preview">
+              <img  style="width: 150px;  height: 150px;   margin-top: 5px;" src="img/camera1.png"/>              
             </div>
+          </div>
 
-            <div class="input-field col s12 m6" hidden>
-              <i class="material-icons prefix form-icon">loupe</i>
-              <input id="stock" type="number" minlength="1" value="0" class="validate" name="stock" required>
-              <label for="stock">Stock</label>
-            </div>
-
-            <div class="input-field col s12 m6" >
-              <i class="material-icons prefix form-icon">loupe</i>
-              <input id="mstock" type="number" minlength="1" class="validate" name="mstock" required value="0" disabled>
-              <label for="mstock">Stock</label>
-            </div>
-
-            <div class="input-field col s12 m6"> 
-
-                <select id="idcategoria" name="idcategoria" class="validate" required>      <option value="" disabled selected>Seleccione Categoría</option>            
-                    <?php foreach($this->modelCategoria->ListarCategoria() as $r): ?>
-                        <option value="<?php echo $r->idcategoria; ?>"><?php echo $r->nombre; ?></option>
-                    <?php endforeach; ?>
-                  </select>
-            </div>
-
-            <div class="input-field col s12 m6"> 
-
-                <select id="idproveedor" name="idproveedor" class="validate" required>      <option value="" disabled selected>Seleccione Proveedor</option>            
-                    <?php foreach($this->modelProveedor->ListarProveedorActivos() as $r): ?>
-                        <option value="<?php echo $r->idproveedor; ?>"><?php echo $r->nombreprove; ?></option>
-                    <?php endforeach; ?>
-                  </select>
-            </div>
-
-            <div class="input-field col s12 m6"> 
-
-                <select id="idproveedor" name="idproveedor" class="validate" required>      <option value="" disabled selected>Seleccione Proveedor</option>            
-                    <?php foreach($this->modelProveedor->ListarProveedorActivos() as $r): ?>
-                        <option value="<?php echo $r->idproveedor; ?>"><?php echo $r->nombreprove; ?></option>
-                    <?php endforeach; ?>
-                  </select>
-            </div>
-
-            <div class="input-field col s12 m6">
-              <select  id="idusuario" name="idusuario" class="validate" required>
-                <option  value="<?php echo $_SESSION['id']; ?>"><?php echo $_SESSION['usuario']; ?></option>                    
-              </select>
-            </div>
-
-            <div class="file-field input-field col s12 m6">
-              <div class="btn">
-                <!---->
-                <span id="file-select">File</span>
-                <input type="file" id="filename" name="producto1">
-              </div>
-              <div class="file-path-wrapper">
-                <input class="file-path validate" type="text" id="file-info"  >
-              </div>
-              <br>
-              <div id="preview">
-                <img  style="width: 150px;  height: 150px;   margin-top: 5px;" src="img/camera1.png"/>              
-              </div>
-            </div>
-
-            <div class="input-field col s12">
-              <center>
-                <button class="btn waves-effect waves-light green accent-4 hoverable" type="submit" name="guardar" title="Guardar registro">Guardar
+          <div class="input-field col s12">
+            <center>
+              <button class="btn waves-effect waves-light green accent-4 hoverable" type="submit" name="guardar" title="Guardar registro">Guardar
                 <i class="material-icons right">save</i>
               </button>
-              </center>
-              
-            </div>
+            </center>
 
           </div>
+
+        </div>
       </form>
     </div>
   </div>
@@ -123,10 +139,10 @@
 
 </div>
 <div class="container">
-    <!-- floating button -->
-    <div class="fixed-action-btn">
+  <!-- floating button -->
+  <div class="fixed-action-btn">
     <a href="?c=<?php echo base64_encode('Login');?>&a=<?php echo base64_encode('CerrarSesion');?>" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">exit_to_app</i></a>
-</div>
+  </div>
 
 
-<!-- fin del cuerpo -->
+  <!-- fin del cuerpo -->

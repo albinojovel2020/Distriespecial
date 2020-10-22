@@ -3,6 +3,7 @@
 require_once 'modelo/Producto.php';
 require_once 'modelo/Categoria.php';
 require_once 'modelo/Proveedor.php';
+require_once 'modelo/Umedida.php';
 
 class ProductoController
 {
@@ -15,6 +16,7 @@ class ProductoController
 		$this->model = new Producto();
 		$this->modelCategoria = new Categoria();
 		$this->modelProveedor = new Proveedor();
+		$this->modelUmedida = new Umedida();
 	}
 
 	//Tablas de Usuario
@@ -72,11 +74,15 @@ class ProductoController
 		//tomar todos los datos
 		$this->model->nombre = $_REQUEST['nombres'];
 		$this->model->descripcion = $_REQUEST['descripcion'];
-		$this->model->precio = $_REQUEST['precio'];
+		$this->model->precio = $_REQUEST['preciocompra'];
 		$this->model->stock = $_REQUEST['stock'];
 		$this->model->idcategoria = $_REQUEST['idcategoria'];
 		$this->model->idproveedor = $_REQUEST['idproveedor'];
 		$this->model->idusuario = $_REQUEST['idusuario'];
+		$this->model->idumedida = $_REQUEST['idumedida'];
+		$this->model->precio1 = $_REQUEST['precio1'];
+		$this->model->precio2 = $_REQUEST['precio2'];
+		$this->model->precio3 = $_REQUEST['precio3'];
 		$this->model->img = ($rutas);
 		
 
@@ -167,12 +173,16 @@ class ProductoController
 		$this->model->idproducto = $_REQUEST['idproducto'];
 		$this->model->nombre = $_REQUEST['nombres'];
 		$this->model->descripcion = $_REQUEST['descripcion'];
-		$this->model->precio = $_REQUEST['precio'];
 		$this->model->stock = $_REQUEST['stock'];
 		$this->model->idcategoria = $_REQUEST['idcategoria'];
 		$this->model->idproveedor = $_REQUEST['idproveedor'];
 		$this->model->idusuario = $_REQUEST['idusuario'];
 		$this->model->img = ($rutas);
+		$this->model->precio = $_REQUEST['preciocompra'];
+		$this->model->idumedida = $_REQUEST['idumedida'];
+		$this->model->precio1 = $_REQUEST['precio1'];
+		$this->model->precio2 = $_REQUEST['precio2'];
+		$this->model->precio3 = $_REQUEST['precio3'];
 
 		//Actualiza el Usuario
 		$this->model->ActualizarProducto($this->model);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-10-2020 a las 07:11:59
+-- Tiempo de generación: 22-10-2020 a las 06:01:38
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.3
 
@@ -71,7 +71,8 @@ INSERT INTO `categoria` (`idcategoria`, `nombre`, `descripcion`, `idusuario`) VA
 (8, 'Harinas', 'Todo tipo de harinas', 16),
 (9, 'Utensilios', 'Utencilios de cocina', 15),
 (10, 'Manteca', 'Todo tipo de mantecas', 2),
-(11, 'Saborizantes', 'Todo tipo de saborizantes', 1);
+(11, 'Saborizantes', 'Todo tipo de saborizantes', 1),
+(13, 'Sopitas', 'sopitas', 16);
 
 -- --------------------------------------------------------
 
@@ -112,7 +113,7 @@ CREATE TABLE `cat_medidas` (
 --
 
 INSERT INTO `cat_medidas` (`id`, `nombre`, `descripcion`, `codigo`) VALUES
-(1, 'Onzajaja', 'Medida de producto en onzas jajaja', 'UONZA'),
+(1, 'Onza', 'Medida de producto en onzas', 'UONZA'),
 (2, 'Libra', 'Medida de producto en libras', 'ULIBRA'),
 (3, 'Litro', 'Medida de producto en Litros', 'ULITRO'),
 (4, 'Galon', 'Medida de producto en galones', 'UGALON'),
@@ -131,6 +132,13 @@ CREATE TABLE `detalleventa` (
   `cantidadventa` int(11) DEFAULT NULL,
   `precioventa` decimal(6,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `detalleventa`
+--
+
+INSERT INTO `detalleventa` (`iddetalleventa`, `idventa`, `idproducto`, `cantidadventa`, `precioventa`) VALUES
+(96, 97, 1, 1, '9.99');
 
 -- --------------------------------------------------------
 
@@ -192,30 +200,34 @@ CREATE TABLE `producto` (
   `idproducto` int(11) NOT NULL,
   `nombre` varchar(80) NOT NULL,
   `descripcion` varchar(100) NOT NULL,
-  `preciounitario` decimal(3,2) NOT NULL,
+  `preciocompra` decimal(10,2) NOT NULL,
   `stock` int(11) NOT NULL,
   `imagen` varchar(90) NOT NULL,
   `idcategoria` int(11) NOT NULL,
   `idproveedor` int(11) NOT NULL,
   `idusuario` int(11) NOT NULL,
   `estado` tinyint(4) NOT NULL DEFAULT 1,
-  `umedida` int(11) NOT NULL
+  `umedida` int(11) NOT NULL,
+  `precio1` decimal(10,2) NOT NULL,
+  `precio2` decimal(10,2) NOT NULL,
+  `precio3` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `producto`
 --
 
-INSERT INTO `producto` (`idproducto`, `nombre`, `descripcion`, `preciounitario`, `stock`, `imagen`, `idcategoria`, `idproveedor`, `idusuario`, `estado`, `umedida`) VALUES
-(1, 'Harina de maiz', 'Harina de maiz', '9.99', 10, 'img/FONDO.jpg', 8, 1, 1, 1, 1),
-(2, 'Horchata de cocoa', 'Bebida de disolucion', '3.50', 0, 'img/haha.jpg', 6, 1, 16, 1, 1),
-(3, 'Topping de fresa', 'Topping para adornar sabor a fresa', '9.99', 0, 'img/FONDO.jpg', 7, 1, 1, 1, 1),
-(4, 'aa', 'aa', '4.00', 0, 'img/producto.jpg', 1, 2, 16, 1, 1),
-(5, 'CHOCOCRISPIS', 'CEREAL DE ARROZ DE CHOCOLATE', '2.65', 0, 'img/producto.jpg', 1, 1, 1, 1, 1),
-(6, 'Harina de chocolate', 'Harina para hacer pan de chocolate', '2.00', 0, 'img/producto.jpg', 8, 3, 16, 1, 1),
-(7, 'Queso crema', 'Queso crema para pasteles', '1.50', 0, 'img/producto.jpg', 5, 2, 16, 1, 1),
-(8, 'Tres leches', 'Postre tres leches', '1.00', 0, 'img/producto.jpg', 5, 4, 16, 1, 1),
-(9, 'Papel mantequilla', 'Papel para hornear', '1.90', 0, 'img/FONDO.jpg', 9, 2, 16, 1, 1);
+INSERT INTO `producto` (`idproducto`, `nombre`, `descripcion`, `preciocompra`, `stock`, `imagen`, `idcategoria`, `idproveedor`, `idusuario`, `estado`, `umedida`, `precio1`, `precio2`, `precio3`) VALUES
+(1, 'Harina de maizena', 'Harina de maiz jajaja', '50.00', 9, 'img/FONDO.jpg', 8, 1, 1, 1, 3, '150.00', '0.00', '0.00'),
+(2, 'Horchata de cocoa', 'Bebida de disolucion', '3.50', 0, 'img/haha.jpg', 6, 1, 16, 1, 1, '0.00', '0.00', '0.00'),
+(3, 'Topping de fresa', 'Topping para adornar sabor a fresa', '9.99', 0, 'img/FONDO.jpg', 7, 1, 1, 1, 1, '0.00', '0.00', '0.00'),
+(4, 'aa', 'aa', '4.00', 0, 'img/producto.jpg', 1, 2, 16, 1, 1, '0.00', '0.00', '0.00'),
+(5, 'CHOCOCRISPIS', 'CEREAL DE ARROZ DE CHOCOLATE', '2.65', 0, 'img/producto.jpg', 1, 1, 1, 1, 1, '0.00', '0.00', '0.00'),
+(6, 'Harina de chocolate', 'Harina para hacer pan de chocolate', '2.00', 0, 'img/producto.jpg', 8, 3, 16, 1, 1, '0.00', '0.00', '0.00'),
+(7, 'Queso crema', 'Queso crema para pasteles', '1.50', 0, 'img/producto.jpg', 5, 2, 16, 1, 1, '0.00', '0.00', '0.00'),
+(8, 'Tres leches', 'Postre tres leches', '1.00', 0, 'img/producto.jpg', 5, 4, 16, 1, 1, '0.00', '0.00', '0.00'),
+(9, 'Papel mantequilla', 'Papel para hornear', '1.90', 0, 'img/FONDO.jpg', 9, 2, 16, 1, 1, '0.00', '0.00', '0.00'),
+(13, 'PRUEBAA', 'PRUEBAA', '0.00', 0, 'img/FONDO.jpg', 5, 1, 16, 1, 3, '0.00', '0.00', '0.00');
 
 -- --------------------------------------------------------
 
@@ -318,7 +330,8 @@ CREATE TABLE `venta` (
 
 INSERT INTO `venta` (`idventa`, `numeroventa`, `fechaventa`, `total`, `idusuario`, `tipo_comprobante`) VALUES
 (95, 555, '2020-10-20', '23.80', 16, 1),
-(96, 123, '2020-10-20', '1.90', 16, 1);
+(96, 123, '2020-10-20', '1.90', 16, 1),
+(97, 555, '2020-10-21', '9.99', 16, 1);
 
 -- --------------------------------------------------------
 
@@ -337,6 +350,13 @@ CREATE TABLE `ventas_producto` (
   `precioventa` decimal(6,2) NOT NULL,
   `fcrea` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `ventas_producto`
+--
+
+INSERT INTO `ventas_producto` (`id`, `idventa`, `idproducto`, `stockanterior`, `cantidadventa`, `stockdespues`, `usuario`, `precioventa`, `fcrea`) VALUES
+(9, 97, 1, 10, 1, 9, 16, '9.99', '2020-10-21');
 
 --
 -- Disparadores `ventas_producto`
@@ -447,7 +467,7 @@ ALTER TABLE `ventas_producto`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `idcategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `idcategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `cat_comprobante`
@@ -465,7 +485,7 @@ ALTER TABLE `cat_medidas`
 -- AUTO_INCREMENT de la tabla `detalleventa`
 --
 ALTER TABLE `detalleventa`
-  MODIFY `iddetalleventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `iddetalleventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- AUTO_INCREMENT de la tabla `ingreso_producto`
@@ -483,7 +503,7 @@ ALTER TABLE `preguntasecreta`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
@@ -507,13 +527,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas_producto`
 --
 ALTER TABLE `ventas_producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Restricciones para tablas volcadas

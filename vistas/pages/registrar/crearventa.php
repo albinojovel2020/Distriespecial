@@ -5,218 +5,194 @@
         <li ><a class="grey-text text-darken-1"><b>DISTRIBUIDORA ESPECIAL > MODULO DE VENTA</b></a></li> 
     </ul>
     <ul class="right">
-      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Producto'); ?>&a=<?php echo base64_encode('CrearProducto'); ?>" ><b>Registrar nuevo producto</b><i class="material-icons right grey-text text-darken-1">playlist_add</i></a></li>
-  </ul>
-  <ul class="right">
-      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Producto'); ?>&a=<?php echo base64_encode('VerIngresos'); ?>" ><b>Ver registros de ingreso</b><i class="material-icons right grey-text text-darken-1">playlist_add</i></a></li>
-  </ul>
-   
+        <a href="#idmodalproducto" class="waves-effect waves-light btn modal-trigger green accent-4"><i class="material-icons right">add_shopping_cart</i><b>AGREGAR PRODUCTO AL DETALLE</b></a>
+    </ul>  
 </div>
 </nav>  
-
-
 <br>
 <br>
-    
-    <h1 class="center">MODULO DE VENTAS - FACTURACION</h1>
-
 <div class="contrainer">
-    
+   <div class="row">
 
- <div class="row">
-
-  <!-- inicio de columna de datos de factura -->
+      <!-- inicio de columna de datos de factura -->
       <div class="col s12">
-         <a href="#idmodalproducto" class="btn modal-trigger"><i class="material-icons">shopping_cart</i>       AGREGAR PRODUCTO AL DETALLE</a>
-         <form onkeydown="return event.key != 'Enter';" class="col s12" action="?c=<?php echo base64_encode('Movimientos'); ?>&a=<?php echo base64_encode('GuardarVenta'); ?>" method="post" enctype="multipart/form-data">
-               <div class="input-field col s6">
-                        <input id="txtNumeroVenta" type="text" class="validate" name="txtNumeroVenta" required>
-                        <label for="txtNumeroVenta">Número</label>
-                    </div>
+        <h5 class="center grey-text text-darken-1">Datos generales del detalle de venta</h5>
+        
+        <br>
+        <form onkeydown="return event.key != 'Enter';" class="col s12" action="?c=<?php echo base64_encode('Movimientos'); ?>&a=<?php echo base64_encode('GuardarVenta'); ?>" method="post" enctype="multipart/form-data">
+         <div class="input-field col s6">
+            <input id="txtNumeroVenta" type="text" class="validate" name="txtNumeroVenta" required>
+            <label for="txtNumeroVenta">Número</label>
+        </div>
 
-                    <div class="input-field col s6">
-                        <input id="txtFechaVenta" type="text" name="txtFechaVenta" value="<?php echo date("Y-m-d"); ?>"  readonly>
-                        <label for="txtFechaVenta">Fecha y Hora</label>
-                    </div>
-                   
-                    <div class="input-field col s6" hidden>
-                    <input id="txtIdUsuario" type="text" name="txtIdUsuario"  value="<?php echo $_SESSION['id']; ?>"  readonly>
-                    <label for="txtIdUsuario">Empleado responsable</label>
-                    </div>
+        <div class="input-field col s6">
+            <input id="txtFechaVenta" type="text" name="txtFechaVenta" value="<?php echo date("Y-m-d"); ?>"  readonly>
+            <label for="txtFechaVenta">Fecha y Hora</label>
+        </div>
 
-                    <div class="input-field col s6">
-                    <input id="txtIdUsuari" type="text" name="txtIdUsuari" value="<?php echo $_SESSION['nombre'].' '.$_SESSION['apellido']; ?>"  readonly>
-                    <label for="txtIdUsuari">Empleado responsable</label>
-                    </div>
+        <div class="input-field col s6" hidden>
+            <input id="txtIdUsuario" type="text" name="txtIdUsuario"  value="<?php echo $_SESSION['id']; ?>"  readonly>
+            <label for="txtIdUsuario">Empleado responsable</label>
+        </div>
 
-                     <div class="input-field col s6">                
-                        <label for="selComprobante">Tipo comprobante</label>
-                        <br>
-                        <br>
-                        <select name="selComprobante" id="selComprobante" class="validate" required>
-                                <option value="1">Factura consumidor final</option>
-                                <option value="2">Factura credito fiscal</option>
-                                <option value="3">Nota de envio</option>
+        <div class="input-field col s6">
+            <input id="txtIdUsuari" type="text" name="txtIdUsuari" value="<?php echo $_SESSION['nombre'].' '.$_SESSION['apellido']; ?>"  readonly>
+            <label for="txtIdUsuari">Empleado responsable</label>
+        </div>
+
+        <div class="col s6">  
+        <label>Tipo de comprobante</label>             
+            <select class="browser-default validate " name="selComprobante" id="selComprobante" required>
+                <option  value="" disabled selected>Seleccione una opción</option>
+                <option value="1">Factura consumidor final</option>
+                <option value="2">Factura credito fiscal</option>
+                <option value="3">Nota de envio</option>
+            </select>
+        </div>
+
+        <div class="input-field col s12 m6"> 
+
+
+        </div>
+
+        <!-- para saber cuantos detalles se enviaron -->
+        <input id="txtCantidadDetalle"  hidden  name="txtCantidadDetalle" value="1">
+        <!-- para saber cual fue el último borrado -->
+        <input id="txtBorrado"  hidden  name="txtBorrado" value="0">
+
+        <!-- tabla de activos -->
+        <div id="detalle" class="col s12">
+            <h5 class="center grey-text text-darken-1">Productos agregados al detalle de venta</h5><br>
+            <table class="display highlight">
+                <thead class="green-text">
+                    <tr>
+                        <th>ID PRODUCTO</th>
+                        <th>NOMBRE</th>
+                        <th>PRECIO</th>
+                        <th>CANTIDAD</th>
+                        <th>EXISTENCIA</th>
+                        <th>SUBTOTAL</th>
+                        <th class="center">BORRAR</th>
+                    </tr>
+                </thead>
+                <tbody >
+
+                    <?php for ($i=1; $i <= 35; $i++) { 
+                        echo '<tr class="indigo-text yellow lighten-4 " id="filaDetalle'.$i.'" style="display:none;">
+
+                        <td>
+                        <input id="txtIdproducto'.$i.'"  readonly name="txtIdproducto'.$i.'" value=""/>
+
+                        <input id="txtCodigoBarra'.$i.'" type="hidden" size="10" type="text" name="txtCodigoBarra'.$i.'" value="" readonly/>
+                        </td>
+                        <td>
+                        <input id="txtNombre'.$i.'" type="text" name="txtNombre'.$i.'" value="" readonly/>
+                        </td>
+                        <td>
+                        <input id="txtPrecio'.$i.'" size="5" type="text" class="validate" name="txtPrecio'.$i.'" value="" style="width: 80px;" />
+                        </td>
+                        <td>
+                        <input id="txtCantidad'.$i.'" style="width: 80px;" type="number" class="validate center" name="txtCantidad'.$i.'" value="1"  onchange="calcularCantidad(this)" data-i="'.$i.'"/>
+                        </td>
+                        <td>
+                        <input id="txtStock'.$i.'"  style="width: 80px;" type="number" class="validate" name="txtStock'.$i.'" value="1"  data-i="'.$i.'" readonly/>
+                        </td>
+                        <td hidden>
+                        <input id="txtDescuento'.$i.'" size="5" style="width: 80px;" type="text" class="validate" name="txtDescuento'.$i.'" value="0"  onblur="calcularDescuento(this)" data-i="'.$i.'"/>
+                        </td>
+                        <td>
+                        $<input class="right-align" id="txtSubTotal'.$i.'"  type="text" name="txtSubTotal'.$i.'" value="" style="width: 80px;" readonly />
+                        </td>
+
+                        <td class="center">
+                        <a onclick="borrardetalle(this)" data-i="'.$i.'" id="btnBorar'.$i.'" title="Borrar" class="waves-effect waves-light btn-small red"><i class="material-icons">remove_shopping_cart</i></a>
+                        </td>
+
+                        </tr>';
+                    } ?>
+
+                    <tr id="filaTotal" style="display:none;">
+                        <td colspan="5" class="right-align"><strong>Total</strong></td>
+                        <td colspan="2">
+                            <span>$</span><input class="center-align deep-orange lighten-4" id="txtTotal"  type="text" name="txtTotal" value="" style="width: 80px;" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>        
+
+            <div class="input-field col s12 center">
+                <button style="display:none;"  onclick="return confirm('Seguro que desea eviar esta venta')" id="btnComprar" type="submit" class="waves-effect waves-light btn blue"><i class="material-icons right">send</i>GUARDAR</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="contrainer section">
+
+
+   <div id="idmodalproducto" style="width: 90%; height:  100%;" class="modal">
+     <div class="modal-content">
+      <!-- inicio de columna de productos disponibles -->
+      <div class="col s12">
+        <!-- tabla de productos -->
+        <h5 class="grey-text text-darken-1">Seleccione producto a vender</h5>
+        <table id="tabla-activos" class="display highlight" cellspacing="0" width="100%">
+            <thead class="indigo-text">
+                <tr>
+                    <th >Id Producto</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Precio Unitario</th>
+                    <th>Stock</th>
+                    <th>Categoria</th>
+                    <th>Proveedor</th>
+                    <th class="center">Agregar</th>
+                </tr>
+            </thead>
+            <tfoot class="indigo-text">
+                <tr>
+                   <th >Id Producto</th>
+                   <th>Nombre</th>
+                   <th>Descripción</th>
+                   <th>Precio Unitario</th>
+                   <th>Stock</th>
+                   <th>Categoria</th>
+                   <th>Proveedor</th>
+                   <th class="center">Agregar</th>
+               </tr>
+           </tfoot>
+           <tbody>
+             <?php foreach($this->model->ListarProductosActivoConexistencia() as $r):?>
+                <tr id="fila<?php echo $r->idproducto; ?>">
+                    <td ><?php echo $r->idproducto; ?></td>
+                    <td><?php echo $r->nombre; ?></td>
+                    <td><?php echo $r->descripcion; ?></td> 
+                    <td>
+                      
+                           <select id="preciov" name="preciov" class="validate">      
+                                <option value="<?php echo $r->precio1; ?>" disabled><?php echo $r->precio1; ?></option> 
+                                <option value="<?php echo $r->precio1; ?>"><?php echo $r->precio1; ?></option>  
+                                <option value="<?php echo $r->precio2; ?>"><?php echo $r->precio2; ?></option>
+                                <option value="<?php echo $r->precio3; ?>"><?php echo $r->precio3; ?></option>
                             </select>
-                    </div>
-
-                    <div class="input-field col s12 m6"> 
-
-
-                   </div>
-
-                    <!-- para saber cuantos detalles se enviaron -->
-                    <input id="txtCantidadDetalle"  hidden  name="txtCantidadDetalle" value="1">
-                    <!-- para saber cual fue el último borrado -->
-                    <input id="txtBorrado"  hidden  name="txtBorrado" value="0">
-
-                        <!-- tabla de activos -->
-                        <div id="detalle" class="col s12">
-                            <table class="display highlight">
-                                <thead class="green-text">
-                                    <tr>
-                                        <th>ID PRODUCTO</th>
-                                        <th>NOMBRE</th>
-                                        <th>PRECIO</th>
-                                        <th>CANTIDAD</th>
-                                        <th>EXISTENCIA</th>
-                                        <th>SUBTOTAL</th>
-                                        <th class="center">BORRAR</th>
-                                    </tr>
-                                </thead>
-                                <tbody >
-
-                                    <?php for ($i=1; $i <= 35; $i++) { 
-                                        echo '<tr class="indigo-text yellow lighten-4 " id="filaDetalle'.$i.'" style="display:none;">
-                                        
-                                                <td>
-                                                    <input id="txtIdproducto'.$i.'"  readonly name="txtIdproducto'.$i.'" value=""/>
-
-                                                    <input id="txtCodigoBarra'.$i.'" type="hidden" size="10" type="text" name="txtCodigoBarra'.$i.'" value="" readonly/>
-                                                </td>
-                                                <td>
-                                                    <input id="txtNombre'.$i.'" type="text" name="txtNombre'.$i.'" value="" readonly/>
-                                                </td>
-                                                <td>
-                                                    <input id="txtPrecio'.$i.'" size="5" type="text" class="validate" name="txtPrecio'.$i.'" value="" style="width: 80px;" />
-                                                </td>
-                                                <td>
-                                                    <input id="txtCantidad'.$i.'" style="width: 80px;" type="number" class="validate center" name="txtCantidad'.$i.'" value="1"  onchange="calcularCantidad(this)" data-i="'.$i.'"/>
-                                                </td>
-                                                 <td>
-                                                    <input id="txtStock'.$i.'"  style="width: 80px;" type="number" class="validate" name="txtStock'.$i.'" value="1"  data-i="'.$i.'" readonly/>
-                                                </td>
-                                                <td hidden>
-                                                    <input id="txtDescuento'.$i.'" size="5" style="width: 80px;" type="text" class="validate" name="txtDescuento'.$i.'" value="0"  onblur="calcularDescuento(this)" data-i="'.$i.'"/>
-                                                </td>
-                                                 <td>
-                                                    $<input class="right-align" id="txtSubTotal'.$i.'"  type="text" name="txtSubTotal'.$i.'" value="" style="width: 80px;" readonly />
-                                                </td>
-                                               
-                                                <td class="center">
-                                                    <a onclick="borrardetalle(this)" data-i="'.$i.'" id="btnBorar'.$i.'" title="Borrar" class="waves-effect waves-light btn-small red"><i class="material-icons">remove_shopping_cart</i></a>
-                                                </td>
-
-                                            </tr>';
-                                    } ?>
-                                        
-                                    <tr id="filaTotal" style="display:none;">
-                                        <td colspan="5" class="right-align"><strong>Total</strong></td>
-                                        <td colspan="2">
-                                            <span>$</span><input class="center-align deep-orange lighten-4" id="txtTotal"  type="text" name="txtTotal" value="" style="width: 80px;" />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>     
-
-                            <div class="input-field col s12">
-                                <p class="green-text right-align">-> Seleccione un producto para continuar -></p>
-                            </div>     
-
-                            <div class="input-field col s12 center">
-                                <button style="display:none;"  onclick="return confirm('Seguro que desea eviar esta venta')" id="btnComprar" type="submit" class="waves-effect waves-light btn blue"><i class="material-icons right">send</i>GUARDAR</button>
-                            </div>
-                        </div>
-            </form>
-      </div>
-
-      <div class="contrainer section">
-       
-
-         <div id="idmodalproducto" style="width: 90%;" class="modal">
-           <div class="modal-content">
-             
-
-              <!-- inicio de columna de productos disponibles -->
-
-      <div class="col s12">
- 
-<!-- tabla de productos -->
-                            <table id="tabla-activos" class="display highlight" cellspacing="0" width="100%">
-                                <thead class="indigo-text">
-                                    <tr>
-                                        <th >Id Producto</th>
-                                        <th>Nombre</th>
-                                        <th>Descripción</th>
-                                        <th>Precio Unitario</th>
-                                        <th>Stock</th>
-                                        <th>Categoria</th>
-                                        <th>Proveedor</th>
-                                        <th class="center">Agregar</th>
-                                    </tr>
-                                </thead>
-                                <tfoot class="indigo-text">
-                                    <tr>
-                                         <th >Id Producto</th>
-                                        <th>Nombre</th>
-                                        <th>Descripción</th>
-                                        <th>Precio Unitario</th>
-                                        <th>Stock</th>
-                                        <th>Categoria</th>
-                                        <th>Proveedor</th>
-                                        <th class="center">Agregar</th>
-                                    </tr>
-                                </tfoot>
-                                <tbody>
-                               <?php foreach($this->model->ListarProductosActivoConexistencia() as $r):?>
-                                    <tr id="fila<?php echo $r->idproducto; ?>">
-                                        <td ><?php echo $r->idproducto; ?></td>
-                                        <td><?php echo $r->nombre; ?></td>
-                                        <td><?php echo $r->descripcion; ?></td> 
-                                        <td><?php echo '$ ',$r->precio; ?></td>
-                                        <td><?php echo $r->stock; ?></td>
-                                        <td ><?php echo $r->nombrecate; ?></td>
-                                        <td ><?php echo $r->nombreprove; ?></td>
-                                        <td> <!-- agregar el producto al detalle -->
-                                            <button onclick="agregardetalle(this);" id="btnProd<?php echo $r->idproducto; ?>" title="Agregar" class="waves-effect waves-light btn-small modal-close" data-stock="<?php echo $r->stock; ?>" data-id="<?php echo $r->idproducto; ?>" data-codigo="<?php echo $r->codigobarra; ?>" data-nombre="<?php echo $r->nombre; ?>" data-habili="1" data-precio="<?php echo $r->precio; ?>" ><i class="material-icons">add_shopping_cart</i></button>
-                                                                       
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?></tbody>
-                            </table>
-  </div>
-
-
-
-           </div>
-           
-            
-     
-         </div>
-
-      </div>
-
-
-
-      </div>
-  
-
-
-
+                        
+                    </td>
+                    <td><?php echo $r->stock; ?></td>
+                    <td ><?php echo $r->nombrecate; ?></td>
+                    <td ><?php echo $r->nombreprove; ?></td>
+                    <td> <!-- agregar el producto al detalle -->
+                        <button  onclick="agregardetalle(this);" id="btnProd<?php echo $r->idproducto; ?>" title="Agregar" class="waves-effect waves-light btn-small modal-close green accent-4" data-stock="<?php echo $r->stock; ?>" data-id="<?php echo $r->idproducto; ?>" data-codigo="<?php echo $r->codigobarra; ?>" data-nombre="<?php echo $r->nombre; ?>" data-habili="1" ><i class="material-icons">add_shopping_cart</i></button>
+                    </td>
+                </tr>
+                <?php endforeach; ?></tbody>
+            </table>
+        </div>
+    </div>   
+</div>
+</div>
+</div>
 </div>
 <!-- fin del cuerpo -->
-
-
 
 <script>
 //para seleccionar los productos
@@ -228,16 +204,19 @@ function agregardetalle(producto) {
   //tomar el nombre del producto 
   var nombre = producto.getAttribute('data-nombre');
   //tomar el precio del producto 
-  var precio = producto.getAttribute('data-precio');
+
+  var precio = document.getElementById("preciov").value;
+    
+   
 
   var stock = producto.getAttribute('data-stock');
 
   var estadoboton = producto.getAttribute('data-habili');
 
   
-    var numero = null;
-    var borrado = parseInt(document.getElementById("txtBorrado").value);
-        
+  var numero = null;
+  var borrado = parseInt(document.getElementById("txtBorrado").value);
+
     //tomar la cantidad de detalles
     if (borrado != 0) {
         numero = parseInt(document.getElementById("txtBorrado").value);            
@@ -274,7 +253,7 @@ function agregardetalle(producto) {
     //calcular Total
     calcularTotal(numeroDetalle+1);
 
-   
+
     document.getElementById("btnProd"+id).style.visibility = "hidden";
     
 
@@ -288,16 +267,8 @@ function borrardetalle(detalle) {
     //confirmar la operación
 
     var opcion = confirm("¿En verdad desea borrar?");
-     
-     
-     
-
     
-
     if (opcion == true) {
-        
-
-        
 
         //tomar el id del detalle 
         var i = detalle.getAttribute('data-i');
@@ -331,13 +302,13 @@ function borrardetalle(detalle) {
             document.getElementById("btnComprar").style.display = 'none';
             //ocultar el total
             document.getElementById("filaTotal").style.display = 'none'; 
-                
+
         }
 
-       
+
     }
 
-         document.getElementById("btnProd"+idprobo).style.visibility = "visible";
+    document.getElementById("btnProd"+idprobo).style.visibility = "visible";
 
 
 }
@@ -443,9 +414,9 @@ function calcularTotal(numeroDetalle) {
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.modal');
-    var instances = M.Modal.init(elems);
-  });
+        var elems = document.querySelectorAll('.modal');
+        var instances = M.Modal.init(elems);
+    });
 </script>
 
 
