@@ -8,9 +8,11 @@ class DetalleVenta
     public $idproducto;
     public $cantidadventa;
     public $precioventa;
+    public $preciocompra;
 	public $stockanterior;
 	public $stockdespues;
 	public $usuario;
+	public $precio;
 	public $fcrea;
 
 	public function __CONSTRUCT()
@@ -61,7 +63,7 @@ class DetalleVenta
 	{
 		try 
 		{
-			$sql = "INSERT INTO ventas_producto VALUES (null,?,?,?,?,?,?,?,?)";
+			$sql = "INSERT INTO ventas_producto VALUES (null,?,?,?,?,?,?,?,?,?)";
 
 			$this->pdo->prepare($sql)
 			->execute(
@@ -72,6 +74,7 @@ class DetalleVenta
 					$data->cantidadventa,
 					$data->stockdespues,
 					$data->usuario,
+					$data->preciocompra,					
 					$data->precioventa,
 					$data->fcrea
 				)

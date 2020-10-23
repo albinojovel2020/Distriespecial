@@ -41,26 +41,26 @@
           </div>
          <div class="input-field col s12 m6">
             <i class="material-icons prefix form-icon">monetization_on</i>
-            <input id="preciocompra" type="text" maxlength="6" onkeypress="return justNumbers(event);" value="0.00" class="validate" name="preciocompra" required>
+            <input id="preciocompra" type="text" maxlength="6" onkeypress="return justNumbers(event);" value="<?php echo $producto->precio; ?>" class="validate" name="preciocompra" required>
             <label for="preciocompra">Precio Compra</label>
           </div>
 
 
           <div class="input-field col s12 m6">
             <i class="material-icons prefix form-icon">monetization_on</i>
-            <input id="precio1" type="text" maxlength="6" onkeypress="return justNumbers(event);" value="0.00" class="validate" name="precio1" required>
+            <input id="precio1" type="text" maxlength="6" onkeypress="return justNumbers(event);" value="<?php echo $producto->precio1; ?>" class="validate" name="precio1" required>
             <label for="precio1">Precio 1</label>
           </div>
 
           <div class="input-field col s12 m6">
             <i class="material-icons prefix form-icon">monetization_on</i>
-            <input id="precio2" type="text" maxlength="6" onkeypress="return justNumbers(event);" value="0.00" class="validate" name="precio2" required>
+            <input id="precio2" type="text" maxlength="6" onkeypress="return justNumbers(event);" value="<?php echo $producto->precio2; ?>" class="validate" name="precio2" required>
             <label for="precio2">Precio 2</label>
           </div>
 
           <div class="input-field col s12 m6">
             <i class="material-icons prefix form-icon">monetization_on</i>
-            <input id="precio3" type="text" maxlength="6" onkeypress="return justNumbers(event);" value="0.00" class="validate" name="precio3" required>
+            <input id="precio3" type="text" maxlength="6" onkeypress="return justNumbers(event);" value="<?php echo $producto->precio3; ?>" class="validate" name="precio3" required>
             <label for="precio3">Precio 3</label>
           </div>
 

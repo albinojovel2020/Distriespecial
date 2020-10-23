@@ -5,6 +5,9 @@
         <li ><a class="grey-text text-darken-1"><b>DISTRIBUIDORA ESPECIAL > MODULO DE VENTA</b></a></li> 
     </ul>
     <ul class="right">
+      <li><a class="waves-effect waves-light btn orange accent-4" href="?c=<?php echo base64_encode('Movimientos'); ?>&a=<?php echo base64_encode('VerVentas'); ?>" ><b>Ver lista de ventas</b><i class="material-icons right grey-text text-darken-1">playlist_add</i></a></li>
+    </ul>
+    <ul class="right">
         <a href="#idmodalproducto" class="waves-effect waves-light btn modal-trigger green accent-4"><i class="material-icons right">add_shopping_cart</i><b>AGREGAR PRODUCTO AL DETALLE</b></a>
     </ul>  
 </div>
@@ -69,6 +72,7 @@
                         <th>ID PRODUCTO</th>
                         <th>NOMBRE</th>
                         <th>PRECIO</th>
+                        <th hidden>PRECIOC</th>
                         <th>CANTIDAD</th>
                         <th>EXISTENCIA</th>
                         <th>SUBTOTAL</th>
@@ -91,6 +95,9 @@
                         <td>
                         <input id="txtPrecio'.$i.'" size="5" type="text" class="validate" name="txtPrecio'.$i.'" value="" style="width: 80px;" readonly/>
                         </td>
+                        <td hidden>
+                        <input id="txtPrecioC'.$i.'" style="width: 80px;" type="text" class="validate center" name="txtPrecioC'.$i.'" value=""  data-i="'.$i.'"/>
+                        </td>                        
                         <td>
                         <input id="txtCantidad'.$i.'" style="width: 80px;" type="number" class="validate center" name="txtCantidad'.$i.'" value="1"  onchange="calcularCantidad(this)" data-i="'.$i.'"/>
                         </td>
@@ -180,7 +187,7 @@
                     <td ><?php echo $r->nombrecate; ?></td>
                     <td ><?php echo $r->nombreprove; ?></td>
                     <td> <!-- agregar el producto al detalle -->
-                        <button  onclick="agregardetalle(this);" id="btnProd<?php echo $r->idproducto; ?>" title="Agregar" class="waves-effect waves-light btn-small modal-close green accent-4" data-stock="<?php echo $r->stock; ?>" data-id="<?php echo $r->idproducto; ?>" data-codigo="<?php echo $r->codigobarra; ?>" data-nombre="<?php echo $r->nombre; ?>" data-habili="1" ><i class="material-icons">add_shopping_cart</i></button>
+                        <button  onclick="agregardetalle(this);" id="btnProd<?php echo $r->idproducto; ?>" title="Agregar" class="waves-effect waves-light btn-small modal-close green accent-4" data-stock="<?php echo $r->stock; ?>" data-id="<?php echo $r->idproducto; ?>" data-precioc="<?php echo $r->precio; ?>" data-codigo="<?php echo $r->codigobarra; ?>" data-nombre="<?php echo $r->nombre; ?>" data-habili="1" ><i class="material-icons">add_shopping_cart</i></button>
                     </td>
                 </tr>
                 <?php endforeach; ?></tbody>
@@ -211,6 +218,8 @@ function agregardetalle(producto) {
   //tomar el precio del producto 
 
   var precio = document.getElementById("preciov").value;
+
+  var precioc = producto.getAttribute('data-precioc');
     
    
 
@@ -250,6 +259,7 @@ function agregardetalle(producto) {
     document.getElementById("txtNombre"+numero).value = nombre;
     document.getElementById("txtStock"+numero).value = stock;
     document.getElementById("txtPrecio"+numero).value = precio;
+    document.getElementById("txtPrecioC"+numero).value = precioc;
     document.getElementById("txtSubTotal"+numero).value = precio;
 
     //volver txtBorrado a cero

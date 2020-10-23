@@ -30,10 +30,9 @@
           <thead>
               <tr>
                   <th>Id Ingreso</th>
-                  <th>Id Producto</th>
+                  <th hidden>Id Producto</th>
                   <th>Nombre producto</th>
                   <th>Descripción producto</th>
-                  <th>Precio Unitario</th>
                   <td>Stock anterior</td>
                   <td>Cantidad ingresada</td>
                   <td>Cantidad despues ingreso</td>
@@ -48,10 +47,9 @@
               <?php foreach($this->model->ListarIngresoProductos() as $r):?>
                   <tr>
                       <td><?php echo $r->id; ?></td>
-                      <td><?php echo $r->idproducto; ?></td>
+                      <td hidden><?php echo $r->idproducto; ?></td>
                       <td><?php echo $r->nprod; ?></td>
                       <td><?php echo $r->descripcion; ?></td>
-                      <td><?php echo '$ ',$r->preciounitario; ?></td>
                       <td><?php echo $r->stockanterior; ?></td>
                       <td><?php echo $r->cantidad; ?></td>
                       <td><?php echo $r->stockdespues; ?></td>

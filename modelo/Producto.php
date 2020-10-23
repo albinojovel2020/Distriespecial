@@ -147,7 +147,6 @@ class Producto //inicio clase
     				 p.idproducto,
     				 p.nombre nprod,
     				 p.descripcion,
-    				 p.preciounitario,
     				 p.stock,
     				 ip.stockanterior,
     				 ip.cantidad,
@@ -204,6 +203,9 @@ class Producto //inicio clase
 			die($t->getMessage());
 		}
 	}
+
+
+
 
 	public function ActualizarProducto($data)
 	{

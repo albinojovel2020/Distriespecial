@@ -74,7 +74,7 @@ class MovimientosController
                 $detalleventa->cantidadventa = $_REQUEST['txtCantidad'.$i];
                 $detalleventa->precioventa = $_REQUEST['txtSubTotal'.$i];
 
-               
+                $detalleventa->preciocompra = $_REQUEST['txtPrecioC'.$i]; 
                
                 $detalleventa->stockanterior = $_REQUEST['txtStock'.$i]; 
 				$detalleventa->stockdespues = $_REQUEST['txtStock'.$i]-$_REQUEST['txtCantidad'.$i];
@@ -82,11 +82,8 @@ class MovimientosController
 				$detalleventa->fcrea = $_REQUEST['txtFechaVenta'];
 
 
-                echo "<script>
-						alert('$detalleventa->precioventa');
-						</script>";
-                
-
+                 
+        
          
                 $this->modelDetalleVenta->guardardetalleventa($detalleventa); 
                 //actualiza stock
@@ -99,7 +96,7 @@ class MovimientosController
         		//La vista de usuarios registrados
 		echo "<script>
 		alert('CORRECTO: Los datos fueron guardados.');
-		window.location.href='?c=".base64_encode('Movimientos')."?a=".base64_encode('VerVentas')."';
+		window.location.href='?c=".base64_encode('Movimientos')."&?a=".base64_encode('VerVentas')."';
 		</script>";
         
     }

@@ -27,7 +27,7 @@ public function ListarUmedida()
 		try
 		{
 
-			$stm = $this->pdo->prepare("SELECT id, nombre FROM cat_medidas");
+			$stm = $this->pdo->prepare("SELECT * FROM cat_medidas");
 			$stm->execute();
 
 			return $stm->fetchAll(PDO::FETCH_OBJ);

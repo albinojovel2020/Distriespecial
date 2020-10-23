@@ -19,7 +19,7 @@
              </center>
 
             <h5 class="grey-text text-darken-1"><b>Practica Profesional</b></h5>
-              <p class="grey-text text-darken-3">Integrantes:<br> * Jacqueline Ivette Hernández Vásquez<br> * Brayan Eleazar Rosales Alfaro<br> * Andrés Josué Hernández Pineda<br> * Luis Alberto Carranza Muñoz<br> * Norberto Alexander Fuentes Velado<br> * Rafael Albino Jovel</p>
+              <p class="grey-text text-darken-3">Integrantes:<br> * Jacqueline Ivette Hernández Vásquez<br> * Brayan Eleazar Rosales Alfaro<br> * Andrés Josué Hernández Pineda<br> * Luis Alberto Carranza Muñoz<br> * Norberto Alexander Fuentes Velado<br> * Rafael Albino Jovel Alfaro</p>
 
           </div>
 

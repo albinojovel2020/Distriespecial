@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-10-2020 a las 07:04:19
--- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.4.3
+-- Tiempo de generación: 23-10-2020 a las 23:30:40
+-- Versión del servidor: 10.4.8-MariaDB
+-- Versión de PHP: 7.3.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -26,7 +26,7 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ps_guardar_detalleventa` (IN `val_idventa` INT, IN `val_idproducto` INT, IN `val_cantidadventa` INT, IN `val_precioventa` DECIMAL(6,2))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ps_guardar_detalleventa` (IN `val_idventa` INT, IN `val_idproducto` INT, IN `val_cantidadventa` INT, IN `val_precioventa` DECIMAL(10,2))  BEGIN
 	
 	INSERT INTO `detalleventa` (`iddetalleventa`, `idventa`, `idproducto`, `cantidadventa`, `precioventa`) VALUES (NULL, val_idventa, val_idproducto, val_cantidadventa, val_precioventa);
 
@@ -98,6 +98,27 @@ INSERT INTO `cat_comprobante` (`id`, `nombre`, `descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `cat_impuesto`
+--
+
+CREATE TABLE `cat_impuesto` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `descripcion` varchar(200) NOT NULL,
+  `porcentaje` int(11) NOT NULL,
+  `monto` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `cat_impuesto`
+--
+
+INSERT INTO `cat_impuesto` (`id`, `nombre`, `descripcion`, `porcentaje`, `monto`) VALUES
+(1, 'IVA', 'Impuesto al valor agregado', 13, '0.13');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `cat_medidas`
 --
 
@@ -118,7 +139,7 @@ INSERT INTO `cat_medidas` (`id`, `nombre`, `descripcion`, `codigo`) VALUES
 (3, 'Litro', 'Medida de producto en Litros', 'ULITRO'),
 (4, 'Galon', 'Medida de producto en galones', 'UGALON'),
 (5, 'Metro', 'Unidad de producto en metros', 'UMETRO'),
-(6, 'mililitros', 'mililitros', 'umili');
+(6, 'Mililitros', 'Unidad de medida en militiros', 'UMILI');
 
 -- --------------------------------------------------------
 
@@ -133,17 +154,6 @@ CREATE TABLE `detalleventa` (
   `cantidadventa` int(11) DEFAULT NULL,
   `precioventa` decimal(6,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `detalleventa`
---
-
-INSERT INTO `detalleventa` (`iddetalleventa`, `idventa`, `idproducto`, `cantidadventa`, `precioventa`) VALUES
-(96, 97, 1, 1, '9.99'),
-(97, 98, 1, 4, '200.00'),
-(98, 98, 2, 2, '100.00'),
-(99, 99, 1, 2, '100.00'),
-(100, 99, 2, 1, '50.00');
 
 -- --------------------------------------------------------
 
@@ -160,17 +170,6 @@ CREATE TABLE `ingreso_producto` (
   `usuario` int(11) NOT NULL,
   `fcrea` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `ingreso_producto`
---
-
-INSERT INTO `ingreso_producto` (`id`, `idproducto`, `stockanterior`, `cantidad`, `stockdespues`, `usuario`, `fcrea`) VALUES
-(45, 1, 0, 10, 10, 1, '2020-10-20'),
-(46, 2, 0, 4, 4, 16, '2020-10-21'),
-(47, 3, 0, 3443, 3443, 16, '2020-10-21'),
-(48, 4, 0, 5, 5, 16, '2020-10-21'),
-(49, 5, 0, 2, 2, 16, '2020-10-21');
 
 --
 -- Disparadores `ingreso_producto`
@@ -227,16 +226,7 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`idproducto`, `nombre`, `descripcion`, `preciocompra`, `stock`, `imagen`, `idcategoria`, `idproveedor`, `idusuario`, `estado`, `umedida`, `precio1`, `precio2`, `precio3`) VALUES
-(1, 'Harina de maizena', 'Harina de maiz jajaja', '50.00', 3, 'img/FONDO.jpg', 8, 1, 1, 1, 3, '50.00', '50.00', '50.00'),
-(2, 'Horchata de cocoa', 'Bebida de disolucion', '3.50', 1, 'img/haha.jpg', 6, 1, 16, 1, 1, '50.00', '50.00', '50.00'),
-(3, 'Topping de fresa', 'Topping para adornar sabor a fresa', '9.99', 3443, 'img/FONDO.jpg', 7, 1, 1, 1, 1, '50.00', '50.00', '50.00'),
-(4, 'aa', 'aa', '4.00', 5, 'img/producto.jpg', 1, 2, 16, 1, 1, '50.00', '50.00', '50.00'),
-(5, 'CHOCOCRISPIS', 'CEREAL DE ARROZ DE CHOCOLATE', '2.65', 2, 'img/producto.jpg', 1, 1, 1, 1, 1, '50.00', '50.00', '50.00'),
-(6, 'Harina de chocolate', 'Harina para hacer pan de chocolate', '2.00', 0, 'img/producto.jpg', 8, 3, 16, 1, 1, '50.00', '50.00', '50.00'),
-(7, 'Queso crema', 'Queso crema para pasteles', '1.50', 0, 'img/producto.jpg', 5, 2, 16, 1, 1, '50.00', '50.00', '50.00'),
-(8, 'Tres leches', 'Postre tres leches', '1.00', 0, 'img/producto.jpg', 5, 4, 16, 1, 1, '50.00', '50.00', '50.00'),
-(9, 'Papel mantequilla', 'Papel para hornear', '1.90', 0, 'img/FONDO.jpg', 9, 2, 16, 1, 1, '50.00', '50.00', '50.00'),
-(13, 'PRUEBAA', 'PRUEBAA', '0.00', 0, 'img/FONDO.jpg', 5, 1, 16, 1, 3, '50.00', '50.00', '50.00');
+(15, 'Harina de Trigo', 'Harina de trigo suave', '2.00', 0, 'img/producto.jpg', 8, 3, 16, 1, 2, '3.00', '3.65', '3.85');
 
 -- --------------------------------------------------------
 
@@ -313,7 +303,7 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`idusuario`, `nombre`, `apellido`, `telefono`, `usuario`, `clave`, `fecha`, `idpreguntasecreta`, `respuestasecreta`, `idtipousuario`, `estado`) VALUES
 (1, 'Luis', 'Carranza', '2222-0505', 'usuario1', 'f688ae26e9cfa3ba6235477831d5122e', 'Ultima modificación: 2020-09-20 a las 08:29:08 AM', 1, 'brayan', 1, 1),
 (2, 'Brayan', 'Salomon Fuentes Quijano', '7777-7779', 'el brayan', '81dc9bdb52d04dc20036dbd8313ed055', 'Modificación: 2020-09-20 a las 07:21:45 AM', 2, 'andres', 1, 1),
-(15, 'Andres', 'Pineda', '2322-4344', 'andrew', '231badb19b93e44f47da1bd64a8147f2', 'Modificación: 2020-09-20 a las 08:28:20 AM', 1, '231badb19b93e44f47da1bd64a8147f2', 1, 1),
+(15, 'Andres', 'Pineda', '2322-4344', 'andrew', '231badb19b93e44f47da1bd64a8147f2', 'Modificación: 2020-09-20 a las 08:28:20 AM', 1, '231badb19b93e44f47da1bd64a8147f2', 1, 0),
 (16, 'Rafael Albino', 'Jovel Alfaro', '7786-7999', 'albino', 'cbe7855c7afdb4a521ee4d1a63d89e89', 'Modificación: 2020-09-30 a las 10:04:32 PM', 1, 'cbe7855c7afdb4a521ee4d1a63d89e89', 1, 1),
 (17, 'Carlos', 'Alfaro', '2222-2222', 'davialfa', 'a008167316b8afef949b8f3146ed42e5', '2020-09-30 a las 10:27:41 PM', 1, 'eb8dd5745ad86bcbd8f87b4ed20013b4', 1, 1),
 (18, 'Rafael', 'Jovel', '7777-7777', 'rafael.jovel@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '2020-10-09 a las 01:27:41 PM', 1, '35cd2d0d62d9bc5e60a3ca9f7593b05b', 1, 1);
@@ -333,17 +323,6 @@ CREATE TABLE `venta` (
   `tipo_comprobante` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `venta`
---
-
-INSERT INTO `venta` (`idventa`, `numeroventa`, `fechaventa`, `total`, `idusuario`, `tipo_comprobante`) VALUES
-(95, 555, '2020-10-20', '23.80', 16, 1),
-(96, 123, '2020-10-20', '1.90', 16, 1),
-(97, 555, '2020-10-21', '9.99', 16, 1),
-(98, 80, '2020-10-21', '99.99', 16, 1),
-(99, 5556, '2020-10-21', '150.00', 16, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -358,20 +337,10 @@ CREATE TABLE `ventas_producto` (
   `cantidadventa` int(11) NOT NULL,
   `stockdespues` int(11) NOT NULL,
   `usuario` int(11) NOT NULL,
+  `preciocompra` decimal(10,2) NOT NULL,
   `precioventa` decimal(10,2) NOT NULL,
   `fcrea` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `ventas_producto`
---
-
-INSERT INTO `ventas_producto` (`id`, `idventa`, `idproducto`, `stockanterior`, `cantidadventa`, `stockdespues`, `usuario`, `precioventa`, `fcrea`) VALUES
-(9, 97, 1, 10, 1, 9, 16, '9.99', '2020-10-21'),
-(10, 98, 1, 9, 4, 5, 16, '200.00', '2020-10-21'),
-(11, 98, 2, 4, 2, 2, 16, '100.00', '2020-10-21'),
-(12, 99, 1, 5, 2, 3, 16, '100.00', '2020-10-21'),
-(13, 99, 2, 2, 1, 1, 16, '50.00', '2020-10-21');
 
 --
 -- Disparadores `ventas_producto`
@@ -396,6 +365,12 @@ ALTER TABLE `categoria`
 -- Indices de la tabla `cat_comprobante`
 --
 ALTER TABLE `cat_comprobante`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `cat_impuesto`
+--
+ALTER TABLE `cat_impuesto`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -491,6 +466,12 @@ ALTER TABLE `cat_comprobante`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT de la tabla `cat_impuesto`
+--
+ALTER TABLE `cat_impuesto`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `cat_medidas`
 --
 ALTER TABLE `cat_medidas`
@@ -500,13 +481,13 @@ ALTER TABLE `cat_medidas`
 -- AUTO_INCREMENT de la tabla `detalleventa`
 --
 ALTER TABLE `detalleventa`
-  MODIFY `iddetalleventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `iddetalleventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
 -- AUTO_INCREMENT de la tabla `ingreso_producto`
 --
 ALTER TABLE `ingreso_producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntasecreta`
@@ -518,7 +499,7 @@ ALTER TABLE `preguntasecreta`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
@@ -542,13 +523,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas_producto`
 --
 ALTER TABLE `ventas_producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Restricciones para tablas volcadas
