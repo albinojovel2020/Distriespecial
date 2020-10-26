@@ -26,6 +26,7 @@
         <table id="tabla-activos" class="striped responsive-table highlight">
           <thead>
               <tr>
+                  <th>Id venta</th>
                   <th>Numero factura</th>
                   <th>Fecha</th>
                   <th>Total</th>
@@ -38,12 +39,17 @@
               <!-- inicio del cuerpo de la tabla activos -->
               <?php foreach($this->modelVenta->ListarVentas() as $r):?>
                   <tr>
+                      <td><?php echo $r->id; ?></td>
                       <td><?php echo $r->nfac; ?></td>
                       <td><?php echo $r->fventa; ?></td>
                       <td><?php echo $r->total; ?></td>
                       <td><?php echo $r->tipocomprobante; ?></td>
                       <td><?php echo $r->nusu; ?> <?php echo $r->apellido; ?></td>                      
-                      <td><button>Imprimir</button></td>
+                      <!--<td><button>Imprimir</button></td>-->
+                      <td class="center">
+                      <!--&compro=<?php //echo base64_encode($r->tipocomprobante); ?>-->
+                          <a target="blank" href="?c=<?php echo base64_encode('Movimientos'); ?>&a=<?php echo base64_encode('VERPDF'); ?>&nfac=<?php echo base64_encode($r->nfac); ?>" title="PDF del registro" ><i class="mini material-icons green-ast-text hoverable circle ">remove_red_eye</i></a>
+                      </td>
                   </tr>
               <?php endforeach; ?>    
               <!-- fin del cuerpo de la tabla activos -->

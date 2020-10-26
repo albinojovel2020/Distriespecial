@@ -11,6 +11,10 @@ require_once 'modelo/DetalleVenta.php';
 class MovimientosController
 {
 	private $model;
+	private $modelCategoria;
+	private $modelProveedor;
+	private $modelVenta;
+	private $modelDetalleVenta;
 	
 
 	public function __CONSTRUCT()
@@ -50,8 +54,13 @@ class MovimientosController
         
         //captura todos los datos de la venta 
         
-        $venta->numeroventa = $_REQUEST['txtNumeroVenta'];
-        $venta->fechaventa = $_REQUEST['txtFechaVenta'];
+		$venta->numeroventa = $_REQUEST['txtNumeroVenta'];
+		date_default_timezone_set("America/Guatemala");
+		$fecha = date('Y-m-d');
+		$horas = date('h:i:s');
+		$tiempo = date('A');
+		$mifecha = $fecha.' '.$horas .' '.$tiempo;
+		$venta->fechaventa = $mifecha;
         $venta->total = $_REQUEST["txtTotal"];
         $venta->idusuario = $_REQUEST["txtIdUsuario"];
         $venta->tipo_comprobante = $_REQUEST["selComprobante"];
@@ -93,13 +102,44 @@ class MovimientosController
         
 
 
-        		//La vista de usuarios registrados
+        		
 		echo "<script>
 		alert('CORRECTO: Los datos fueron guardados.');
-		window.location.href='?c=".base64_encode('Movimientos')."&?a=".base64_encode('VerVentas')."';
+		window.location.href='?c=".base64_encode('Movimientos')."&a=".base64_encode('VerVentas')."';
 		</script>";
         
-    }
+	}
+	
+	public function VERPDF(){
+		//require_once 'vistas/pages/verdatos/Ticket.php';
+		$nfac = base64_decode($_REQUEST['nfac']);
+
+		$pdf = $this->modelVenta->ConsultaPDF($nfac);
+		
+		$this->modelVenta->VerPDF($pdf);
+	}
+
+	public function Ticket(){
+		//$ticket = $this->modelVenta->VerPDF($id);
+		$id = base64_decode($_REQUEST['id']);
+		$fe = base64_decode($_REQUEST['fe']);
+		$total = base64_decode($_REQUEST['total']);
+		//$ticket = $this->modelVenta->ConsultaPDF1($id);
+		require_once 'vistas/pages/verdatos/Ticket.php';
+	}
+
+	public function Factura(){
+		$id = base64_decode($_REQUEST['id']);
+		
+		require_once 'vistas/pages/verdatos/Factura.php';
+	}
+
+	public function exTicket(){
+		$id = base64_decode($_REQUEST['id']);
+		$fe = base64_decode($_REQUEST['fe']);
+		$total = base64_decode($_REQUEST['total']);
+		require_once 'vistas/pages/verdatos/exTicket.php';
+	}
 
 
 	

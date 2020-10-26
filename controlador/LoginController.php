@@ -33,7 +33,7 @@
         }
 
         public function Entrar(){
-            $usuario = new Usuario();
+            //$usuario = new Usuario();
             
         //captura todos los datos
             $usuario = $_REQUEST['usuario'];

@@ -29,7 +29,7 @@
         </div>
 
         <div class="input-field col s6">
-            <input id="txtFechaVenta" type="text" name="txtFechaVenta" value="<?php echo date("Y-m-d"); ?>"  readonly>
+            <input id="txtFechaVenta" type="text" name="txtFechaVenta" value="<?php echo date("Y-m-d").' '.date("h:i:s").' '.date('A'); ?>"  readonly>
             <label for="txtFechaVenta">Fecha y Hora</label>
         </div>
 
@@ -50,6 +50,7 @@
                 <option value="1">Factura consumidor final</option>
                 <option value="2">Factura credito fiscal</option>
                 <option value="3">Nota de envio</option>
+                <option value="4">Ticket</option>
             </select>
         </div>
 
@@ -176,7 +177,7 @@
                     <td><?php echo $r->descripcion; ?></td> 
                     <td>
                       
-                           <select id="preciov" name="preciov" class="validate">      
+                           <select id="preciov<?php echo $r->idproducto; ?>" name="preciov<?php echo $r->idproducto; ?>" class="validate">      
                                 <option value="<?php echo $r->precio1; ?>"><?php echo $r->precio1; ?></option>  
                                 <option value="<?php echo $r->precio2; ?>"><?php echo $r->precio2; ?></option>
                                 <option value="<?php echo $r->precio3; ?>"><?php echo $r->precio3; ?></option>
@@ -203,21 +204,22 @@
 <script>
 //para seleccionar los productos
 function agregardetalle(producto) {
-
- if(document.getElementById('preciov').value == "")
-  {
-   alert("Selecciona Una opción de precio");
-   document.getElementById('preciov').focus();
-  }else if (document.getElementById('preciov').value != ""){
     //tomar el id del producto 
   var id = producto.getAttribute('data-id');
+
+ if(document.getElementById('preciov'+id).value == "")
+  {
+   alert("Selecciona Una opción de precio");
+   document.getElementById('preciov'+id).focus();
+  }else if (document.getElementById('preciov'+id).value != ""){
+
   //tomar el codigobarra del producto 
   var codigo = producto.getAttribute('data-codigo');
   //tomar el nombre del producto 
   var nombre = producto.getAttribute('data-nombre');
   //tomar el precio del producto 
 
-  var precio = document.getElementById("preciov").value;
+  var precio = document.getElementById("preciov"+id).value;
 
   var precioc = producto.getAttribute('data-precioc');
     
