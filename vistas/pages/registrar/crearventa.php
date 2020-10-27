@@ -25,8 +25,9 @@
         <form onkeydown="return event.key != 'Enter';" class="col s12" action="?c=<?php echo base64_encode('Movimientos'); ?>&a=<?php echo base64_encode('GuardarVenta'); ?>" method="post" enctype="multipart/form-data">
          <div class="input-field col s6">
             <input id="txtNumeroVenta" type="number" class="validate" name="txtNumeroVenta" required>
-            <label for="txtNumeroVenta">Número</label>
+            <label for="txtNumeroVenta">Número Factura</label>
         </div>
+
 
         <div class="input-field col s6">
             <input id="txtFechaVenta" type="text" name="txtFechaVenta" value="<?php echo date("Y-m-d").' '.date("h:i:s").' '.date('A'); ?>"  readonly>
@@ -45,7 +46,7 @@
 
         <div class="col s6">  
         <label>Tipo de comprobante</label>             
-            <select class="browser-default validate " name="selComprobante" id="selComprobante" required>
+            <select onchange="ActivarCampos()" class="browser-default validate " name="selComprobante" id="selComprobante" required>
                 <option  value="" disabled selected>Seleccione una opción</option>
                 <option value="1">Factura consumidor final</option>
                 <option value="2">Factura credito fiscal</option>
@@ -54,8 +55,17 @@
             </select>
         </div>
 
-        <div class="input-field col s12 m6"> 
 
+        <div class="input-field col s12 m6" > 
+                   <div id class="input-field col s6" id="NRC">
+            <input id="txtNRC" type="text" class="validate" name="txtNRC"  disabled required>
+            <label for="txtNRC">NRC Comprador</label>
+        </div>
+
+         <div class="input-field col s6" id="NIT" >
+            <input id="txtNIT" type="text" class="validate" name="txtNIT" disabled required>
+            <label for="txtNIT">NIT Comprador</label>
+        </div>
 
         </div>
 
@@ -188,7 +198,7 @@
                     <td ><?php echo $r->nombrecate; ?></td>
                     <td ><?php echo $r->nombreprove; ?></td>
                     <td> <!-- agregar el producto al detalle -->
-                        <button  onclick="agregardetalle(this);" id="btnProd<?php echo $r->idproducto; ?>" title="Agregar" class="waves-effect waves-light btn-small modal-close green accent-4" data-stock="<?php echo $r->stock; ?>" data-id="<?php echo $r->idproducto; ?>" data-precioc="<?php echo $r->precio; ?>" data-codigo="<?php echo $r->codigobarra; ?>" data-nombre="<?php echo $r->nombre; ?>" data-habili="1" ><i class="material-icons">add_shopping_cart</i></button>
+                        <button  onclick="agregardetalle(this);" id="btnProd<?php echo $r->idproducto; ?>" title="Agregar" class="waves-effect waves-light btn-small green accent-4" data-stock="<?php echo $r->stock; ?>" data-id="<?php echo $r->idproducto; ?>" data-precioc="<?php echo $r->precio; ?>" data-codigo="<?php echo $r->codigobarra; ?>" data-nombre="<?php echo $r->nombre; ?>" data-habili="1" ><i class="material-icons">add_shopping_cart</i></button>
                     </td>
                 </tr>
                 <?php endforeach; ?></tbody>
@@ -209,9 +219,15 @@ function agregardetalle(producto) {
 
  if(document.getElementById('preciov'+id).value == "")
   {
+
+
    alert("Selecciona Una opción de precio");
    document.getElementById('preciov'+id).focus();
+
+   
+
   }else if (document.getElementById('preciov'+id).value != ""){
+
 
   //tomar el codigobarra del producto 
   var codigo = producto.getAttribute('data-codigo');
@@ -271,7 +287,12 @@ function agregardetalle(producto) {
     calcularTotal(numeroDetalle+1);
 
 
-    document.getElementById("btnProd"+id).style.visibility = "hidden";
+    //document.getElementById("btnProd"+id).style.visibility = "hidden";
+    $("#btnProd"+id).prop('disabled', true);
+
+    $('#idmodalproducto').modal({
+           show: 'false'
+       });
 
   }
   
@@ -280,6 +301,36 @@ function agregardetalle(producto) {
     
 }
 </script>
+
+
+<script>
+    
+
+    function ActivarCampos(){
+        
+        var compro = document.getElementById('selComprobante').value;
+
+        if (compro==2) {
+
+            $("#txtNRC").prop('disabled', false);
+            $("#txtNIT").prop('disabled', false);
+             $("#txtNRC").prop('required', false);
+              $("#txtNIT").prop('required', false);
+        }else if (compro!=2) {
+              $("#txtNRC").prop('disabled', true);
+              $("#txtNIT").prop('disabled', true);
+
+               $("#txtNRC").prop('required', true);
+              $("#txtNIT").prop('required', true);
+        }
+        
+     
+             
+           
+    }
+
+</script>
+
 
 <script>
 //para borrar un detalle
@@ -328,9 +379,9 @@ function borrardetalle(detalle) {
 
     }
 
-    document.getElementById("btnProd"+idprobo).style.visibility = "visible";
-
-
+    //document.getElementById("btnProd"+idprobo).style.visibility = "visible";
+     $("#btnProd"+idprobo).prop('disabled', false);
+    
 }
 </script>
 
