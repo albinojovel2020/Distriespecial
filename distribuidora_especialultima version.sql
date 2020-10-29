@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-10-2020 a las 23:13:48
--- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.4.3
+-- Tiempo de generación: 25-10-2020 a las 06:59:32
+-- Versión del servidor: 10.4.14-MariaDB
+-- Versión de PHP: 7.4.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -21,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `distribuidora_especial`
 --
+CREATE DATABASE IF NOT EXISTS `distribuidora_especial` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `distribuidora_especial`;
 
 DELIMITER $$
 --
@@ -33,7 +34,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `ps_guardar_detalleventa` (IN `val_i
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ps_guardar_venta` (IN `val_numeroventa` INT, IN `val_fechaventa` DATE, IN `val_total` DECIMAL(6,2), IN `val_idusuario` INT, IN `val_tipo_comprobante` INT)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ps_guardar_venta` (IN `val_numeroventa` INT, IN `val_fechaventa` VARCHAR(50), IN `val_total` DECIMAL(6,2), IN `val_idusuario` INT, IN `val_tipo_comprobante` INT)  BEGIN
 	
 	INSERT INTO `venta`(`numeroventa`, `fechaventa`, `total`, `idusuario`, `tipo_comprobante`) 
 	VALUES (val_numeroventa,val_fechaventa,val_total,val_idusuario,val_tipo_comprobante);
@@ -135,13 +136,12 @@ CREATE TABLE `cat_medidas` (
 --
 
 INSERT INTO `cat_medidas` (`id`, `nombre`, `descripcion`, `codigo`) VALUES
-(1, 'OnzaACTUAL', 'Medida de producto en onzas', 'UONZA'),
+(1, 'Onza', 'Medida de producto en onzas', 'UONZA'),
 (2, 'Libra', 'Medida de producto en libras', 'ULIBRA'),
 (3, 'Litro', 'Medida de producto en Litros', 'ULITRO'),
 (4, 'Galon', 'Medida de producto en galones', 'UGALON'),
 (5, 'Metro', 'Unidad de producto en metros', 'UMETRO'),
-(6, 'Mililitros', 'Unidad de medida en militiros', 'UMILI'),
-(7, 'Gramos', 'Gramos', 'GM');
+(6, 'Mililitros', 'Unidad de medida en militiros', 'UMILI');
 
 -- --------------------------------------------------------
 
@@ -166,13 +166,14 @@ INSERT INTO `detalleventa` (`iddetalleventa`, `idventa`, `idproducto`, `cantidad
 (115, 118, 16, 3, '2.50'),
 (116, 119, 15, 1, '3.65'),
 (117, 119, 16, 1, '3.65'),
-(118, 120, 15, 1, '3.65'),
-(119, 120, 16, 1, '3.65'),
-(120, 121, 15, 1, '3.85'),
-(121, 121, 16, 1, '3.85'),
-(122, 122, 15, 1, '3.65'),
-(123, 123, 15, 1, '3.85'),
-(124, 123, 16, 1, '2.50');
+(118, 120, 15, 1, '3.00'),
+(119, 121, 15, 2, '6.00'),
+(120, 122, 15, 1, '3.85'),
+(121, 123, 15, 3, '10.95'),
+(122, 124, 15, 1, '3.65'),
+(123, 125, 15, 1, '3.65'),
+(124, 126, 15, 1, '3.85'),
+(125, 127, 15, 1, '3.85');
 
 -- --------------------------------------------------------
 
@@ -252,8 +253,8 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`idproducto`, `nombre`, `descripcion`, `preciocompra`, `stock`, `imagen`, `idcategoria`, `idproveedor`, `idusuario`, `estado`, `umedida`, `precio1`, `precio2`, `precio3`) VALUES
-(15, 'Harina de Trigo', 'Harina de trigo suave', '2.00', 12, 'img/producto.jpg', 8, 3, 16, 1, 2, '3.00', '3.65', '3.85'),
-(16, 'harina arroz', 'arroz', '2.00', 3, 'img/FONDO.jpg', 1, 1, 15, 1, 2, '2.50', '3.00', '3.50');
+(15, 'Harina de Trigo', 'Harina de trigo suave', '2.00', 5, 'img/producto.jpg', 8, 3, 16, 1, 2, '3.00', '3.65', '3.85'),
+(16, 'harina arroz', 'arroz', '2.00', 6, '/img/azucarblanca.jpg', 1, 1, 15, 1, 2, '2.50', '3.00', '3.50');
 
 -- --------------------------------------------------------
 
@@ -344,7 +345,7 @@ INSERT INTO `usuario` (`idusuario`, `nombre`, `apellido`, `telefono`, `usuario`,
 CREATE TABLE `venta` (
   `idventa` int(11) NOT NULL,
   `numeroventa` int(11) NOT NULL,
-  `fechaventa` date NOT NULL,
+  `fechaventa` varchar(100) NOT NULL,
   `total` decimal(10,2) NOT NULL,
   `idusuario` int(11) NOT NULL,
   `tipo_comprobante` int(11) NOT NULL
@@ -355,12 +356,16 @@ CREATE TABLE `venta` (
 --
 
 INSERT INTO `venta` (`idventa`, `numeroventa`, `fechaventa`, `total`, `idusuario`, `tipo_comprobante`) VALUES
-(118, 2020, '2020-10-24', '9.00', 15, 4),
-(119, 20201, '2020-10-24', '7.30', 15, 1),
-(120, 654, '2020-10-25', '7.30', 16, 4),
-(121, 3030, '2020-10-25', '7.70', 16, 4),
-(122, 123, '2020-10-25', '3.65', 16, 4),
-(123, 9898, '2020-10-26', '6.35', 16, 4);
+(118, 2020, '2020-10-24 07:08:28 PM', '9.00', 15, 4),
+(119, 20201, '2020-10-24 08:08:28 PM', '7.30', 15, 1),
+(120, 20202, '2020-10-24 09:18:28 PM', '3.00', 15, 4),
+(121, 20203, '2020-10-24 11:5:28 PM', '6.00', 15, 4),
+(122, 20204, '2020-10-24 10:28:28 PM', '3.85', 15, 4),
+(123, 20205, '2020-10-24 09:08:28 PM', '10.95', 15, 4),
+(124, 16, '2020-10-24 10:08:28 PM', '3.65', 15, 4),
+(125, 38, '2020-10-24 11:08:28 PM', '3.65', 15, 4),
+(126, 53, '2020-10-24 11:41:48 PM', '3.85', 15, 1),
+(127, 69, '2020-10-24 11:43:17 PM', '3.85', 15, 4);
 
 -- --------------------------------------------------------
 
@@ -389,13 +394,14 @@ INSERT INTO `ventas_producto` (`id`, `idventa`, `idproducto`, `stockanterior`, `
 (23, 118, 15, 20, 3, 17, 15, '2.00', '9.00', '2020-10-24'),
 (24, 119, 15, 17, 1, 16, 15, '2.00', '3.65', '2020-10-24'),
 (25, 119, 16, 7, 1, 6, 15, '2.00', '3.65', '2020-10-24'),
-(26, 120, 15, 16, 1, 15, 16, '2.00', '3.65', '2020-10-25'),
-(27, 120, 16, 6, 1, 5, 16, '2.00', '3.65', '2020-10-25'),
-(28, 121, 15, 15, 1, 14, 16, '2.00', '3.85', '2020-10-25'),
-(29, 121, 16, 5, 1, 4, 16, '2.00', '3.85', '2020-10-25'),
-(30, 122, 15, 14, 1, 13, 16, '2.00', '3.65', '2020-10-25'),
-(31, 123, 15, 13, 1, 12, 16, '2.00', '3.85', '2020-10-26'),
-(32, 123, 16, 4, 1, 3, 16, '2.00', '2.50', '2020-10-26');
+(26, 120, 15, 16, 1, 15, 15, '2.00', '3.00', '2020-10-24'),
+(27, 121, 15, 15, 2, 13, 15, '2.00', '6.00', '2020-10-24'),
+(28, 122, 15, 13, 1, 12, 15, '2.00', '3.85', '2020-10-24'),
+(29, 123, 15, 12, 3, 9, 15, '2.00', '10.95', '2020-10-24'),
+(30, 124, 15, 9, 1, 8, 15, '2.00', '3.65', '2020-10-24'),
+(31, 125, 15, 8, 1, 7, 15, '2.00', '3.65', '2020-10-24'),
+(32, 126, 15, 7, 1, 6, 15, '2.00', '3.85', '2020-10-24'),
+(33, 127, 15, 6, 1, 5, 15, '2.00', '3.85', '2020-10-24');
 
 --
 -- Disparadores `ventas_producto`
@@ -530,13 +536,13 @@ ALTER TABLE `cat_impuesto`
 -- AUTO_INCREMENT de la tabla `cat_medidas`
 --
 ALTER TABLE `cat_medidas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `detalleventa`
 --
 ALTER TABLE `detalleventa`
-  MODIFY `iddetalleventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
+  MODIFY `iddetalleventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
 
 --
 -- AUTO_INCREMENT de la tabla `ingreso_producto`
@@ -578,13 +584,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas_producto`
 --
 ALTER TABLE `ventas_producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- Restricciones para tablas volcadas

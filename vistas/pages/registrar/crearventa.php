@@ -290,9 +290,8 @@ function agregardetalle(producto) {
     //document.getElementById("btnProd"+id).style.visibility = "hidden";
     $("#btnProd"+id).prop('disabled', true);
 
-    $('#idmodalproducto').modal({
-           show: 'false'
-       });
+   //$('#idmodalproducto').modal({show: 'false' });
+
 
   }
   
@@ -312,16 +311,25 @@ function agregardetalle(producto) {
 
         if (compro==2) {
 
+             
             $("#txtNRC").prop('disabled', false);
             $("#txtNIT").prop('disabled', false);
-             $("#txtNRC").prop('required', false);
-              $("#txtNIT").prop('required', false);
+
+
+            $("#txtNRC").prop('required', true);
+            $("#txtNIT").prop('required', true);
+
         }else if (compro!=2) {
+
+              document.getElementById('txtNRC').value = '';
+              document.getElementById('txtNIT').value = '';
               $("#txtNRC").prop('disabled', true);
               $("#txtNIT").prop('disabled', true);
+              $("#txtNRC").prop('required', false);
+              $("#txtNIT").prop('required', false);
 
-               $("#txtNRC").prop('required', true);
-              $("#txtNIT").prop('required', true);
+
+
         }
         
      
@@ -380,6 +388,7 @@ function borrardetalle(detalle) {
     }
 
     //document.getElementById("btnProd"+idprobo).style.visibility = "visible";
+
      $("#btnProd"+idprobo).prop('disabled', false);
     
 }
@@ -393,6 +402,7 @@ function borrardetalle(detalle) {
 //para calcular el precio según la cantidad
 function calcularCantidad(cantidad) {
     //tomar el id del detalle 
+
     var i = cantidad.getAttribute('data-i');
     
 
