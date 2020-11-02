@@ -70,9 +70,15 @@
         </div>
 
         <!-- para saber cuantos detalles se enviaron -->
+<<<<<<< HEAD
         <input id="txtCantidadDetalle" hidden  name="txtCantidadDetalle" value="1">
         <!-- para saber cual fue el último borrado -->
         <input id="txtBorrado" hidden  name="txtBorrado" value="1">
+=======
+        <input id="txtCantidadDetalle"   name="txtCantidadDetalle" value="1">
+        <!-- para saber cual fue el último borrado -->
+        <input id="txtBorrado"   name="txtBorrado" value="1">
+>>>>>>> c660ab0d8d37efcb482aea2fa2902ac3aaad184f
 
         <!-- tabla de activos -->
         <div id="detalle" class="col s12">
