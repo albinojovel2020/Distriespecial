@@ -70,9 +70,9 @@
         </div>
 
         <!-- para saber cuantos detalles se enviaron -->
-        <input id="txtCantidadDetalle"  hidden  name="txtCantidadDetalle" value="1">
+        <input id="txtCantidadDetalle" hidden  name="txtCantidadDetalle" value="1">
         <!-- para saber cual fue el último borrado -->
-        <input id="txtBorrado"  hidden  name="txtBorrado" value="0">
+        <input id="txtBorrado" hidden  name="txtBorrado" value="1">
 
         <!-- tabla de activos -->
         <div id="detalle" class="col s12">
@@ -160,10 +160,10 @@
                     <th >Id Producto</th>
                     <th>Nombre</th>
                     <th>Descripción</th>
-                    <th>Precio Unitario</th>
                     <th>Stock</th>
-                    <th>Categoria</th>
+                    <th>Medida</th>
                     <th>Proveedor</th>
+                    <th>Precio Unitario</th>
                     <th class="center">Agregar</th>
                 </tr>
             </thead>
@@ -172,10 +172,10 @@
                    <th >Id Producto</th>
                    <th>Nombre</th>
                    <th>Descripción</th>
-                   <th>Precio Unitario</th>
                    <th>Stock</th>
-                   <th>Categoria</th>
+                   <th>Medida</th>
                    <th>Proveedor</th>
+                   <th>Precio Unitario</th>
                    <th class="center">Agregar</th>
                </tr>
            </tfoot>
@@ -185,20 +185,19 @@
                     <td ><?php echo $r->idproducto; ?></td>
                     <td><?php echo $r->nombre; ?></td>
                     <td><?php echo $r->descripcion; ?></td> 
+                    <td><?php echo $r->stock; ?></td>
+                    <td ><?php echo $r->cmnombre; ?></td>
+                    <td ><?php echo $r->nombreprove; ?></td>
                     <td>
-                      
                            <select id="preciov<?php echo $r->idproducto; ?>" name="preciov<?php echo $r->idproducto; ?>" class="validate">      
                                 <option value="<?php echo $r->precio1; ?>"><?php echo $r->precio1; ?></option>  
                                 <option value="<?php echo $r->precio2; ?>"><?php echo $r->precio2; ?></option>
                                 <option value="<?php echo $r->precio3; ?>"><?php echo $r->precio3; ?></option>
-                            </select>
-                        
+                            </select>  
                     </td>
-                    <td><?php echo $r->stock; ?></td>
-                    <td ><?php echo $r->nombrecate; ?></td>
-                    <td ><?php echo $r->nombreprove; ?></td>
                     <td> <!-- agregar el producto al detalle -->
-                        <button  onclick="agregardetalle(this);" id="btnProd<?php echo $r->idproducto; ?>" title="Agregar" class="waves-effect waves-light btn-small green accent-4" data-stock="<?php echo $r->stock; ?>" data-id="<?php echo $r->idproducto; ?>" data-precioc="<?php echo $r->precio; ?>" data-codigo="<?php echo $r->codigobarra; ?>" data-nombre="<?php echo $r->nombre; ?>" data-habili="1" ><i class="material-icons">add_shopping_cart</i></button>
+                        <button  onclick="agregardetalle(this);" id="btnProd<?php echo $r->idproducto; ?>" title="Agregar" class="waves-effect waves-light btn-small modal-close green accent-4" data-stock="<?php echo $r->stock; ?>" data-id="<?php echo $r->idproducto; ?>" data-precioc="<?php echo $r->precio; ?>" data-codigo="<?php echo $r->codigobarra; ?>" data-nombre="<?php echo $r->nombre; ?>" data-habili="1" ><i class="material-icons">add_shopping_cart</i>
+                        </button>
                     </td>
                 </tr>
                 <?php endforeach; ?></tbody>
@@ -223,14 +222,12 @@ function agregardetalle(producto) {
 
    alert("Selecciona Una opción de precio");
    document.getElementById('preciov'+id).focus();
-
+   
    
 
   }else if (document.getElementById('preciov'+id).value != ""){
 
 
-  //tomar el codigobarra del producto 
-  var codigo = producto.getAttribute('data-codigo');
   //tomar el nombre del producto 
   var nombre = producto.getAttribute('data-nombre');
   //tomar el precio del producto 
@@ -243,15 +240,14 @@ function agregardetalle(producto) {
 
   var stock = producto.getAttribute('data-stock');
 
-  var estadoboton = producto.getAttribute('data-habili');
 
   
   var numero = null;
   var borrado = parseInt(document.getElementById("txtBorrado").value);
 
     //tomar la cantidad de detalles
-    if (borrado != 0) {
-        numero = parseInt(document.getElementById("txtBorrado").value);            
+    if (borrado != 1) {
+        numero = parseInt(document.getElementById("txtCantidadDetalle").value);            
     }else{
         numero = parseInt(document.getElementById("txtCantidadDetalle").value);
     }
@@ -273,15 +269,11 @@ function agregardetalle(producto) {
 
     //asignar los valores al formulario
     document.getElementById("txtCantidadDetalle").value = numeroDetalle+1;
-    document.getElementById("txtCodigoBarra"+numero).value = codigo;
     document.getElementById("txtNombre"+numero).value = nombre;
     document.getElementById("txtStock"+numero).value = stock;
     document.getElementById("txtPrecio"+numero).value = precio;
     document.getElementById("txtPrecioC"+numero).value = precioc;
     document.getElementById("txtSubTotal"+numero).value = precio;
-
-    //volver txtBorrado a cero
-    document.getElementById("txtBorrado").value = "0";
 
     //calcular Total
     calcularTotal(numeroDetalle+1);
@@ -291,6 +283,7 @@ function agregardetalle(producto) {
     $("#btnProd"+id).prop('disabled', true);
 
    //$('#idmodalproducto').modal({show: 'false' });
+     
 
 
   }
@@ -356,7 +349,9 @@ function borrardetalle(detalle) {
         
 
         //dejar el detalle oculto
-        document.getElementById("filaDetalle"+i).style.display = 'none';     
+        document.getElementById("filaDetalle"+i).style.display = 'none'; 
+
+
 
         //tomar el valor del subTotal y total
         var subtotal = parseFloat(document.getElementById("txtSubTotal"+i).value).toFixed(2);
@@ -366,12 +361,12 @@ function borrardetalle(detalle) {
 
         //asignar los valores al formulario
         document.getElementById("txtCantidadDetalle").value = numero-1;
-        document.getElementById("txtBorrado").value = i;
+        document.getElementById("txtBorrado").value ++;
         document.getElementById("txtCodigoBarra"+i).value = "";
         document.getElementById("txtNombre"+i).value = "";
         document.getElementById("txtCantidad"+i).value = "1";
         document.getElementById("txtDescuento"+i).value = "0";
-        document.getElementById("txtSubTotal"+i).value = "";
+        document.getElementById("txtSubTotal"+i).value = "0";
         
         //nuevo total
         document.getElementById("txtTotal").value = parseFloat(total).toFixed(2);

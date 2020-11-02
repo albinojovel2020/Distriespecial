@@ -252,9 +252,10 @@ class Usuario //inicio clase
                      $_SESSION["id"] = $data->idusuario;
                      $_SESSION["nombre"] = $data->nombre;
                      $_SESSION["apellido"] = $data->apellido;
-                     $_SESSION["usuario"] = $data->usuario;
+					 $_SESSION["usuario"] = $data->usuario;
+					 $_SESSION["rol"] = $data->idtipousuario;
  
-                     if ($data->idtipousuario == 1 && $data->estado == 1) {
+                     if ($data->idtipousuario == 1 || $data->idtipousuario == 2 && $data->estado == 1) {
                     # entrar como encargado de inventario                       
                          header("Location: ?c=".base64_encode('Tablero')."&idusuario=".base64_encode($_SESSION["id"]));
 

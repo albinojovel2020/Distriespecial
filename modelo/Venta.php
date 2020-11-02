@@ -121,7 +121,7 @@ class Venta
 					header("Location: ?c=".base64_encode('Movimientos')."&a=".base64_encode('Ticket')."&id=".base64_encode($id)."&fe=".base64_encode($fe)."&total=".base64_encode($total));
 
                     } elseif ($data1->nombrecompro == 'Factura consumidor final') {
-						header("Location: ?c=".base64_encode('Movimientos')."&a=".base64_encode('Factura')."&id=".base64_encode($id));
+						header("Location: ?c=".base64_encode('Movimientos')."&a=".base64_encode('Factura')."&id=".base64_encode($id)."&fe=".base64_encode($fe)."&total=".base64_encode($total));
                      } else{
                      	# code...
                      

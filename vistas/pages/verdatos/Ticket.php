@@ -11,7 +11,7 @@ $pdf = new Dompdf();
 
 //$url = require_once ;
 
- $html=file_get_contents_curl("http://localhost/distriespecial/?c=".base64_encode('Movimientos')."&a=".base64_encode('exTicket')."&id=".base64_encode($id)."&fe=".base64_encode($fe)."&total=".base64_encode($total));
+ $html=file_get_contents_curl("http://localhost/Distriespecial/?c=".base64_encode('Movimientos')."&a=".base64_encode('exTicket')."&id=".base64_encode($id)."&fe=".base64_encode($fe)."&total=".base64_encode($total));
 
 
 
@@ -44,7 +44,8 @@ $pdf->render();
 $dompdf = $pdf->output(); // Obtener el PDF generado
 /*1ra forma de abrir en nueva pestaña navegador */
 // Enviamos el fichero PDF al navegador.
-$pdf->stream('reportePdf.pdf', array('Attachment'=>0));
+$id1 = base64_encode($id);
+$pdf->stream($id.'.pdf', array('Attachment'=>0));
 
 /*Fin 1ra forma*/
 

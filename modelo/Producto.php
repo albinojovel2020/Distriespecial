@@ -91,7 +91,7 @@ class Producto //inicio clase
 		try
 		{
 
-			$stm = $this->pdo->prepare("SELECT pro.idproducto AS idproducto, pro.nombre AS nombre, pro.descripcion AS descripcion, pro.preciocompra AS precio, pro.precio1,pro.precio2,pro.precio3, pro.stock AS stock, pro.imagen AS img, pro.idcategoria AS idcategoria, pro.idproveedor AS idproveedor, pro.idusuario AS idusuario, c.nombre AS nombrecate, CONCAT(p.nombre,' ', p.apellido) AS nombreprove, u.usuario AS nombreusuario, pro.estado AS estado FROM producto AS pro INNER JOIN categoria AS c ON pro.idcategoria = c.idcategoria INNER JOIN proveedor AS p ON pro.idproveedor = p.idproveedor INNER JOIN usuario AS u ON pro.idusuario = u.idusuario WHERE pro.estado = 1 and pro.stock > 0");
+			$stm = $this->pdo->prepare("SELECT pro.idproducto AS idproducto, cm.nombre as cmnombre, pro.nombre AS nombre, pro.descripcion AS descripcion, pro.preciocompra AS precio, pro.precio1,pro.precio2,pro.precio3, pro.stock AS stock, pro.imagen AS img, pro.idcategoria AS idcategoria, pro.idproveedor AS idproveedor, pro.idusuario AS idusuario, c.nombre AS nombrecate, CONCAT(p.nombre,' ', p.apellido) AS nombreprove, u.usuario AS nombreusuario, pro.estado AS estado FROM producto AS pro INNER JOIN categoria AS c ON pro.idcategoria = c.idcategoria INNER JOIN cat_medidas AS cm ON pro.umedida = cm.id INNER JOIN proveedor AS p ON pro.idproveedor = p.idproveedor INNER JOIN usuario AS u ON pro.idusuario = u.idusuario WHERE pro.estado = 1 and pro.stock > 0");
 			$stm->execute();
 
 			return $stm->fetchAll(PDO::FETCH_OBJ);

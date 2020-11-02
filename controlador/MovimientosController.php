@@ -128,17 +128,28 @@ class MovimientosController
 		require_once 'vistas/pages/verdatos/Ticket.php';
 	}
 
-	public function Factura(){
-		$id = base64_decode($_REQUEST['id']);
-		
-		require_once 'vistas/pages/verdatos/Factura.php';
-	}
-
 	public function exTicket(){
 		$id = base64_decode($_REQUEST['id']);
 		$fe = base64_decode($_REQUEST['fe']);
 		$total = base64_decode($_REQUEST['total']);
 		require_once 'vistas/pages/verdatos/exTicket.php';
+	}
+
+	public function Factura(){
+		$id = base64_decode($_REQUEST['id']);
+		$fe = base64_decode($_REQUEST['fe']);
+		/*$id1 = $id;
+		$fe1 = $fe;*/
+		$total = base64_decode($_REQUEST['total']);
+		//$ticket = $this->modelVenta->ConsultaPDF1($id);
+		require_once 'vistas/pages/verdatos/Factura.php';
+	}
+
+	public function exFactura(){
+		$id = base64_decode($_REQUEST['id']);
+		$fe = base64_decode($_REQUEST['fe']);
+		$total = base64_decode($_REQUEST['total']);
+		require_once 'vistas/pages/verdatos/exFactura.php';
 	}
 
 

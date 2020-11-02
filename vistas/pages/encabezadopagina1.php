@@ -52,7 +52,11 @@ if(!isset($_SESSION["id"])){
   <li><a href="?c=<?php echo base64_encode('Proveedor');?>" class="grey-text text-darken-1"><i class="material-icons">person</i><b>PROVEEDORES</b></a></li>
   <li><a href="?c=<?php echo base64_encode('Umedida');?>" class="grey-text text-darken-1"><i class="material-icons">pie_chart
   </i><b>UNIDADES MEDIDA</b></a></li>
+  <?php 
+    if (isset($_SESSION['rol'])  && $_SESSION['rol'] == 1) {
+  ?>
   <li><a href="?c=<?php echo base64_encode('Producto');?>" class="grey-text text-darken-1"><i class="material-icons">playlist_add_check</i><b>PRODUCTOS</b></a></li>
+  <?php } ?>
   <li><a href="?c=<?php echo base64_encode('Movimientos');?>" class="grey-text text-darken-1"><i class="material-icons">local_mall</i><b>INGRESO A ALMACEN</b></a></li>
   <li><a href="?c=<?php echo base64_encode('Movimientos');?>&a=<?php echo base64_encode('CrearVenta');?>" class="grey-text text-darken-1"><i class="material-icons">add_shopping_cart</i><b>VENTAS</b></a></li>
   <li><a href="?c=<?php echo base64_encode('Movimientos');?>" class="grey-text text-darken-1"><i class="material-icons">cloud_download</i><b>BACKUP</b></a></li>
