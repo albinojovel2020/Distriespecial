@@ -47,15 +47,23 @@
                 <td><?php echo $r->total; ?></td>
                 <td><?php echo $r->tipocomprobante; ?></td>
                 <td><?php echo $r->nusu; ?> <?php echo $r->apellido; ?></td>     
-                <td><?php if ($r->anulada==0) {
-                  echo "Registrada";
-                }elseif ($r->anulada!=0) {
-                  echo "Anulada";
-                }  ?></td>                      
-                <!--<td><button>Imprimir</button></td>-->
+                <td>
+                  <?php if ($r->anulada==0) {
+                    echo "Registrada";
+                  }elseif ($r->anulada!=0) {
+                    echo "Anulada";
+                  }  ?>
+                  
+                </td>                      
                 <td class="center">
-                  <!--&compro=<?php //echo base64_encode($r->tipocomprobante); ?>-->
-                  <a target="blank" href="?c=<?php echo base64_encode('Movimientos'); ?>&a=<?php echo base64_encode('VERPDF'); ?>&nfac=<?php echo base64_encode($r->nfac); ?>" title="PDF del registro" ><i class="mini material-icons green-ast-text hoverable circle ">remove_red_eye</i></a>
+
+                  <?php if ($r->anulada==0) {?>
+                    <a target="blank" href="?c=<?php echo base64_encode('Movimientos'); ?>&a=<?php echo base64_encode('VERPDF'); ?>&nfac=<?php echo base64_encode($r->nfac); ?>" title="PDF del registro" ><i class="mini material-icons green-ast-text hoverable circle ">remove_red_eye</i></a>
+                    <?php
+                  }elseif ($r->anulada!=0) {
+                    echo "Anulada";
+                  }  ?>
+                  
                 </td>
 
                 <?php if ($r->anulada==0) {
