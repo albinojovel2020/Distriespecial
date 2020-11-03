@@ -10,6 +10,11 @@ class Venta
     public $idusuario;
     public $tipo_comprobante;
     public $anulada;
+    public $tiva;
+    public $cliente;
+    public $giro;
+    public $nit;
+    public $nrc;
     
 
 	public function __CONSTRUCT()
@@ -35,7 +40,7 @@ class Venta
 		try 
 		{
 			$stm = $this->pdo
-			          ->prepare("CALL ps_guardar_venta(?, ?, ?, ?, ?)");
+			          ->prepare("CALL ps_guardar_venta(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			        
 
 			$stm->execute(array(
@@ -43,7 +48,13 @@ class Venta
                                     $data->fechaventa,
                                     $data->total,
                                     $data->idusuario,
-                                    $data->tipo_comprobante
+                                    $data->tipo_comprobante,
+                                    $data->tiva,
+                                    $data->cliente,
+                                    $data->giro,
+                                    $data->nrc,
+                                    $data->nit
+
                 				));
 
 			return $stm->fetch(PDO::FETCH_OBJ);
@@ -70,6 +81,7 @@ class Venta
     				 v.numeroventa nfac,
                      v.fechaventa fventa,
                      v.total total,
+                     v.tiva,
                      u.nombre nusu,
                      u.apellido apellido,
                      cc.nombre as tipocomprobante,
@@ -123,11 +135,9 @@ class Venta
 
                     } elseif ($data1->nombrecompro == 'Factura consumidor final') {
 						header("Location: ?c=".base64_encode('Movimientos')."&a=".base64_encode('Factura')."&id=".base64_encode($id)."&fe=".base64_encode($fe)."&total=".base64_encode($total));
-                     } else{
-                     	# code...
-                     
-                         //header("Location: ?c=".base64_encode('Login')."&a=".base64_encode('Error_inactivo'));    
-                     }
+                     } elseif ($data1->nombrecompro == 'Comprobante de credito fiscal') {
+						header("Location: ?c=".base64_encode('Movimientos')."&a=".base64_encode('CFiscal')."&id=".base64_encode($id)."&fe=".base64_encode($fe)."&total=".base64_encode($total));
+                     } 	
 
                  /*} else {
                  // enviar al login

@@ -29,6 +29,8 @@
               <th>Id venta</th>
               <th>Numero factura</th>
               <th>Fecha</th>
+              <th>Sub Total</th>
+              <th>Monto iva total</th>
               <th>Total</th>
               <td>Tipo comprobante</td>
               <th>Usuario registra</th>
@@ -44,7 +46,9 @@
                 <td><?php echo $r->id; ?></td>
                 <td><?php echo $r->nfac; ?></td>
                 <td><?php echo $r->fventa; ?></td>
-                <td><?php echo $r->total; ?></td>
+                <td>$ <?php echo $r->total-$r->tiva; ?></td>
+                <td>$ <?php echo $r->tiva; ?></td>
+                <td>$ <?php echo $r->total; ?></td>
                 <td><?php echo $r->tipocomprobante; ?></td>
                 <td><?php echo $r->nusu; ?> <?php echo $r->apellido; ?></td>     
                 <td>

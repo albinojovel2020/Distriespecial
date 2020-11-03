@@ -39,6 +39,11 @@
             <label for="txtIdUsuario">Empleado responsable</label>
         </div>
 
+          <div class="input-field col s6">
+            <input id="txtNombreCliente" type="text" name="txtNombreCliente"  value="" required>
+            <label for="txtNombreCliente">Cliente:</label>
+        </div>
+
         <div class="input-field col s6">
             <input id="txtIdUsuari" type="text" name="txtIdUsuari" value="<?php echo $_SESSION['nombre'].' '.$_SESSION['apellido']; ?>"  readonly>
             <label for="txtIdUsuari">Empleado responsable</label>
@@ -57,14 +62,19 @@
 
 
         <div class="input-field col s12 m6" > 
-                   <div id class="input-field col s6" id="NRC">
+                   <div id class="input-field col s6" id="txtNRC">
             <input id="txtNRC" type="text" class="validate" name="txtNRC"  disabled required>
             <label for="txtNRC">NRC Comprador</label>
         </div>
 
-         <div class="input-field col s6" id="NIT" >
+        <div class="input-field col s6" id="txtNIT" >
             <input id="txtNIT" type="text" class="validate" name="txtNIT" disabled required>
             <label for="txtNIT">NIT Comprador</label>
+        </div>
+
+        <div class="input-field col s6" id="txtGiro" >
+            <input id="txtGiro" type="text" class="validate" name="txtGiro" disabled required>
+            <label for="txtGiro">GIRO:</label>
         </div>
 
         </div>
@@ -80,14 +90,15 @@
             <table class="display highlight">
                 <thead class="green-text">
                     <tr>
-                        <th>ID PRODUCTO</th>
+                        <th hidden>ID PRODUCTO</th>
                         <th>NOMBRE</th>
                         <th>PRECIO</th>
                         <th hidden>PRECIOC</th>
                         <th>CANTIDAD</th>
                         <th>EXISTENCIA</th>
                         <th>SUBTOTAL</th>
-                        <th class="center">BORRAR</th>
+                        <th>IVA</th>                        
+                        <th class="center">ACCION</th>
                     </tr>
                 </thead>
                 <tbody >
@@ -95,7 +106,7 @@
                     <?php for ($i=1; $i <= 35; $i++) { 
                         echo '<tr class="indigo-text yellow lighten-4 " id="filaDetalle'.$i.'" style="display:none;">
 
-                        <td>
+                        <td hidden>
                         <input id="txtIdproducto'.$i.'"  readonly name="txtIdproducto'.$i.'" value=""/>
 
                         <input id="txtCodigoBarra'.$i.'" type="hidden" size="10" type="text" name="txtCodigoBarra'.$i.'" value="" readonly/>
@@ -121,6 +132,9 @@
                         <td>
                         $<input class="right-align" id="txtSubTotal'.$i.'"  type="text" name="txtSubTotal'.$i.'" value="" style="width: 80px;" readonly />
                         </td>
+                        <td>
+                        $<input class="right-align" id="txtMontoIva'.$i.'" size="5" type="text" class="validate" name="txtMontoIva'.$i.'" value="" style="width: 80px;" readonly/>
+                        </td>
 
                         <td class="center">
                         <a onclick="borrardetalle(this)" data-i="'.$i.'" id="btnBorar'.$i.'" title="Borrar" class="waves-effect waves-light btn-small red"><i class="material-icons">remove_shopping_cart</i></a>
@@ -128,11 +142,16 @@
 
                         </tr>';
                     } ?>
-
+                    <tr id="filaIva" style="display:none;">
+                        <td colspan="5" class="right-align"><strong>IVA</strong></td>
+                        <td colspan="2">
+                            <span>$</span><input class="right-align orange lighten-4" id="txtTotalIva"  type="text" name="txtTotalIva" value="" style="width: 80px;" />
+                        </td>
+                    </tr>
                     <tr id="filaTotal" style="display:none;">
                         <td colspan="5" class="right-align"><strong>Total</strong></td>
                         <td colspan="2">
-                            <span>$</span><input class="center-align deep-orange lighten-4" id="txtTotal"  type="text" name="txtTotal" value="" style="width: 80px;" />
+                            <span>$</span><input class="right-align deep-orange lighten-4" id="txtTotal"  type="text" name="txtTotal" value="" style="width: 80px;" />
                         </td>
                     </tr>
                 </tbody>
@@ -158,6 +177,7 @@
             <thead class="indigo-text">
                 <tr>
                     <th >Id Producto</th>
+                    <th hidden>MONTOIVA</th>
                     <th>Nombre</th>
                     <th>Descripción</th>
                     <th>Stock</th>
@@ -170,11 +190,12 @@
             <tfoot class="indigo-text">
                 <tr>
                    <th >Id Producto</th>
+                   <th hidden>MONTOIVA</th>
                    <th>Nombre</th>
                    <th>Descripción</th>
                    <th>Stock</th>
                    <th>Medida</th>
-                   <th>Proveedor</th>
+                   <th>Proveedor</th>   
                    <th>Precio Unitario</th>
                    <th class="center">Agregar</th>
                </tr>
@@ -182,6 +203,7 @@
            <tbody>
              <?php foreach($this->model->ListarProductosActivoConexistencia() as $r):?>
                 <tr id="fila<?php echo $r->idproducto; ?>">
+                    <td hidden><?php echo $r->montoiva; ?></td>
                     <td ><?php echo $r->idproducto; ?></td>
                     <td><?php echo $r->nombre; ?></td>
                     <td><?php echo $r->descripcion; ?></td> 
@@ -196,7 +218,7 @@
                             </select>  
                     </td>
                     <td> <!-- agregar el producto al detalle -->
-                        <button  onclick="agregardetalle(this);" id="btnProd<?php echo $r->idproducto; ?>" title="Agregar" class="waves-effect waves-light btn-small modal-close green accent-4" data-stock="<?php echo $r->stock; ?>" data-id="<?php echo $r->idproducto; ?>" data-precioc="<?php echo $r->precio; ?>" data-codigo="<?php echo $r->codigobarra; ?>" data-nombre="<?php echo $r->nombre; ?>" data-habili="1" ><i class="material-icons">add_shopping_cart</i>
+                        <button  onclick="agregardetalle(this);" id="btnProd<?php echo $r->idproducto; ?>" title="Agregar" class="waves-effect waves-light btn-small modal-close green accent-4" data-stock="<?php echo $r->stock; ?>" data-id="<?php echo $r->idproducto; ?>" data-precioc="<?php echo $r->precio; ?>" data-iva="<?php echo $r->montoiva; ?>" data-codigo="<?php echo $r->codigobarra; ?>" data-nombre="<?php echo $r->nombre; ?>" data-habili="1" ><i class="material-icons">add_shopping_cart</i>
                         </button>
                     </td>
                 </tr>
@@ -240,6 +262,8 @@ function agregardetalle(producto) {
 
   var stock = producto.getAttribute('data-stock');
 
+  var iva = producto.getAttribute('data-iva');
+
 
   
   var numero = null;
@@ -257,6 +281,8 @@ function agregardetalle(producto) {
 
     //mostrar el total oculto
     document.getElementById("filaTotal").style.display = '';
+
+    document.getElementById("filaIva").style.display = '';
     
     //mostrar el botón oculto
     document.getElementById("btnComprar").style.display = '';
@@ -273,6 +299,7 @@ function agregardetalle(producto) {
     document.getElementById("txtStock"+numero).value = stock;
     document.getElementById("txtPrecio"+numero).value = precio;
     document.getElementById("txtPrecioC"+numero).value = precioc;
+    document.getElementById("txtMontoIva"+numero).value = precio*iva;
     document.getElementById("txtSubTotal"+numero).value = precio;
 
     //calcular Total
@@ -284,7 +311,7 @@ function agregardetalle(producto) {
 
    //$('#idmodalproducto').modal({show: 'false' });
      
-
+    document.getElementById('preciov'+id).value = "";
 
   }
   
@@ -307,27 +334,25 @@ function agregardetalle(producto) {
              
             $("#txtNRC").prop('disabled', false);
             $("#txtNIT").prop('disabled', false);
+            $("#txtGiro").prop('disabled', false);
 
 
             $("#txtNRC").prop('required', true);
             $("#txtNIT").prop('required', true);
+            $("#txtGiro").prop('required', true);
 
         }else if (compro!=2) {
 
               document.getElementById('txtNRC').value = '';
               document.getElementById('txtNIT').value = '';
+              document.getElementById('txtGiro').value = '';
               $("#txtNRC").prop('disabled', true);
               $("#txtNIT").prop('disabled', true);
+              $("#txtGiro").prop('disabled', true);
               $("#txtNRC").prop('required', false);
               $("#txtNIT").prop('required', false);
-
-
-
-        }
-        
-     
-             
-           
+              $("#txtGiro").prop('required', false);
+        }  
     }
 
 </script>
@@ -355,9 +380,14 @@ function borrardetalle(detalle) {
 
         //tomar el valor del subTotal y total
         var subtotal = parseFloat(document.getElementById("txtSubTotal"+i).value).toFixed(2);
+        var iva = parseFloat(document.getElementById("txtMontoIva"+i).value).toFixed(2);
         var total = parseFloat(document.getElementById("txtTotal").value).toFixed(2);
+        var tiva = parseFloat(document.getElementById("txtTotalIva").value).toFixed(2);
+
+
         //calcular total
         total = parseFloat(total) - parseFloat(subtotal);
+        tiva = parseFloat(tiva) - parseFloat(iva);
 
         //asignar los valores al formulario
         document.getElementById("txtCantidadDetalle").value = numero-1;
@@ -370,13 +400,15 @@ function borrardetalle(detalle) {
         
         //nuevo total
         document.getElementById("txtTotal").value = parseFloat(total).toFixed(2);
+        document.getElementById("txtTotalIva").value = parseFloat(tiva).toFixed(2);
 
         if ((numero-1) == 1) {
             //ocultar el botón 
             document.getElementById("btnComprar").style.display = 'none';
             //ocultar el total
             document.getElementById("filaTotal").style.display = 'none'; 
-
+            document.getElementById("filaIva").style.display = 'none';
+            //location.reload(true);
         }
 
 
@@ -477,14 +509,18 @@ function calcularSubTotal(i, precio, cantidad, descuento) {
 function calcularTotal(numeroDetalle) {
     var j;
     var total = 0.00;
+    var tiva = 0.00;
         //sumar los subTotales
         for (j = 1; j < numeroDetalle; j++) {        
             subtotal = parseFloat(document.getElementById("txtSubTotal"+j).value).toFixed(2);
+            iva = parseFloat(document.getElementById("txtMontoIva"+j).value).toFixed(2);
+            tiva = parseFloat(tiva) + parseFloat(iva);
             // acumular total
-            total = parseFloat(total) + parseFloat(subtotal);
+            total = parseFloat(total) + parseFloat(subtotal) + parseFloat(iva);
         }
     //retornar el valor
     document.getElementById("txtTotal").value = parseFloat(total).toFixed(2);
+    document.getElementById("txtTotalIva").value = parseFloat(tiva).toFixed(2);
 }
 </script>
 

@@ -60,6 +60,12 @@ class MovimientosController
         $venta->total = $_REQUEST["txtTotal"];
         $venta->idusuario = $_REQUEST["txtIdUsuario"];
         $venta->tipo_comprobante = $_REQUEST["selComprobante"];
+        $venta->tiva = $_REQUEST["txtTotalIva"];
+        $venta->cliente = $_REQUEST["txtNombreCliente"];
+        $venta->giro = $_REQUEST["txtGiro"];
+        $venta->nrc = $_REQUEST["txtNRC"];
+        $venta->nit = $_REQUEST["txtNIT"];
+        
 
         //obtener el número de detalles que se enviaron
         $numerodetalles = $_REQUEST['txtCantidadDetalle'];        
@@ -74,10 +80,11 @@ class MovimientosController
                 $detalleventa->idproducto = $_REQUEST['txtIdproducto'.$i];
                 $detalleventa->cantidadventa = $_REQUEST['txtCantidad'.$i];
                 $detalleventa->precioventa = $_REQUEST['txtSubTotal'.$i];
-
+                $detalleventa->stockanterior = $_REQUEST['txtStock'.$i]; 
                 $detalleventa->preciocompra = $_REQUEST['txtPrecioC'.$i]; 
                
-                $detalleventa->stockanterior = $_REQUEST['txtStock'.$i]; 
+                $detalleventa->montoiva = $_REQUEST['txtMontoIva'.$i]; 
+                
 				$detalleventa->stockdespues = $_REQUEST['txtStock'.$i]-$_REQUEST['txtCantidad'.$i];
 				$detalleventa->usuario = $_REQUEST['txtIdUsuario'];
 				$detalleventa->fcrea = $_REQUEST['txtFechaVenta'];
@@ -120,6 +127,23 @@ class MovimientosController
 		$fe = base64_decode($_REQUEST['fe']);
 		$total = base64_decode($_REQUEST['total']);
 		require_once 'vistas/pages/verdatos/exTicket.php';
+	}
+
+	public function CFiscal(){
+		$id = base64_decode($_REQUEST['id']);
+		$fe = base64_decode($_REQUEST['fe']);
+		/*$id1 = $id;
+		$fe1 = $fe;*/
+		$total = base64_decode($_REQUEST['total']);
+		//$ticket = $this->modelVenta->ConsultaPDF1($id);
+		require_once 'vistas/pages/verdatos/CFiscal.php';
+	}
+	
+	public function exCFiscal(){
+		$id = base64_decode($_REQUEST['id']);
+		$fe = base64_decode($_REQUEST['fe']);
+		$total = base64_decode($_REQUEST['total']);
+		require_once 'vistas/pages/verdatos/exCFiscal.php';
 	}
 
 	public function Factura(){

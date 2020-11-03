@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-10-2020 a las 06:59:32
--- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.4.10
+-- Tiempo de generación: 03-11-2020 a las 22:26:44
+-- Versión del servidor: 10.4.8-MariaDB
+-- Versión de PHP: 7.3.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -20,24 +21,22 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `distribuidora_especial`
 --
-CREATE DATABASE IF NOT EXISTS `distribuidora_especial` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `distribuidora_especial`;
 
 DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ps_guardar_detalleventa` (IN `val_idventa` INT, IN `val_idproducto` INT, IN `val_cantidadventa` INT, IN `val_precioventa` DECIMAL(10,2))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ps_guardar_detalleventa` (IN `val_idventa` INT, IN `val_idproducto` INT, IN `val_cantidadventa` INT, IN `val_precioventa` DECIMAL(10,2), IN `val_montoiva` DECIMAL(10,2))  BEGIN
 	
-	INSERT INTO `detalleventa` (`iddetalleventa`, `idventa`, `idproducto`, `cantidadventa`, `precioventa`) VALUES (NULL, val_idventa, val_idproducto, val_cantidadventa, val_precioventa);
+	INSERT INTO `detalleventa` (`iddetalleventa`, `idventa`, `idproducto`, `cantidadventa`, `precioventa`,`montoiva`) VALUES (NULL, val_idventa, val_idproducto, val_cantidadventa, val_precioventa,val_montoiva);
 
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ps_guardar_venta` (IN `val_numeroventa` INT, IN `val_fechaventa` VARCHAR(50), IN `val_total` DECIMAL(6,2), IN `val_idusuario` INT, IN `val_tipo_comprobante` INT)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ps_guardar_venta` (IN `val_numeroventa` INT, IN `val_fechaventa` VARCHAR(50), IN `val_total` DECIMAL(10,2), IN `val_idusuario` INT, IN `val_tipo_comprobante` INT, IN `val_tiva` DECIMAL(10,2), IN `val_cliente` VARCHAR(200), IN `val_giro` VARCHAR(500), IN `val_nrc` VARCHAR(20), IN `val_nit` VARCHAR(20))  BEGIN
 	
-	INSERT INTO `venta`(`numeroventa`, `fechaventa`, `total`, `idusuario`, `tipo_comprobante`) 
-	VALUES (val_numeroventa,val_fechaventa,val_total,val_idusuario,val_tipo_comprobante);
+	INSERT INTO `venta`(`numeroventa`, `fechaventa`, `total`, `idusuario`, `tipo_comprobante`,`tiva`,`cliente`,`giro`,`nrc`,`nit`) 
+	VALUES (val_numeroventa,val_fechaventa,val_total,val_idusuario,val_tipo_comprobante,val_tiva,val_cliente,val_giro,val_nrc,val_nit);
     
      SELECT last_insert_id() AS nuevoid;
 END$$
@@ -154,26 +153,24 @@ CREATE TABLE `detalleventa` (
   `idventa` int(11) NOT NULL,
   `idproducto` int(11) NOT NULL,
   `cantidadventa` int(11) DEFAULT NULL,
-  `precioventa` decimal(6,2) NOT NULL
+  `precioventa` decimal(6,2) NOT NULL,
+  `montoiva` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `detalleventa`
 --
 
-INSERT INTO `detalleventa` (`iddetalleventa`, `idventa`, `idproducto`, `cantidadventa`, `precioventa`) VALUES
-(114, 118, 15, 3, '9.00'),
-(115, 118, 16, 3, '2.50'),
-(116, 119, 15, 1, '3.65'),
-(117, 119, 16, 1, '3.65'),
-(118, 120, 15, 1, '3.00'),
-(119, 121, 15, 2, '6.00'),
-(120, 122, 15, 1, '3.85'),
-(121, 123, 15, 3, '10.95'),
-(122, 124, 15, 1, '3.65'),
-(123, 125, 15, 1, '3.65'),
-(124, 126, 15, 1, '3.85'),
-(125, 127, 15, 1, '3.85');
+INSERT INTO `detalleventa` (`iddetalleventa`, `idventa`, `idproducto`, `cantidadventa`, `precioventa`, `montoiva`) VALUES
+(128, 129, 15, 1, '3.65', '0.47'),
+(129, 129, 16, 1, '3.00', '0.39'),
+(130, 130, 15, 1, '3.00', '0.39'),
+(131, 130, 16, 1, '3.00', '0.39'),
+(132, 131, 15, 1, '3.65', '0.47'),
+(133, 131, 16, 1, '2.50', '0.33'),
+(134, 132, 15, 1, '3.00', '0.39'),
+(135, 132, 16, 1, '2.50', '0.33'),
+(136, 133, 16, 1, '2.50', '0.33');
 
 -- --------------------------------------------------------
 
@@ -253,8 +250,8 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`idproducto`, `nombre`, `descripcion`, `preciocompra`, `stock`, `imagen`, `idcategoria`, `idproveedor`, `idusuario`, `estado`, `umedida`, `precio1`, `precio2`, `precio3`) VALUES
-(15, 'Harina de Trigo', 'Harina de trigo suave', '2.00', 5, 'img/producto.jpg', 8, 3, 16, 1, 2, '3.00', '3.65', '3.85'),
-(16, 'harina arroz', 'arroz', '2.00', 6, '/img/azucarblanca.jpg', 1, 1, 15, 1, 2, '2.50', '3.00', '3.50');
+(15, 'Harina de Trigo', 'Harina de trigo suave', '2.00', 0, 'img/producto.jpg', 8, 3, 16, 1, 2, '3.00', '3.65', '3.85'),
+(16, 'harina arroz', 'arroz', '2.00', 0, '/img/azucarblanca.jpg', 1, 1, 15, 1, 2, '2.50', '3.00', '3.50');
 
 -- --------------------------------------------------------
 
@@ -348,24 +345,25 @@ CREATE TABLE `venta` (
   `fechaventa` varchar(100) NOT NULL,
   `total` decimal(10,2) NOT NULL,
   `idusuario` int(11) NOT NULL,
-  `tipo_comprobante` int(11) NOT NULL
+  `tipo_comprobante` int(11) NOT NULL,
+  `anulada` tinyint(1) NOT NULL,
+  `tiva` decimal(10,2) NOT NULL,
+  `cliente` varchar(200) DEFAULT NULL,
+  `giro` varchar(500) DEFAULT NULL,
+  `nrc` varchar(20) DEFAULT NULL,
+  `nit` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `venta`
 --
 
-INSERT INTO `venta` (`idventa`, `numeroventa`, `fechaventa`, `total`, `idusuario`, `tipo_comprobante`) VALUES
-(118, 2020, '2020-10-24 07:08:28 PM', '9.00', 15, 4),
-(119, 20201, '2020-10-24 08:08:28 PM', '7.30', 15, 1),
-(120, 20202, '2020-10-24 09:18:28 PM', '3.00', 15, 4),
-(121, 20203, '2020-10-24 11:5:28 PM', '6.00', 15, 4),
-(122, 20204, '2020-10-24 10:28:28 PM', '3.85', 15, 4),
-(123, 20205, '2020-10-24 09:08:28 PM', '10.95', 15, 4),
-(124, 16, '2020-10-24 10:08:28 PM', '3.65', 15, 4),
-(125, 38, '2020-10-24 11:08:28 PM', '3.65', 15, 4),
-(126, 53, '2020-10-24 11:41:48 PM', '3.85', 15, 1),
-(127, 69, '2020-10-24 11:43:17 PM', '3.85', 15, 4);
+INSERT INTO `venta` (`idventa`, `numeroventa`, `fechaventa`, `total`, `idusuario`, `tipo_comprobante`, `anulada`, `tiva`, `cliente`, `giro`, `nrc`, `nit`) VALUES
+(129, 54554, '2020-11-03 11:34:21 AM', '7.51', 16, 1, 0, '0.86', '', '', '', ''),
+(130, 7777, '2020-11-03 11:40:48 AM', '6.78', 16, 1, 0, '0.78', '', '', '', ''),
+(131, 34344, '2020-11-03 01:50:24 PM', '6.95', 16, 2, 0, '0.80', 'Mirna Flores', 'Venta de Articulos de panaderia', '', ''),
+(132, 23, '2020-11-03 01:57:57 PM', '6.22', 16, 2, 0, '0.72', 'Alberto Garcia', 'Venta de Animales', '9898-8', '0614-230794-177-6'),
+(133, 9897, '2020-11-03 02:40:33 PM', '2.83', 16, 4, 0, '0.33', 'Albberto antonio', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -391,17 +389,15 @@ CREATE TABLE `ventas_producto` (
 --
 
 INSERT INTO `ventas_producto` (`id`, `idventa`, `idproducto`, `stockanterior`, `cantidadventa`, `stockdespues`, `usuario`, `preciocompra`, `precioventa`, `fcrea`) VALUES
-(23, 118, 15, 20, 3, 17, 15, '2.00', '9.00', '2020-10-24'),
-(24, 119, 15, 17, 1, 16, 15, '2.00', '3.65', '2020-10-24'),
-(25, 119, 16, 7, 1, 6, 15, '2.00', '3.65', '2020-10-24'),
-(26, 120, 15, 16, 1, 15, 15, '2.00', '3.00', '2020-10-24'),
-(27, 121, 15, 15, 2, 13, 15, '2.00', '6.00', '2020-10-24'),
-(28, 122, 15, 13, 1, 12, 15, '2.00', '3.85', '2020-10-24'),
-(29, 123, 15, 12, 3, 9, 15, '2.00', '10.95', '2020-10-24'),
-(30, 124, 15, 9, 1, 8, 15, '2.00', '3.65', '2020-10-24'),
-(31, 125, 15, 8, 1, 7, 15, '2.00', '3.65', '2020-10-24'),
-(32, 126, 15, 7, 1, 6, 15, '2.00', '3.85', '2020-10-24'),
-(33, 127, 15, 6, 1, 5, 15, '2.00', '3.85', '2020-10-24');
+(36, 129, 15, 4, 1, 3, 16, '2.00', '3.65', '2020-11-03'),
+(37, 129, 16, 5, 1, 4, 16, '2.00', '3.00', '2020-11-03'),
+(38, 130, 15, 3, 1, 2, 16, '2.00', '3.00', '2020-11-03'),
+(39, 130, 16, 4, 1, 3, 16, '2.00', '3.00', '2020-11-03'),
+(40, 131, 15, 2, 1, 1, 16, '2.00', '3.65', '2020-11-03'),
+(41, 131, 16, 3, 1, 2, 16, '2.00', '2.50', '2020-11-03'),
+(42, 132, 15, 1, 1, 0, 16, '2.00', '3.00', '2020-11-03'),
+(43, 132, 16, 2, 1, 1, 16, '2.00', '2.50', '2020-11-03'),
+(44, 133, 16, 1, 1, 0, 16, '2.00', '2.50', '2020-11-03');
 
 --
 -- Disparadores `ventas_producto`
@@ -432,7 +428,8 @@ ALTER TABLE `cat_comprobante`
 -- Indices de la tabla `cat_impuesto`
 --
 ALTER TABLE `cat_impuesto`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nombre` (`nombre`);
 
 --
 -- Indices de la tabla `cat_medidas`
@@ -542,7 +539,7 @@ ALTER TABLE `cat_medidas`
 -- AUTO_INCREMENT de la tabla `detalleventa`
 --
 ALTER TABLE `detalleventa`
-  MODIFY `iddetalleventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
+  MODIFY `iddetalleventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
 
 --
 -- AUTO_INCREMENT de la tabla `ingreso_producto`
@@ -584,13 +581,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
+  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas_producto`
 --
 ALTER TABLE `ventas_producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- Restricciones para tablas volcadas

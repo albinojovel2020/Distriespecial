@@ -14,6 +14,7 @@ class DetalleVenta
 	public $usuario;
 	public $precio;
 	public $fcrea;
+	public $montoiva;
 
 	public function __CONSTRUCT()
 	{
@@ -37,14 +38,15 @@ class DetalleVenta
 		try 
 		{
 			$stm = $this->pdo
-			          ->prepare("CALL ps_guardar_detalleventa(?, ?, ?, ?)");
+			          ->prepare("CALL ps_guardar_detalleventa(?, ?, ?, ?, ?)");
 			          
 
 			$stm->execute(array(
 				                    $data->idventa,
                                     $data->idproducto,
                                     $data->cantidadventa,
-                                    $data->precioventa
+                                    $data->precioventa,
+                                    $data->montoiva
                 				));
 
 			return 0;
