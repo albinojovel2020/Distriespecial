@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 require_once 'modelo/Producto.php';
 require_once 'modelo/Categoria.php';
@@ -48,12 +48,8 @@ class MovimientosController
 	}
 
 	  public function GuardarVenta(){
-
-
         $venta = new Venta();
-        
         //captura todos los datos de la venta 
-        
 		$venta->numeroventa = $_REQUEST['txtNumeroVenta'];
 		date_default_timezone_set("America/Guatemala");
 		$fecha = date('Y-m-d');
@@ -65,16 +61,12 @@ class MovimientosController
         $venta->idusuario = $_REQUEST["txtIdUsuario"];
         $venta->tipo_comprobante = $_REQUEST["selComprobante"];
 
-
         //obtener el número de detalles que se enviaron
         $numerodetalles = $_REQUEST['txtCantidadDetalle'];        
 
         //guardar la venta y obtener el id guardado
         $venta = $this->modelVenta->guardarventa($venta);
-
-
-
-                   //guardar todos los detalles
+     //guardar todos los detalles
             for ($i=1; $i < $numerodetalles; $i++) { 
                 $detalleventa = new DetalleVenta();
                 # tomar todos los datos del detalle
@@ -97,12 +89,7 @@ class MovimientosController
                 $this->modelDetalleVenta->guardardetalleventa($detalleventa); 
                 //actualiza stock
                 $this->modelDetalleVenta->ActualizarStockProductoSalida($detalleventa);
-            }
-
-        
-
-
-        		
+            }	
 		echo "<script>
 		alert('CORRECTO: Los datos fueron guardados.');
 		window.location.href='?c=".base64_encode('Movimientos')."&a=".base64_encode('VerVentas')."';
@@ -152,6 +139,18 @@ class MovimientosController
 		require_once 'vistas/pages/verdatos/exFactura.php';
 	}
 
+		public function AnularVenta(){
+		//require_once 'vistas/pages/verdatos/Ticket.php';
+		$idvea = base64_decode($_REQUEST['idvea']);
+
+		$this->modelVenta->AnulaVenta($idvea);
+
+		echo "<script>
+		alert('CORRECTO: Venta anulada con exito.');
+		window.location.href='?c=".base64_encode('Movimientos')."&a=".base64_encode('VerVentas')."';
+		</script>";
+	}
+		
 
 	
 }

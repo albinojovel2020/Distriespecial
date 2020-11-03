@@ -9,6 +9,7 @@ class Venta
     public $total;
     public $idusuario;
     public $tipo_comprobante;
+    public $anulada;
     
 
 	public function __CONSTRUCT()
@@ -71,7 +72,8 @@ class Venta
                      v.total total,
                      u.nombre nusu,
                      u.apellido apellido,
-                     cc.nombre as tipocomprobante
+                     cc.nombre as tipocomprobante,
+                     v.anulada
 				from venta v 
 				 	inner join usuario u on u.idusuario = v.idusuario
                     inner join cat_comprobante cc on cc.id = v.tipo_comprobante;
@@ -92,8 +94,7 @@ class Venta
 	{
 		try 
 		{
-			//SELECT * FROM venta AS v INNER JOIN detalleventa AS dv ON v.idventa= dv.idventa INNER JOIN producto AS p ON dv.idproducto = p.idproducto WHERE v.numeroventa = 2020
-			//SELECT v.idventa AS id, v.numeroventa AS numVenta, v.fechaventa AS fecha, v.total AS total, v.idusuario AS idusuario, v.tipo_comprobante AS comprobante, dv.iddetalleventa as iddv, dv.idventa AS idv, dv.idproducto as idpro, dv.cantidadventa AS cantidad, dv.precioventa AS precioventa, p.nombre as nombrepro FROM venta AS v INNER JOIN detalleventa AS dv ON v.idventa= dv.idventa INNER JOIN producto AS p ON dv.idproducto = p.idproducto WHERE v.numeroventa = 2020
+
 			$stm = $this->pdo->prepare("SELECT dv.iddetalleventa AS iddv, dv.idventa AS idv, dv.idproducto AS idp, dv.cantidadventa AS cantidad, dv.precioventa AS preciov, p.nombre AS pron, compro.nombre AS nombrecompro, v.fechaventa AS fecha, v.total AS total FROM detalleventa AS dv INNER JOIN venta AS v ON dv.idventa = v.idventa INNER JOIN producto AS p ON dv.idproducto = p.idproducto INNER JOIN cat_comprobante AS compro ON v.tipo_comprobante = compro.id WHERE v.numeroventa = ?;");
 
 
@@ -156,6 +157,25 @@ class Venta
 		}
 	}
 
+		public function AnulaVenta($idventa)
+	{
+		try 
+		{
+			$sql = "UPDATE venta set anulada = 1 WHERE idventa = ?;";
+
+			$this->pdo->prepare($sql)
+			->execute(
+				array(
+					$idventa
+				)
+			);
+
+		}
+		catch (Throwable $t)
+		{
+			die($t->getMessage());
+		}
+	}
 
 
 }
