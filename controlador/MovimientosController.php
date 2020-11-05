@@ -166,8 +166,10 @@ class MovimientosController
 		public function AnularVenta(){
 		//require_once 'vistas/pages/verdatos/Ticket.php';
 		$idvea = base64_decode($_REQUEST['idvea']);
-
+        
 		$this->modelVenta->AnulaVenta($idvea);
+
+		
 
 		echo "<script>
 		alert('CORRECTO: Venta anulada con exito.');

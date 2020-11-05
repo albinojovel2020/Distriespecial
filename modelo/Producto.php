@@ -15,13 +15,14 @@ class Producto //inicio clase
 	public $idproveedor;
 	public $estado;
 	public $idusuario;
-    public $idumedida;
-    public $fecha;
-    public $idingreso;
-    public $cantidadingreso;
-    public $precio1;
-    public $precio2;
-    public $precio3;
+	public $idumedida;
+	public $fecha;
+	public $idingreso;
+	public $cantidadingreso;
+	public $precio1;
+	public $precio2;
+	public $precio3;
+	public $motivo;
 
 
 
@@ -86,7 +87,7 @@ class Producto //inicio clase
 		}
 	}
 
-		public function ListarProductosActivoConexistencia()
+	public function ListarProductosActivoConexistencia()
 	{
 		try
 		{
@@ -136,27 +137,28 @@ class Producto //inicio clase
 	}
 
 
-		public function ListarIngresoProductos()
+	public function ListarIngresoProductos()
 	{
 		try
 		{
 
 			$stm = $this->pdo->prepare("
 				select
-    				 ip.id,
-    				 p.idproducto,
-    				 p.nombre nprod,
-    				 p.descripcion,
-    				 p.stock,
-    				 ip.stockanterior,
-    				 ip.cantidad,
-    				 ip.stockdespues,
-    				 ip.usuario,
-    				 u.nombre,
-    				 ip.fcrea
+				ip.id,
+				p.idproducto,
+				p.nombre nprod,
+				p.descripcion,
+				p.stock,
+				ip.stockanterior,
+				ip.motivo,
+				ip.cantidad,
+				ip.stockdespues,
+				ip.usuario,
+				u.nombre,
+				ip.fcrea
 				from ingreso_producto ip 
-				 	inner join producto p on p.idproducto = ip.idproducto
-				 	inner join usuario u on u.idusuario = ip.usuario;
+				inner join producto p on p.idproducto = ip.idproducto
+				inner join usuario u on u.idusuario = ip.usuario;
 				");
 			$stm->execute();
 
@@ -191,8 +193,8 @@ class Producto //inicio clase
 			$stm = $this->pdo
 			->prepare("SELECT pro.idproducto AS idproducto, pro.nombre AS nombre, pro.descripcion AS descripcion, pro.preciocompra AS precio, pro.precio1,pro.precio2,pro.precio3, pro.stock AS stock, pro.imagen AS img, pro.idcategoria AS idcategoria, pro.idproveedor AS idproveedor, pro.idusuario AS idusuario, c.nombre AS nombrecate, CONCAT(p.nombre,' ', p.apellido) AS nombreprove, u.usuario AS nombreusuario, pro.estado AS estado, cm.nombre as nombreumedida, pro.umedida FROM producto AS pro INNER JOIN categoria AS c ON pro.idcategoria = c.idcategoria INNER JOIN proveedor AS p ON pro.idproveedor = p.idproveedor 
 				INNER JOIN usuario AS u ON pro.idusuario = u.idusuario
-                INNER JOIN cat_medidas AS cm ON pro.umedida = cm.id
-				 WHERE pro.idproducto = ?");			          
+				INNER JOIN cat_medidas AS cm ON pro.umedida = cm.id
+				WHERE pro.idproducto = ?");			          
 
 			$stm->execute(array($id));
 
@@ -242,7 +244,7 @@ class Producto //inicio clase
 					$data->precio1,										
 					$data->precio2,
 					$data->precio3,
-      				$data->idproducto
+					$data->idproducto
 				)
 			);
 
@@ -253,7 +255,7 @@ class Producto //inicio clase
 		}
 	}
 
-		public function ActualizarStockProducto($data)
+	public function ActualizarStockProducto($data)
 	{
 		try 
 		{
@@ -317,5 +319,26 @@ class Producto //inicio clase
 			die($t->getMessage());
 		}
 	}
+
+	public function ActualizarStockProductoPorAnulacionVenta($data)
+	{
+		try 
+		{
+			$sql = "UPDATE producto set stock = ? WHERE idproducto = ?";
+
+			$this->pdo->prepare($sql)
+			->execute(
+				array(
+					$data->stock,
+					$data->idproducto
+				)
+			);
+
+		}
+		catch (Throwable $t)
+		{
+			die($t->getMessage());
+		}
+	}
 }
- ?>
+?>

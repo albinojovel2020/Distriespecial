@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-11-2020 a las 22:26:44
--- Versión del servidor: 10.4.8-MariaDB
--- Versión de PHP: 7.3.11
+-- Tiempo de generación: 05-11-2020 a las 17:22:38
+-- Versión del servidor: 10.4.11-MariaDB
+-- Versión de PHP: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -185,15 +185,18 @@ CREATE TABLE `ingreso_producto` (
   `cantidad` int(11) NOT NULL,
   `stockdespues` int(11) NOT NULL,
   `usuario` int(11) NOT NULL,
-  `fcrea` date NOT NULL
+  `fcrea` date NOT NULL,
+  `motivo` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `ingreso_producto`
 --
 
-INSERT INTO `ingreso_producto` (`id`, `idproducto`, `stockanterior`, `cantidad`, `stockdespues`, `usuario`, `fcrea`) VALUES
-(54, 15, 0, 20, 20, 15, '2020-10-24');
+INSERT INTO `ingreso_producto` (`id`, `idproducto`, `stockanterior`, `cantidad`, `stockdespues`, `usuario`, `fcrea`, `motivo`) VALUES
+(54, 15, 0, 20, 20, 15, '2020-10-24', 'Por compra a proveedores'),
+(55, 15, 0, 100, 100, 16, '2020-11-04', 'Por compra a proveedores'),
+(56, 16, 0, 60, 60, 16, '2020-11-04', 'Por compra a proveedores');
 
 --
 -- Disparadores `ingreso_producto`
@@ -250,8 +253,8 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`idproducto`, `nombre`, `descripcion`, `preciocompra`, `stock`, `imagen`, `idcategoria`, `idproveedor`, `idusuario`, `estado`, `umedida`, `precio1`, `precio2`, `precio3`) VALUES
-(15, 'Harina de Trigo', 'Harina de trigo suave', '2.00', 0, 'img/producto.jpg', 8, 3, 16, 1, 2, '3.00', '3.65', '3.85'),
-(16, 'harina arroz', 'arroz', '2.00', 0, '/img/azucarblanca.jpg', 1, 1, 15, 1, 2, '2.50', '3.00', '3.50');
+(15, 'Harina de Trigo', 'Harina de trigo suave', '2.00', 100, 'img/producto.jpg', 8, 3, 16, 1, 2, '3.00', '3.65', '3.85'),
+(16, 'harina arroz', 'arroz', '2.00', 60, 'img/logoulsfull_oficial_web.jpg', 1, 1, 15, 1, 2, '2.50', '3.00', '3.50');
 
 -- --------------------------------------------------------
 
@@ -545,7 +548,7 @@ ALTER TABLE `detalleventa`
 -- AUTO_INCREMENT de la tabla `ingreso_producto`
 --
 ALTER TABLE `ingreso_producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntasecreta`

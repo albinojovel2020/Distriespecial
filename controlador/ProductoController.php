@@ -205,7 +205,6 @@ public function ActualizarStockProducto(){
 		$this->model->stockdespues = $_REQUEST['stockanterior']+$_REQUEST['stock'];
 		$this->model->idusuario = $_REQUEST['usuario'];
 		$this->model->fecha = $_REQUEST['fecha'];
-
 		
 
 		//Actualiza el Usuario
@@ -218,7 +217,7 @@ public function ActualizarStockProducto(){
 		</script>";
 
 	}
-	
+
 
 	public function Eliminar(){
 		//Tomar el id

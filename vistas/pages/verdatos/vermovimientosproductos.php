@@ -38,8 +38,7 @@
                   <td>Cantidad despues ingreso</td>
                   <td>Stock actual</td>
                   <td>Fecha ingreso</td>
-                  <td>Usuario Ingresa</td>
-                  
+                  <td>Usuario Ingresa</td>                
               </tr>
           </thead>
           <tbody>

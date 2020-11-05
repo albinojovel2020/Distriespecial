@@ -90,6 +90,24 @@ class DetalleVenta
 	}
 
 
+	public function ContarDetallesVenta($idventa)
+	{
+		try
+		{
+
+			$stm = $this->pdo->query("SELECT * FROM detalleventa WHERE idventa = "+$idventa);
+
+			$total = $stm->rowCount();
+
+			return $total;
+		}
+		catch (Throwable $t)
+		{
+			die($t->getMessage());
+		}
+	}
+
+
 
 }
 
