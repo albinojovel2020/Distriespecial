@@ -90,24 +90,23 @@ class DetalleVenta
 	}
 
 
-	public function ContarDetallesVenta($idventa)
-	{
-		try
+	public function DatosDetallesVenta($idventa)
+    {
+    	try
 		{
 
-			$stm = $this->pdo->query("SELECT * FROM detalleventa WHERE idventa = "+$idventa);
+			$stm = $this->pdo->prepare("SELECT vp.id, vp.idventa, vp.idproducto, vp.cantidadventa as cantidad, p.stock FROM ventas_producto as vp INNER JOIN producto as p ON vp.idproducto=p.idproducto WHERE idventa = ?");
+			$stm->execute(array(
+                     $idventa
+				));
 
-			$total = $stm->rowCount();
-
-			return $total;
+			return $stm->fetchAll(PDO::FETCH_OBJ);
 		}
 		catch (Throwable $t)
 		{
 			die($t->getMessage());
 		}
 	}
-
-
 
 }
 

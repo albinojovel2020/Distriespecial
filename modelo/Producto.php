@@ -136,7 +136,6 @@ class Producto //inicio clase
 		}
 	}
 
-
 	public function ListarIngresoProductos()
 	{
 		try
@@ -206,9 +205,6 @@ class Producto //inicio clase
 		}
 	}
 
-
-
-
 	public function ActualizarProducto($data)
 	{
 		try 
@@ -259,7 +255,7 @@ class Producto //inicio clase
 	{
 		try 
 		{
-			$sql = "INSERT INTO ingreso_producto VALUES (null,?,?,?,?,?,?)";
+			$sql = "INSERT INTO ingreso_producto VALUES (null,?,?,?,?,?,?,?)";
 
 			$this->pdo->prepare($sql)
 			->execute(
@@ -269,7 +265,8 @@ class Producto //inicio clase
 					$data->stock,
 					$data->stockdespues,
 					$data->idusuario,
-					$data->fecha
+					$data->fecha,
+					$data->motivo
 				)
 			);
 
@@ -303,8 +300,6 @@ class Producto //inicio clase
 		}
 	}
 
-
-
 	public function EliminarProducto($id)
 	{
 		try{
@@ -324,13 +319,18 @@ class Producto //inicio clase
 	{
 		try 
 		{
-			$sql = "UPDATE producto set stock = ? WHERE idproducto = ?";
+			$sql = "INSERT INTO ingreso_producto VALUES (null,?,?,?,?,?,?,?)";
 
 			$this->pdo->prepare($sql)
 			->execute(
 				array(
+					$data->idproducto,
+					$data->stockanterior,
 					$data->stock,
-					$data->idproducto
+					$data->stockdespues,
+					$data->idusuario,
+					$data->fecha,
+					$data->motivo
 				)
 			);
 

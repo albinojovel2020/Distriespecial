@@ -37,6 +37,7 @@
                   <td>Cantidad ingresada</td>
                   <td>Cantidad despues ingreso</td>
                   <td>Stock actual</td>
+                  <td>Motivo de ingreso</td>
                   <td>Fecha ingreso</td>
                   <td>Usuario Ingresa</td>                
               </tr>
@@ -53,6 +54,7 @@
                       <td><?php echo $r->cantidad; ?></td>
                       <td><?php echo $r->stockdespues; ?></td>
                       <td><?php echo $r->stock; ?></td>
+                      <td><?php echo $r->motivo; ?></td>
                       <td><?php echo $r->fcrea; ?></td>
                       <td><?php echo $r->nombre; ?></td>
                   </tr>

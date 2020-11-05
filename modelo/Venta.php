@@ -171,12 +171,12 @@ class Venta
 	{
 		try 
 		{
-			$sql = "UPDATE venta set anulada = 1 WHERE idventa = ?;";
+			$sql = "UPDATE venta set anulada = 1 WHERE idventa = ?";
 
 			$this->pdo->prepare($sql)
 			->execute(
 				array(
-					$idventa
+                     $idventa
 				)
 			);
 

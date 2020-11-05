@@ -27,14 +27,11 @@ class ProductoController
 		require_once 'vistas/pages/piepagina1.php';
 	}
 
-
-      public function VerIngresos(){
+    public function VerIngresos(){
 		
 		require_once 'vistas/pages/encabezadopagina1.php';
 		require_once 'vistas/pages/verdatos/vermovimientosproductos.php';
 		require_once 'vistas/pages/piepagina1.php';
-	
-		
 	}
 
 	public function VerEgresos(){
@@ -42,8 +39,6 @@ class ProductoController
 		require_once 'vistas/pages/encabezadopagina1.php';
 		require_once 'vistas/pages/verdatos/vermovimientosproductosegreso.php';
 		require_once 'vistas/pages/piepagina1.php';
-	
-		
 	}
 
 	public function CrearProducto(){
@@ -195,7 +190,7 @@ class ProductoController
 
 	}
 
-public function ActualizarStockProducto(){
+    public function ActualizarStockProducto(){
 
 	
 		//Tomar todos los datos
@@ -205,6 +200,7 @@ public function ActualizarStockProducto(){
 		$this->model->stockdespues = $_REQUEST['stockanterior']+$_REQUEST['stock'];
 		$this->model->idusuario = $_REQUEST['usuario'];
 		$this->model->fecha = $_REQUEST['fecha'];
+		$this->model->motivo = "Por compra a proveedores";
 		
 
 		//Actualiza el Usuario
@@ -217,7 +213,6 @@ public function ActualizarStockProducto(){
 		</script>";
 
 	}
-
 
 	public function Eliminar(){
 		//Tomar el id

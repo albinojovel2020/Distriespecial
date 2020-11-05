@@ -19,6 +19,10 @@
       <div class="col s12">
         <ul class="tabs">
           <li class="tab col s3 m6 l3 yy"><a class="active tab-activos" href="#activos">Ventas</a></li>
+          <div class="input-field col s6" hidden>
+            <input id="txtIdUsuario" type="text" name="txtIdUsuario"  value="<?php echo $_SESSION['id']; ?>"  readonly>
+            <label for="txtIdUsuario">Empleado responsable</label>
+        </div>
         </ul>
       </div>
       <!-- tabla de activos -->
