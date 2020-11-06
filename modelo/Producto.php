@@ -23,7 +23,7 @@ class Producto //inicio clase
 	public $precio2;
 	public $precio3;
 	public $motivo;
-
+    public $usuario;
 
 
 	public function __CONSTRUCT()

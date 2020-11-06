@@ -164,6 +164,7 @@
 	public function AnularVenta(){
 
 		$idvea = base64_decode($_REQUEST['idvea']);
+		$idusuario = base64_decode($_REQUEST['idusuario']);
 
 		$datosdetalle = $this->modelDetalleVenta->DatosDetallesVenta($idvea);
 
@@ -174,8 +175,8 @@
 			$this->model->stockanterior = $r->stock;
 			$this->model->stock = $r->cantidad;
 			$this->model->stockdespues = $r->stock+$r->cantidad;
-			$this->model->idusuario =  $_REQUEST['txtIdUsuario'];
-			$this->model->fecha = "FECHA";
+			$this->model->idusuario =  $idusuario;
+			$this->model->fecha =  date("Y-m-d");
 			$this->model->motivo = "Por anulacion de venta";
 
 

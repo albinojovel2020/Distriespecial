@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-11-2020 a las 17:22:38
+-- Tiempo de generación: 06-11-2020 a las 06:18:21
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.3
 
@@ -162,15 +162,8 @@ CREATE TABLE `detalleventa` (
 --
 
 INSERT INTO `detalleventa` (`iddetalleventa`, `idventa`, `idproducto`, `cantidadventa`, `precioventa`, `montoiva`) VALUES
-(128, 129, 15, 1, '3.65', '0.47'),
-(129, 129, 16, 1, '3.00', '0.39'),
-(130, 130, 15, 1, '3.00', '0.39'),
-(131, 130, 16, 1, '3.00', '0.39'),
-(132, 131, 15, 1, '3.65', '0.47'),
-(133, 131, 16, 1, '2.50', '0.33'),
-(134, 132, 15, 1, '3.00', '0.39'),
-(135, 132, 16, 1, '2.50', '0.33'),
-(136, 133, 16, 1, '2.50', '0.33');
+(137, 134, 15, 1, '3.00', '0.39'),
+(138, 134, 16, 1, '3.50', '0.46');
 
 -- --------------------------------------------------------
 
@@ -194,9 +187,11 @@ CREATE TABLE `ingreso_producto` (
 --
 
 INSERT INTO `ingreso_producto` (`id`, `idproducto`, `stockanterior`, `cantidad`, `stockdespues`, `usuario`, `fcrea`, `motivo`) VALUES
-(54, 15, 0, 20, 20, 15, '2020-10-24', 'Por compra a proveedores'),
-(55, 15, 0, 100, 100, 16, '2020-11-04', 'Por compra a proveedores'),
-(56, 16, 0, 60, 60, 16, '2020-11-04', 'Por compra a proveedores');
+(57, 15, 0, 100, 100, 16, '2020-11-05', 'Por compra a proveedores'),
+(58, 16, 0, 200, 200, 16, '2020-11-05', 'Por compra a proveedores'),
+(59, 15, 99, 1, 100, 16, '2020-11-05', 'Por compra a proveedores'),
+(60, 15, 100, 1, 101, 16, '2020-11-05', 'Por anulacion de venta'),
+(61, 16, 199, 1, 200, 16, '2020-11-05', 'Por anulacion de venta');
 
 --
 -- Disparadores `ingreso_producto`
@@ -253,8 +248,8 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`idproducto`, `nombre`, `descripcion`, `preciocompra`, `stock`, `imagen`, `idcategoria`, `idproveedor`, `idusuario`, `estado`, `umedida`, `precio1`, `precio2`, `precio3`) VALUES
-(15, 'Harina de Trigo', 'Harina de trigo suave', '2.00', 100, 'img/producto.jpg', 8, 3, 16, 1, 2, '3.00', '3.65', '3.85'),
-(16, 'harina arroz', 'arroz', '2.00', 60, 'img/logoulsfull_oficial_web.jpg', 1, 1, 15, 1, 2, '2.50', '3.00', '3.50');
+(15, 'Harina de Trigo', 'Harina de trigo suave', '2.00', 101, 'img/producto.jpg', 8, 3, 16, 1, 2, '3.00', '3.65', '3.85'),
+(16, 'harina arroz', 'arroz', '2.00', 200, 'img/logoulsfull_oficial_web.jpg', 1, 1, 15, 1, 2, '2.50', '3.00', '3.50');
 
 -- --------------------------------------------------------
 
@@ -362,11 +357,7 @@ CREATE TABLE `venta` (
 --
 
 INSERT INTO `venta` (`idventa`, `numeroventa`, `fechaventa`, `total`, `idusuario`, `tipo_comprobante`, `anulada`, `tiva`, `cliente`, `giro`, `nrc`, `nit`) VALUES
-(129, 54554, '2020-11-03 11:34:21 AM', '7.51', 16, 1, 0, '0.86', '', '', '', ''),
-(130, 7777, '2020-11-03 11:40:48 AM', '6.78', 16, 1, 0, '0.78', '', '', '', ''),
-(131, 34344, '2020-11-03 01:50:24 PM', '6.95', 16, 2, 0, '0.80', 'Mirna Flores', 'Venta de Articulos de panaderia', '', ''),
-(132, 23, '2020-11-03 01:57:57 PM', '6.22', 16, 2, 0, '0.72', 'Alberto Garcia', 'Venta de Animales', '9898-8', '0614-230794-177-6'),
-(133, 9897, '2020-11-03 02:40:33 PM', '2.83', 16, 4, 0, '0.33', 'Albberto antonio', NULL, NULL, NULL);
+(134, 7777, '2020-11-05 11:09:02 PM', '7.35', 16, 1, 1, '0.85', 'Consumidor final', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -392,15 +383,8 @@ CREATE TABLE `ventas_producto` (
 --
 
 INSERT INTO `ventas_producto` (`id`, `idventa`, `idproducto`, `stockanterior`, `cantidadventa`, `stockdespues`, `usuario`, `preciocompra`, `precioventa`, `fcrea`) VALUES
-(36, 129, 15, 4, 1, 3, 16, '2.00', '3.65', '2020-11-03'),
-(37, 129, 16, 5, 1, 4, 16, '2.00', '3.00', '2020-11-03'),
-(38, 130, 15, 3, 1, 2, 16, '2.00', '3.00', '2020-11-03'),
-(39, 130, 16, 4, 1, 3, 16, '2.00', '3.00', '2020-11-03'),
-(40, 131, 15, 2, 1, 1, 16, '2.00', '3.65', '2020-11-03'),
-(41, 131, 16, 3, 1, 2, 16, '2.00', '2.50', '2020-11-03'),
-(42, 132, 15, 1, 1, 0, 16, '2.00', '3.00', '2020-11-03'),
-(43, 132, 16, 2, 1, 1, 16, '2.00', '2.50', '2020-11-03'),
-(44, 133, 16, 1, 1, 0, 16, '2.00', '2.50', '2020-11-03');
+(45, 134, 15, 100, 1, 99, 16, '2.00', '3.00', '2020-11-05'),
+(46, 134, 16, 200, 1, 199, 16, '2.00', '3.50', '2020-11-05');
 
 --
 -- Disparadores `ventas_producto`
@@ -542,13 +526,13 @@ ALTER TABLE `cat_medidas`
 -- AUTO_INCREMENT de la tabla `detalleventa`
 --
 ALTER TABLE `detalleventa`
-  MODIFY `iddetalleventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
+  MODIFY `iddetalleventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
 
 --
 -- AUTO_INCREMENT de la tabla `ingreso_producto`
 --
 ALTER TABLE `ingreso_producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntasecreta`
@@ -584,13 +568,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
+  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas_producto`
 --
 ALTER TABLE `ventas_producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- Restricciones para tablas volcadas

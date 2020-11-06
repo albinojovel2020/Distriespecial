@@ -77,7 +77,7 @@
                 <?php if ($r->anulada==0) {
                   ?>
                   <td class="center">
-                    <a onclick="javascript:return confirm('¿Seguro que desea anular esta venta?');" href="?c=<?php echo base64_encode('Movimientos'); ?>&a=<?php echo base64_encode('AnularVenta'); ?>&idvea=<?php echo base64_encode($r->id); ?>" title="Anular Venta" ><i class="material-icons red-text hoverable circle mini">cancel</i></a>
+                    <a onclick="javascript:return confirm('¿Seguro que desea anular esta venta?');" href="?c=<?php echo base64_encode('Movimientos'); ?>&a=<?php echo base64_encode('AnularVenta'); ?>&idvea=<?php echo base64_encode($r->id); ?>&idusuario=<?php echo base64_encode($_SESSION['id']); ?>" title="Anular Venta" ><i class="material-icons red-text hoverable circle mini">cancel</i></a>
                   </td>
                   <?php
                 }elseif ($r->anulada!=0) {

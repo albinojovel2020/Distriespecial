@@ -11,7 +11,7 @@ $pdf = new Dompdf();
 
 //$url = require_once ;
 
- $html=file_get_contents_curl("http://localhost:8085/pro/Distriespecial/?c=".base64_encode('Movimientos')."&a=".base64_encode('exTicket')."&id=".base64_encode($id)."&fe=".base64_encode($fe)."&total=".base64_encode($total));
+ $html=file_get_contents_curl("http://localhost/Distriespecial/?c=".base64_encode('Movimientos')."&a=".base64_encode('exTicket')."&id=".base64_encode($id)."&fe=".base64_encode($fe)."&total=".base64_encode($total));
 
 
 
