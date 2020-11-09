@@ -97,6 +97,7 @@
                         <th>CANTIDAD</th>
                         <th>EXISTENCIA</th>
                         <th>SUBTOTAL</th>
+                        <th>MONTOIVA</th>
                         <th>IVA</th>                        
                         <th class="center">ACCION</th>
                     </tr>
@@ -131,6 +132,9 @@
                         </td>
                         <td>
                         $<input class="right-align" id="txtSubTotal'.$i.'"  type="text" name="txtSubTotal'.$i.'" value="" style="width: 80px;" readonly />
+                        </td>
+                        <td>
+                        $<input class="right-align" id="txtIvaGeneral'.$i.'"  type="text" name="txtIvaGeneral'.$i.'" value="" style="width: 80px;" readonly />
                         </td>
                         <td>
                         $<input class="right-align" id="txtMontoIva'.$i.'" size="5" type="text" class="validate" name="txtMontoIva'.$i.'" value="" style="width: 80px;" readonly/>
@@ -203,7 +207,10 @@
            <tbody>
              <?php foreach($this->model->ListarProductosActivoConexistencia() as $r):?>
                 <tr id="fila<?php echo $r->idproducto; ?>">
-                    <td hidden><?php echo $r->montoiva; ?></td>
+                    <td hidden>
+                        <?php echo $r->montoiva; ?>
+                        
+                    </td>
                     <td ><?php echo $r->idproducto; ?></td>
                     <td><?php echo $r->nombre; ?></td>
                     <td><?php echo $r->descripcion; ?></td> 
@@ -301,6 +308,7 @@ function agregardetalle(producto) {
     document.getElementById("txtPrecioC"+numero).value = precioc;
     document.getElementById("txtMontoIva"+numero).value = precio*iva;
     document.getElementById("txtSubTotal"+numero).value = precio;
+    document.getElementById("txtIvaGeneral"+numero).value = iva;
 
     //calcular Total
     calcularTotal(numeroDetalle+1);
@@ -439,6 +447,8 @@ function calcularCantidad(cantidad) {
 
     var existencia = parseInt(document.getElementById("txtStock"+i).value);
 
+    var iva = parseFloat(document.getElementById("txtMontoIva"+i).value);
+
 
     if (cantidad <= 0) {
         alert('La cantidad debe ser al menos uno');
@@ -457,8 +467,11 @@ function calcularCantidad(cantidad) {
         //calcular subtotal
         calcularSubTotal(i, precio, cantidad, descuento);
 
+        var numeroDetalle = parseInt(document.getElementById("txtCantidadDetalle").value);
+
         //calcular total
         calcularTotal(numeroDetalle);
+
 
     }
 }
@@ -495,10 +508,12 @@ function calcularDescuento(descuento) {
 <script>
 //para calcular el subtotal
 function calcularSubTotal(i, precio, cantidad, descuento) {
+    var ivaa = parseFloat(document.getElementById("txtIvaGeneral"+i).value);
     //calcular
     var subtotal = (parseFloat(precio) * parseInt(cantidad));
     //asignar el descuento
     document.getElementById("txtSubTotal"+i).value = parseFloat(subtotal).toFixed(2);
+    document.getElementById("txtMontoIva"+i).value = parseFloat(subtotal).toFixed(2)*ivaa;
 
 
 }
