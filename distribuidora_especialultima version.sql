@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 4.9.5
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 06-11-2020 a las 06:18:21
--- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.4.3
+-- Servidor: localhost:3306
+-- Tiempo de generación: 11-11-2020 a las 21:26:02
+-- Versión del servidor: 10.3.16-MariaDB
+-- Versión de PHP: 7.3.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,21 +19,21 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `distribuidora_especial`
+-- Base de datos: `id15359550_distribuidora_especial`
 --
 
 DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ps_guardar_detalleventa` (IN `val_idventa` INT, IN `val_idproducto` INT, IN `val_cantidadventa` INT, IN `val_precioventa` DECIMAL(10,2), IN `val_montoiva` DECIMAL(10,2))  BEGIN
+CREATE DEFINER=`id15359550_albino`@`%` PROCEDURE `ps_guardar_detalleventa` (IN `val_idventa` INT, IN `val_idproducto` INT, IN `val_cantidadventa` INT, IN `val_precioventa` DECIMAL(10,2), IN `val_montoiva` DECIMAL(10,2))  BEGIN
 	
 	INSERT INTO `detalleventa` (`iddetalleventa`, `idventa`, `idproducto`, `cantidadventa`, `precioventa`,`montoiva`) VALUES (NULL, val_idventa, val_idproducto, val_cantidadventa, val_precioventa,val_montoiva);
 
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ps_guardar_venta` (IN `val_numeroventa` INT, IN `val_fechaventa` VARCHAR(50), IN `val_total` DECIMAL(10,2), IN `val_idusuario` INT, IN `val_tipo_comprobante` INT, IN `val_tiva` DECIMAL(10,2), IN `val_cliente` VARCHAR(200), IN `val_giro` VARCHAR(500), IN `val_nrc` VARCHAR(20), IN `val_nit` VARCHAR(20))  BEGIN
+CREATE DEFINER=`id15359550_albino`@`%` PROCEDURE `ps_guardar_venta` (IN `val_numeroventa` INT, IN `val_fechaventa` VARCHAR(50), IN `val_total` DECIMAL(10,2), IN `val_idusuario` INT, IN `val_tipo_comprobante` INT, IN `val_tiva` DECIMAL(10,2), IN `val_cliente` VARCHAR(200), IN `val_giro` VARCHAR(500), IN `val_nrc` VARCHAR(20), IN `val_nit` VARCHAR(20))  BEGIN
 	
 	INSERT INTO `venta`(`numeroventa`, `fechaventa`, `total`, `idusuario`, `tipo_comprobante`,`tiva`,`cliente`,`giro`,`nrc`,`nit`) 
 	VALUES (val_numeroventa,val_fechaventa,val_total,val_idusuario,val_tipo_comprobante,val_tiva,val_cliente,val_giro,val_nrc,val_nit);
@@ -115,7 +115,7 @@ CREATE TABLE `cat_impuesto` (
 --
 
 INSERT INTO `cat_impuesto` (`id`, `nombre`, `descripcion`, `porcentaje`, `monto`) VALUES
-(1, 'IVA', 'Impuesto al valor agregado', 13, '0.13');
+(1, 'IVA', 'Impuesto al valor agregado', 13, 0.13);
 
 -- --------------------------------------------------------
 
@@ -157,14 +157,6 @@ CREATE TABLE `detalleventa` (
   `montoiva` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `detalleventa`
---
-
-INSERT INTO `detalleventa` (`iddetalleventa`, `idventa`, `idproducto`, `cantidadventa`, `precioventa`, `montoiva`) VALUES
-(137, 134, 15, 1, '3.00', '0.39'),
-(138, 134, 16, 1, '3.50', '0.46');
-
 -- --------------------------------------------------------
 
 --
@@ -181,17 +173,6 @@ CREATE TABLE `ingreso_producto` (
   `fcrea` date NOT NULL,
   `motivo` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `ingreso_producto`
---
-
-INSERT INTO `ingreso_producto` (`id`, `idproducto`, `stockanterior`, `cantidad`, `stockdespues`, `usuario`, `fcrea`, `motivo`) VALUES
-(57, 15, 0, 100, 100, 16, '2020-11-05', 'Por compra a proveedores'),
-(58, 16, 0, 200, 200, 16, '2020-11-05', 'Por compra a proveedores'),
-(59, 15, 99, 1, 100, 16, '2020-11-05', 'Por compra a proveedores'),
-(60, 15, 100, 1, 101, 16, '2020-11-05', 'Por anulacion de venta'),
-(61, 16, 199, 1, 200, 16, '2020-11-05', 'Por anulacion de venta');
 
 --
 -- Disparadores `ingreso_producto`
@@ -248,8 +229,8 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`idproducto`, `nombre`, `descripcion`, `preciocompra`, `stock`, `imagen`, `idcategoria`, `idproveedor`, `idusuario`, `estado`, `umedida`, `precio1`, `precio2`, `precio3`) VALUES
-(15, 'Harina de Trigo', 'Harina de trigo suave', '2.00', 101, 'img/producto.jpg', 8, 3, 16, 1, 2, '3.00', '3.65', '3.85'),
-(16, 'harina arroz', 'arroz', '2.00', 200, 'img/logoulsfull_oficial_web.jpg', 1, 1, 15, 1, 2, '2.50', '3.00', '3.50');
+(15, 'Harina de Trigo', 'Harina de trigo suave', 2.00, 0, 'img/producto.jpg', 8, 3, 16, 1, 2, 3.00, 3.65, 3.85),
+(16, 'harina arroz', 'arroz', 2.00, 0, 'img/logoulsfull_oficial_web.jpg', 1, 1, 15, 1, 2, 2.50, 3.00, 3.50);
 
 -- --------------------------------------------------------
 
@@ -326,10 +307,10 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`idusuario`, `nombre`, `apellido`, `telefono`, `usuario`, `clave`, `fecha`, `idpreguntasecreta`, `respuestasecreta`, `idtipousuario`, `estado`) VALUES
 (1, 'Luis', 'Carranza', '2222-0505', 'usuario1', 'f688ae26e9cfa3ba6235477831d5122e', 'Ultima modificación: 2020-09-20 a las 08:29:08 AM', 1, 'brayan', 1, 1),
 (2, 'Brayan', 'Salomon Fuentes Quijano', '7777-7779', 'el brayan', '81dc9bdb52d04dc20036dbd8313ed055', 'Modificación: 2020-09-20 a las 07:21:45 AM', 2, 'andres', 1, 1),
-(15, 'Andres', 'Pineda', '2322-4344', 'andrew', '231badb19b93e44f47da1bd64a8147f2', 'Modificación: 2020-09-20 a las 08:28:20 AM', 1, '231badb19b93e44f47da1bd64a8147f2', 1, 1),
-(16, 'Rafael Albino', 'Jovel Alfaro', '7786-7999', 'albino', 'cbe7855c7afdb4a521ee4d1a63d89e89', 'Modificación: 2020-09-30 a las 10:04:32 PM', 1, 'cbe7855c7afdb4a521ee4d1a63d89e89', 1, 1),
+(15, 'Andres', 'Pineda', '2322-4344', 'andrew', '231badb19b93e44f47da1bd64a8147f2', 'Modificación: 2020-09-20 a las 08:28:20 AM', 1, '231badb19b93e44f47da1bd64a8147f2', 1, 0),
+(16, 'Rafael Albino', 'Jovel Alfaro', '7786-7999', 'albino', 'cbe7855c7afdb4a521ee4d1a63d89e89', 'Modificación: 2020-09-30 a las 10:04:32 PM', 1, 'cbe7855c7afdb4a521ee4d1a63d89e89', 1, 0),
 (17, 'Carlos', 'Alfaro', '2222-2222', 'davialfa', 'a008167316b8afef949b8f3146ed42e5', '2020-09-30 a las 10:27:41 PM', 1, 'eb8dd5745ad86bcbd8f87b4ed20013b4', 1, 1),
-(18, 'Rafael', 'Jovel', '7777-7777', 'rafael.jovel@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '2020-10-09 a las 01:27:41 PM', 1, '35cd2d0d62d9bc5e60a3ca9f7593b05b', 1, 1);
+(18, 'Rafael', 'Jovel', '7777-7777', 'rafael.jovel@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '2020-10-09 a las 01:27:41 PM', 1, '35cd2d0d62d9bc5e60a3ca9f7593b05b', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -344,20 +325,13 @@ CREATE TABLE `venta` (
   `total` decimal(10,2) NOT NULL,
   `idusuario` int(11) NOT NULL,
   `tipo_comprobante` int(11) NOT NULL,
-  `anulada` tinyint(1) NOT NULL,
+  `anulada` tinyint(1) NOT NULL DEFAULT 0,
   `tiva` decimal(10,2) NOT NULL,
   `cliente` varchar(200) DEFAULT NULL,
   `giro` varchar(500) DEFAULT NULL,
   `nrc` varchar(20) DEFAULT NULL,
   `nit` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `venta`
---
-
-INSERT INTO `venta` (`idventa`, `numeroventa`, `fechaventa`, `total`, `idusuario`, `tipo_comprobante`, `anulada`, `tiva`, `cliente`, `giro`, `nrc`, `nit`) VALUES
-(134, 7777, '2020-11-05 11:09:02 PM', '7.35', 16, 1, 1, '0.85', 'Consumidor final', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -375,16 +349,8 @@ CREATE TABLE `ventas_producto` (
   `usuario` int(11) NOT NULL,
   `preciocompra` decimal(10,2) NOT NULL,
   `precioventa` decimal(10,2) NOT NULL,
-  `fcrea` date NOT NULL
+  `fcrea` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `ventas_producto`
---
-
-INSERT INTO `ventas_producto` (`id`, `idventa`, `idproducto`, `stockanterior`, `cantidadventa`, `stockdespues`, `usuario`, `preciocompra`, `precioventa`, `fcrea`) VALUES
-(45, 134, 15, 100, 1, 99, 16, '2.00', '3.00', '2020-11-05'),
-(46, 134, 16, 200, 1, 199, 16, '2.00', '3.50', '2020-11-05');
 
 --
 -- Disparadores `ventas_producto`
@@ -499,143 +465,28 @@ ALTER TABLE `ventas_producto`
 --
 
 --
--- AUTO_INCREMENT de la tabla `categoria`
---
-ALTER TABLE `categoria`
-  MODIFY `idcategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT de la tabla `cat_comprobante`
---
-ALTER TABLE `cat_comprobante`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT de la tabla `cat_impuesto`
---
-ALTER TABLE `cat_impuesto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de la tabla `cat_medidas`
---
-ALTER TABLE `cat_medidas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
 -- AUTO_INCREMENT de la tabla `detalleventa`
 --
 ALTER TABLE `detalleventa`
-  MODIFY `iddetalleventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
+  MODIFY `iddetalleventa` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `ingreso_producto`
 --
 ALTER TABLE `ingreso_producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
-
---
--- AUTO_INCREMENT de la tabla `preguntasecreta`
---
-ALTER TABLE `preguntasecreta`
-  MODIFY `idpreguntasecreta` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de la tabla `producto`
---
-ALTER TABLE `producto`
-  MODIFY `idproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT de la tabla `proveedor`
---
-ALTER TABLE `proveedor`
-  MODIFY `idproveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT de la tabla `tiposusuario`
---
-ALTER TABLE `tiposusuario`
-  MODIFY `idtipousuario` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de la tabla `usuario`
---
-ALTER TABLE `usuario`
-  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
+  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas_producto`
 --
 ALTER TABLE `ventas_producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `categoria`
---
-ALTER TABLE `categoria`
-  ADD CONSTRAINT `fk_categoria_usuario` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`);
-
---
--- Filtros para la tabla `detalleventa`
---
-ALTER TABLE `detalleventa`
-  ADD CONSTRAINT `fk_detalleventa_producto` FOREIGN KEY (`idproducto`) REFERENCES `producto` (`idproducto`),
-  ADD CONSTRAINT `fk_detalleventa_venta` FOREIGN KEY (`idventa`) REFERENCES `venta` (`idventa`);
-
---
--- Filtros para la tabla `ingreso_producto`
---
-ALTER TABLE `ingreso_producto`
-  ADD CONSTRAINT `fk_producto` FOREIGN KEY (`idproducto`) REFERENCES `producto` (`idproducto`),
-  ADD CONSTRAINT `fk_usuario` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`idusuario`);
-
---
--- Filtros para la tabla `producto`
---
-ALTER TABLE `producto`
-  ADD CONSTRAINT `fk_producto_categoria` FOREIGN KEY (`idcategoria`) REFERENCES `categoria` (`idcategoria`),
-  ADD CONSTRAINT `fk_producto_proveedor` FOREIGN KEY (`idproveedor`) REFERENCES `proveedor` (`idproveedor`),
-  ADD CONSTRAINT `fk_producto_usuario` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`),
-  ADD CONSTRAINT `fkumedida` FOREIGN KEY (`umedida`) REFERENCES `cat_medidas` (`id`);
-
---
--- Filtros para la tabla `proveedor`
---
-ALTER TABLE `proveedor`
-  ADD CONSTRAINT `fk_proveedor_usuario` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`);
-
---
--- Filtros para la tabla `usuario`
---
-ALTER TABLE `usuario`
-  ADD CONSTRAINT `fk_usuario_preguntasecreta` FOREIGN KEY (`idpreguntasecreta`) REFERENCES `preguntasecreta` (`idpreguntasecreta`),
-  ADD CONSTRAINT `fk_usuario_tipousuario` FOREIGN KEY (`idtipousuario`) REFERENCES `tiposusuario` (`idtipousuario`);
-
---
--- Filtros para la tabla `venta`
---
-ALTER TABLE `venta`
-  ADD CONSTRAINT `fk_venta_catcomprobante` FOREIGN KEY (`tipo_comprobante`) REFERENCES `cat_comprobante` (`id`),
-  ADD CONSTRAINT `fk_venta_usuario` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`);
-
---
--- Filtros para la tabla `ventas_producto`
---
-ALTER TABLE `ventas_producto`
-  ADD CONSTRAINT `fk_idproducto` FOREIGN KEY (`idproducto`) REFERENCES `producto` (`idproducto`),
-  ADD CONSTRAINT `fk_idventa` FOREIGN KEY (`idventa`) REFERENCES `venta` (`idventa`),
-  ADD CONSTRAINT `fk_usuarioid` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`idusuario`);
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

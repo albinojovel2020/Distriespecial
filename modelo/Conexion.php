@@ -4,7 +4,7 @@
 		
 		public static function Conectar()
 		{
-			$pdo = new PDO('mysql:host=localhost;dbname=distribuidora_especial;charset=utf8', 'root', '');
+			$pdo = new PDO('mysql:host=localhost;dbname=id15359550_distribuidora_especial;charset=utf8', 'id15359550_albino', 'cv2GhZ$3ehY0>J^Y');
 			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			return $pdo;
 		}

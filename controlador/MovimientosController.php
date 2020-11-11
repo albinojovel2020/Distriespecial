@@ -1,53 +1,54 @@
- <?php
+<?php
 
- require_once 'modelo/Producto.php';
- require_once 'modelo/Categoria.php';
- require_once 'modelo/Proveedor.php';
- require_once 'modelo/Venta.php';
- require_once 'modelo/DetalleVenta.php';
-
-
-
- class MovimientosController
- {
- 	private $model;
- 	private $modelCategoria;
- 	private $modelProveedor;
- 	private $modelVenta;
- 	private $modelDetalleVenta;
+require_once 'modelo/Producto.php';
+require_once 'modelo/Categoria.php';
+require_once 'modelo/Proveedor.php';
+require_once 'modelo/Venta.php';
+require_once 'modelo/DetalleVenta.php';
 
 
- 	public function __CONSTRUCT()
- 	{
+
+class MovimientosController
+{
+	private $model;
+	private $modelCategoria;
+	private $modelProveedor;
+	private $modelVenta;
+	private $modelDetalleVenta;
+	
+
+	public function __CONSTRUCT()
+	{
 		//Inicializa los modelos
- 		$this->model = new Producto();
- 		$this->modelCategoria = new Categoria();
- 		$this->modelProveedor = new Proveedor();
- 		$this->modelVenta = new Venta();
- 		$this->modelDetalleVenta = new DetalleVenta();
+		$this->model = new Producto();
+		$this->modelCategoria = new Categoria();
+		$this->modelProveedor = new Proveedor();
+		$this->modelVenta = new Venta();
+		$this->modelDetalleVenta = new DetalleVenta();
 
- 	}
+	}
 
- 	public function Index(){
- 		require_once 'vistas/pages/encabezadopagina1.php';
- 		require_once 'vistas/pages/registrar/ingresoproducto.php';
- 		require_once 'vistas/pages/piepagina1.php';
- 	}
+	public function Index(){
+		require_once 'vistas/pages/encabezadopagina1.php';
+		require_once 'vistas/pages/registrar/ingresoproducto.php';
+		require_once 'vistas/pages/piepagina1.php';
+	}
 
- 	public function VerVentas(){
- 		require_once 'vistas/pages/encabezadopagina1.php';
- 		require_once 'vistas/pages/verdatos/verventas.php';
- 		require_once 'vistas/pages/piepagina1.php';
- 	}
+	public function VerVentas(){
+		require_once 'vistas/pages/encabezadopagina1.php';
+		require_once 'vistas/pages/verdatos/verventas.php';
+		require_once 'vistas/pages/piepagina1.php';
+	}
 
- 	public function CrearVenta(){
- 		require_once 'vistas/pages/encabezadopagina1.php';
- 		require_once 'vistas/pages/registrar/crearventa.php';
- 		require_once 'vistas/pages/piepagina1.php';
- 	}
+	public function CrearVenta(){
+		require_once 'vistas/pages/encabezadopagina1.php';
+		require_once 'vistas/pages/registrar/crearventa.php';
+		require_once 'vistas/pages/piepagina1.php';
 
- 	public function GuardarVenta(){
- 		$venta = new Venta();
+	}
+
+	  public function GuardarVenta(){
+$venta = new Venta();
         //captura todos los datos de la venta 
  		$venta->numeroventa = $_REQUEST['txtNumeroVenta'];
  		date_default_timezone_set("America/Guatemala");
@@ -100,55 +101,44 @@
  		alert('CORRECTO: Los datos fueron guardados.');
  		window.location.href='?c=".base64_encode('Movimientos')."&a=".base64_encode('VerVentas')."';
  		</script>";
- 	}
-
- 	public function VERPDF(){
-		//require_once 'vistas/pages/verdatos/Ticket.php';
- 		$nfac = base64_decode($_REQUEST['nfac']);
-
- 		$pdf = $this->modelVenta->ConsultaPDF($nfac);
-
- 		$this->modelVenta->VerPDF($pdf);
- 	}
-
- 	public function Ticket(){
-		//$ticket = $this->modelVenta->VerPDF($id);
- 		$id = base64_decode($_REQUEST['id']);
- 		$fe = base64_decode($_REQUEST['fe']);
- 		$total = base64_decode($_REQUEST['total']);
-		//$ticket = $this->modelVenta->ConsultaPDF1($id);
- 		require_once 'vistas/pages/verdatos/Ticket.php';
- 	}
-
- 	public function exTicket(){
- 		$id = base64_decode($_REQUEST['id']);
- 		$fe = base64_decode($_REQUEST['fe']);
- 		$total = base64_decode($_REQUEST['total']);
- 		require_once 'vistas/pages/verdatos/exTicket.php';
- 	}
-
- 	public function CFiscal(){
- 		$id = base64_decode($_REQUEST['id']);
- 		$fe = base64_decode($_REQUEST['fe']);
-		/*$id1 = $id;
-		$fe1 = $fe;*/
-		$total = base64_decode($_REQUEST['total']);
-		//$ticket = $this->modelVenta->ConsultaPDF1($id);
-		require_once 'vistas/pages/verdatos/CFiscal.php';
+        
 	}
 	
-	public function exCFiscal(){
+	public function VERPDF(){
+		//require_once 'vistas/pages/verdatos/Ticket.php';
+		$nfac = base64_decode($_REQUEST['nfac']);
+
+		$pdf = $this->modelVenta->ConsultaPDF($nfac);
+		
+		$this->modelVenta->VerPDF($pdf);
+	}
+
+	public function Ticket(){
+		//$ticket = $this->modelVenta->VerPDF($id);
 		$id = base64_decode($_REQUEST['id']);
-		$fe = base64_decode($_REQUEST['fe']);
-		$total = base64_decode($_REQUEST['total']);
-		require_once 'vistas/pages/verdatos/exCFiscal.php';
+		 $fe = base64_decode($_REQUEST['fe']);
+		 $iva = base64_decode($_REQUEST['iva']);
+		 $nombrevende = base64_decode($_REQUEST['nombrevende']);
+ 		$total = base64_decode($_REQUEST['total']);
+		//$ticket = $this->modelVenta->ConsultaPDF1($id);
+		require_once 'vistas/pages/verdatos/Ticket.php';
+	}
+
+	public function exTicket(){
+	$id = base64_decode($_REQUEST['id']);
+		 $fe = base64_decode($_REQUEST['fe']);
+		 $iva = base64_decode($_REQUEST['iva']);
+		 $nombrevende = base64_decode($_REQUEST['nombrevende']);
+ 		$total = base64_decode($_REQUEST['total']);
+		require_once 'vistas/pages/verdatos/exTicket.php';
 	}
 
 	public function Factura(){
 		$id = base64_decode($_REQUEST['id']);
 		$fe = base64_decode($_REQUEST['fe']);
-		/*$id1 = $id;
-		$fe1 = $fe;*/
+		$cliente = base64_decode($_REQUEST['cliente']);
+		$iva = base64_decode($_REQUEST['iva']);
+		 $nombrevende = base64_decode($_REQUEST['nombrevende']);
 		$total = base64_decode($_REQUEST['total']);
 		//$ticket = $this->modelVenta->ConsultaPDF1($id);
 		require_once 'vistas/pages/verdatos/Factura.php';
@@ -157,6 +147,9 @@
 	public function exFactura(){
 		$id = base64_decode($_REQUEST['id']);
 		$fe = base64_decode($_REQUEST['fe']);
+		$cliente = base64_decode($_REQUEST['cliente']);
+		$iva = base64_decode($_REQUEST['iva']);
+		 $nombrevende = base64_decode($_REQUEST['nombrevende']);
 		$total = base64_decode($_REQUEST['total']);
 		require_once 'vistas/pages/verdatos/exFactura.php';
 	}
@@ -184,10 +177,6 @@
 
             
 
-
-            echo "	<script>
-						alert('$r->idproducto');
-					</script>";
         }
        
 
@@ -202,7 +191,6 @@
 		window.location.href='?c=".base64_encode('Movimientos')."&a=".base64_encode('VerVentas')."';
 		</script>";
 	}
-
 
 	
 }
