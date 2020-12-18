@@ -6,7 +6,7 @@
       <li ><a class="grey-text text-darken-1"><b>DISTRIBUIDORA ESPECIAL > VENTAS</b></a></li> 
     </ul>
     <ul class="right">
-      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Movimientos'); ?>&a=<?php echo base64_encode('CrearVenta'); ?>" ><b>Nueva Venta</b><i class="material-icons right grey-text text-darken-1">add_shopping_cart</i></a></li>
+      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Movimientos');?>&a=<?php echo base64_encode('CrearVenta');?>&idusuario=<?php echo base64_encode($_SESSION["id"]); ?>" ><b>Nueva Venta</b><i class="material-icons right grey-text text-darken-1">add_shopping_cart</i></a></li>
     </ul>
   </div>
 </nav>  
@@ -36,11 +36,12 @@
               <th>Sub Total</th>
               <th>Monto iva total</th>
               <th>Total</th>
-              <td>Tipo comprobante</td>
+              <th>Tipo comprobante</th>
               <th>Usuario registra</th>
               <th>Estado</th>
-              <td>Imprimir</td> 
-              <td>Accion</td>                  
+              <th>Imprimir</th> 
+              <th>Accion</th>                  
+              <th>Imprimir1</th>
             </tr>
           </thead>
           <tbody>
@@ -59,18 +60,18 @@
                   <?php if ($r->anulada==0) {
                     echo "Registrada";
                   }elseif ($r->anulada!=0) {
-                    echo "Anulada";
+                    echo "<p style='color:red'>Anulada</p>";
                   }  ?>
                   
                 </td>                      
                 <td class="center">
 
-                  <?php if ($r->anulada==0) {?>
+                  <!--<?php //if ($r->anulada==0) {?>-->
                     <a target="blank" href="?c=<?php echo base64_encode('Movimientos'); ?>&a=<?php echo base64_encode('VERPDF'); ?>&nfac=<?php echo base64_encode($r->nfac); ?>" title="PDF del registro" ><i class="mini material-icons green-ast-text hoverable circle ">remove_red_eye</i></a>
-                    <?php
+                  <!--  <?php/*
                   }elseif ($r->anulada!=0) {
-                    echo "Anulada";
-                  }  ?>
+                    echo "<style></style>Anulada";
+                  }  */?>-->
                   
                 </td>
 
@@ -83,11 +84,22 @@
                 }elseif ($r->anulada!=0) {
                   ?>
                   <td class="center" >
-                    Anulada
+                    <p style="color:red; text-decoration: line-through;">Anulada</p>
                   </td>
                   <?php
                 }  ?>
+                
 
+                <td class="center">
+
+                  <!--<?php //if ($r->anulada==0) {?>-->
+                    <a href="?c=<?php echo base64_encode('Movimientos'); ?>&a=<?php echo base64_encode('exTicket'); ?>&nfac=<?php echo base64_encode($r->nfac); ?>" title="PDF del registro" ><i class="mini material-icons green-ast-text hoverable circle "></i>Prueba</a>
+                  <!--  <?php/*
+                  }elseif ($r->anulada!=0) {
+                    echo "<style></style>Anulada";
+                  }  */?>-->
+                  
+                </td>
                 
 
               </tr>

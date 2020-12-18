@@ -11,10 +11,13 @@
 
     <style>
        * {
-    font-size: 12px;
-    font-family: 'Times New Roman';
-    margin:2px;
+    font-size: 13px;
+    font-family: 'sans-serif';
+    margin:1px;
 }
+
+/*'Times New Roman' */
+
 
 td,
 th,
@@ -26,22 +29,24 @@ table {
 
 td.producto,
 th.producto {
-    width: 75px;
-    max-width: 75px;
+    width: 100px;
+    max-width: 100px;
 }
 
 td.cantidad,
 th.cantidad {
-    width: 40px;
-    max-width: 40px;
+    width: 77px;
+    max-width: 77px;
     word-break: break-all;
+    text-align: left;
 }
 
 td.precio,
 th.precio {
-    width: 40px;
-    max-width: 40px;
+    width: 77px;
+    max-width: 77px;
     word-break: break-all;
+    text-align:right;
 }
 
 .centrado {
@@ -50,8 +55,8 @@ th.precio {
 }
 
 .ticket {
-    width: 155px;
-    max-width: 155px;
+    width: 100%;
+    max-width: 100%;
     
 }
 
@@ -60,29 +65,64 @@ img {
     width: inherit;
     
 }
+
+.anulada{
+	position: absolute;
+	left: 9%;
+	top: 8%;
+	transform: translateX(-10%) translateY(-50%);
+    width:100%;
+}
+
+div {
+
+}
+
+/*@media print {
+    .oculto-impresion,
+    .oculto-impresion * {
+        display: none !important;
+    }
+}*/
     </style>
 <script>
 // Code goes here
 
 /*function imprimir() {
     window.print();
-}*/
+}
+
+onload="windows.print()"
+*/
 </script>
+<script type="text/javascript">
+            function imprimir() {
+                if (window.print) {
+                    window.print();
+                } else {
+                    alert("La función de impresion no esta soportada por su navegador.");
+                }
+            }
+        </script>
 </head>
-<body>
+
+<body onload="imprimir();"
+>
 <?php
     $jpg = file_get_contents("img/logoblancocuadrado.jpg");
     $jpgbase64 = base64_encode($jpg);
-    /*$png = file_get_contents("1.png");
-    $pngbase64 = base64_encode($png);*/
+    $jpg1 = file_get_contents("img/anulado.png");
+	$jpgbase641 = base64_encode($jpg1);
 ?>
+<?php if ($anulada==1) {?>
+	<img class="anulada" src="data:image;base64,<?= $jpgbase641;?>" alt="Anulada">
+<?php }?>
 <div class="ticket">
-<h2 class="center teal-text"><i class="medium material-icons"><img style="margin-left:45px; height:100px; width:100px;" src="data:image;base64,<?= $jpgbase64;?>" alt="Logotipo"></i></h2>
-            <p style="margin-left:40px;" class="centrado"><b>DISTIBUIDORA
-                <br>ESPECIAL</b>
-                
-                <br></p>
-                <p style="margin-left:30px;"><?php echo $fe;?></p>
+<h2><i><img style=" margin-left:60px; height:150px; width:150px;" src="data:image;base64,<?= $jpgbase64;?>" alt="Logotipo"></i></h2>
+            <div style=" border: black 2px solid; font-size: 150%;"><p style="" class="centrado"><b>DISTRIBUIDORA<br> ESPECIAL</b></p></div>
+                <br>
+                <p class="centrado"><b>Vendedor:</b><?php echo $nombrevende;?></p>
+                <p class="centrado"><?php echo $fe;?></p>
                 
             <table>
                 <thead>
@@ -95,23 +135,35 @@ img {
                 <tbody>
                 <?php foreach($this->modelVenta->ListarVenta11($id) as $r):?>
                     <tr>
-                        <td class="cantidad"><?php echo $r->cantidad; ?></td>
+                        <td class="cantidad"><?php echo $r->cantidad.'<b> '.$r->nombremedi;'</br>'; ?></td>
                         <td class="producto"><?php echo $r->pron; ?></td>
-                        <td class="precio"><?php echo $r->preciov; ?></td>
+                        <td class="precio">$ <?php echo $r->preciov + $r->motoindi; ?></td>
                     </tr>
                     
                     <?php endforeach; ?> 
+                    <!--<tr>
+                        <td class="cantidad"></td>
+                        <td class="producto"><b>SubTotal</b></td>
+                        <td class="precio">$ <b><?php echo $total-$iva;?></b></td>
+                    </tr>
                     <tr>
                         <td class="cantidad"></td>
-                        <td class="producto"><b>TOTAL</b></td>
-                        <td class="precio"><b><?php echo $total;?></b></td>
+                        <td class="producto"><b>IVA</b></td>
+                        <td class="precio">$ <b><?php echo $iva;?></b></td>
+                    </tr>-->
+                    <tr>
+                        <td class="cantidad"></td>
+                        <td class="producto" style="text-align:right;"><b>TOTAL</b></td>
+                        <td class="precio">$ <b><?php echo $total+$iva;?></b></td>
                     </tr>
                 </tbody>
             </table><br>
-            <p style="margin-left:38px;" class="centrado">¡GRACIAS POR SU COMPRA!
+            <p class="centrado">¡GRACIAS POR SU COMPRA!
                 <br><b>Grupo#2 ULS-PPI-PSL-2020</b></p>
-        </div>
-
+        </div><br><br>
+        <p>.</p>
+       
+        <!--<button class="oculto-impresion" onclick="imprimir()">Imprimir</button>-->
     
 </body>
 </html>

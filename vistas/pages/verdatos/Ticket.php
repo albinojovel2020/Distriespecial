@@ -11,7 +11,7 @@ $pdf = new Dompdf();
 
 //$url = require_once ;
 
- $html=file_get_contents_curl("https://pruebasdstri.000webhostapp.com/?c=".base64_encode('Movimientos')."&a=".base64_encode('exTicket')."&id=".base64_encode($id)."&fe=".base64_encode($fe)."&total=".base64_encode($total));
+ $html=file_get_contents_curl("http://localhost/Distriespecial-dev/?c=".base64_encode('Movimientos')."&a=".base64_encode('exTicket')."&id=".base64_encode($id)."&fe=".base64_encode($fe)."&iva=".base64_encode($iva)."&cliente=".base64_encode($cliente)."&nombrevende=".base64_encode($nombrevende)."&anulada=".base64_encode($anulada)."&total=".base64_encode($total));
 
 
 
@@ -30,7 +30,7 @@ $pdf->loadhtml($html, 'UTF-8');
 //$pdf->set_paper(array(0,0,104,250));
 //$pdf->set_paper(array(0, 0, 612.00, 1008.0));
 //$pdf->set_paper(array(0, 0, 150, 1000));249.45
-$pdf->set_paper(array(0, 0, 150, 2000));
+$pdf->set_paper(array(0, 0, 200, 3000));
 
  
  
@@ -45,7 +45,7 @@ $dompdf = $pdf->output(); // Obtener el PDF generado
 /*1ra forma de abrir en nueva pestaña navegador */
 // Enviamos el fichero PDF al navegador.
 $id1 = base64_encode($id);
-$pdf->stream($id.'.pdf', array('Attachment'=>0));
+$pdf->stream(cliente.' '.$cliente.'.pdf', array('Attachment'=>0));
 
 /*Fin 1ra forma*/
 

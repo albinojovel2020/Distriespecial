@@ -3,7 +3,7 @@
 <html lang="es">
 <head>
 	<meta charset="UTF-8">
-	<title>Comprobante de Credito Fiscal</title>
+	<title>Comprobante de credito fiscal</title>
     <!--<link rel="stylesheet" href="style.css">-->
     <style>
     @import url('fonts/BrixSansRegular.css');
@@ -24,7 +24,7 @@ p, label, span, table{
 }
 .h3{
 	font-family: 'BrixSansBlack';
-	font-size: 7pt;
+	font-size: 13pt;
 	display: block;
 	background: ;
 	color: #000;
@@ -49,7 +49,7 @@ p, label, span, table{
 	/*background: #0a4661;*/
 	color: #000;
 	padding: 1px;
-	margin-top: 0px;
+	margin-top:-10px;
     margin-left:68%;
 }
 #page_pdf{
@@ -129,13 +129,13 @@ p, label, span, table{
     width: 100%;
 }
 #factura_detalle thead th{
-	background: #3B96AA;
+	/*background: #3B96AA;*/
 	color: #000;
 	padding: 5px;
 
 }
 #detalle_productos tr:nth-child(even) {
-    background: #ededed;
+    /*background: #ededed;*/
 }
 #detalle_totales span{
 	font-family: 'BrixSansBlack';
@@ -172,12 +172,16 @@ p, label, span, table{
 </style>
 
 </head>
-<body>
+<body style="background:#F8F895;">
 <?php
-	$jpg = file_get_contents("img/logoblancocuadrado.jpg");
+	$jpg = file_get_contents("img/logotransparente2.png");
 	$jpgbase64 = base64_encode($jpg);
+	$jpg1 = file_get_contents("img/anulado.png");
+	$jpgbase641 = base64_encode($jpg1);
 ?>
-<!--<img class="anulada" src="" alt="Anulada">-->
+<?php if ($anulada==1) {?>
+	<img class="anulada" src="data:image;base64,<?= $jpgbase641;?>" alt="Anulada">
+<?php }?>
 <div id="page_pdf">
 	<table id="factura_head">
 		<tr>
@@ -200,15 +204,16 @@ p, label, span, table{
 			</td>
 			<td class="info_factura">
 				<div class="round">
-					<span class="h3">COMPROBANTE DE CREDITO FISCAL</span>
-                    <span ><center style="margin-bottom:5px;"></center></span>
+					<span style="font-size:9px;">COMPROBANTE DE CREDITO FISCAL</span>
+                    <span ><center style="margin-bottom:5px;font-size:11px;">18SD000F</center></span>
                     <span class="h33"><center><strong>N° </strong> 0005215</center></span>
 					<p>REGISTRO No.163310-6</p>
 					<p>NIT: 0617-080485-101-6</p>
 				</div>
                 
 			</td>
-            <span class="h333">FECHA:  <?php date_default_timezone_set("America/Guatemala"); echo date("d-m-Y");?></span>
+            <span class="h333">FECHA: <?php echo substr($fe,0,10); ?></span>
+			
 		</tr>
 	</table>
 	<table id="factura_cliente">
@@ -218,14 +223,23 @@ p, label, span, table{
 					<!--<span class="h3">Cliente</span>-->
 					<table class="datos_cliente">
 						<tr>
-							<td><label>CLIENTE:</label><p>______________________________________________________________________</p></td>
+							<td><label>Cliente:</label><p style="width:440px; margin-left:-30px;"><?php echo $cliente;?></p></td>
 						</tr>
                         <tr>
-							<td><label>DIRECCIÓN:</label><p>______________________________________________________________________</p></td>
+							<td><label>Dirección:</label><p style="margin-left:-20px;">___________________________________________</p></td>
+							<td><label style="width:30px; margin-left:-100px;">Giro:</label><p>_______________________</p></td>
+						</tr>
+						<tr>
+							<td><label>Depto:</label><p style="margin-left:-35px;">______________________________________________</p></td>
+							<td><label style="width:80px; margin-left:-100px;">No. Registro:</label><p style="margin-left:-20px;">__________________</p></td>
+						</tr>
+						<tr>
+							<td><label style="width:200px;">Condiciones de la Operación:</label><p style="margin-left:-70px;">______________________________</p></td>
+							<td><label style="width:34px; margin-left:-100px;">N.I.T.:</label><p>______________________</p></td>
 						</tr>
                         <tr>
-							<td><label >NIT ó DUI:</label><p>_______________________</p></td>
-                            <td><label style="width:132px; margin-left:-210px;">VENTA A CUENTA DE:</label><p>________________________</p></td>
+							<td><label style="width:280px;">No. y fecha de nota de remisión anterior:</label><p style="margin-left:-102px;">_________________</p></td>
+                            <td><label style="width:96px; margin-left:-130px;">Venta a cuenta de:</label><p style="margin-left:-15px;"><?php echo $nombrevende;?></p></td>
 						</tr>						
 					</table>
 				</div>
@@ -245,17 +259,20 @@ p, label, span, table{
                     <th class="textcenter" width="50px">VENTAS <br>EXENTAS</th>
 					<th class="textcenter" width="85px"> VENTAS<br> AFECTAS</th>
 				</tr>
+				<tr>
+                <td colspan="6" ><hr class="detalle_totales"></td>
+                </tr>
 			</thead>
 			<tbody id="detalle_productos">
 				<?php ?>
 				<?php foreach($this->modelVenta->ListarVenta11($id) as $r):?>
 				<tr>
-					<td class="textcenter"><?php echo $r->cantidad; ?></td>
+					<td class="textcenter"><?php echo $r->cantidad.'<b> '.$r->nombremedi;'</b>' ; ?></td>
 					<td><?php echo $r->pron; ?></td>
 					<td class="textcenter"></td>
 					<td class="textcenter"></td>
                     <td class="textcenter"></td>
-                    <td class="textcenter"><?php echo $r->preciov; ?></td>
+                    <td class="textcenter">$<?php echo $r->preciov; ?></td>
 				</tr>
 
 				<?php endforeach; ?>
@@ -266,22 +283,26 @@ p, label, span, table{
 			<tfoot id="detalle_totales">
 				<tr>
 					<td colspan="5" class="textright"><span>Sumas</span></td>
+					<td class="textcenter">$<span><?php echo $total-$iva;?></span></td>
+				</tr>
+				<tr>
+					<td colspan="5" class="textright"><span>(13%) IVA</span></td>
+					<td class="textcenter">$<span><?php echo $iva;?></span></td>
+				</tr>
+				<tr>
+					<td colspan="5" class="textright"><span>Sub-Total</span></td>
 					<td class="textcenter">$<span><?php echo $total;?></span></td>
 				</tr>
-                <tr>
-					<td colspan="5" class="textright"><span>Ventas Exentas</span></td>
+				<tr>
+					<td colspan="5" class="textright"><span>(-) IVA RETENIDO</span></td>
 					<td class="textcenter"><span></span></td>
 				</tr>
-                <tr>
+				<tr>
 					<td colspan="5" class="textright"><span>Venta No Sujeta</span></td>
 					<td class="textcenter"><span></span></td>
 				</tr>
                 <tr>
-					<td colspan="5" class="textright"><span>Sub-Total</span></td>
-					<td class="textcenter"><span></span></td>
-				</tr>
-				<tr>
-					<td colspan="5" class="textright"><span>(13%) IVA Retenido </span></td>
+					<td colspan="5" class="textright"><span>Ventas Exentas</span></td>
 					<td class="textcenter"><span></span></td>
 				</tr>
 				<tr>

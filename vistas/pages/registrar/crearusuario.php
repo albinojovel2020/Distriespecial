@@ -63,6 +63,12 @@
               <label for="usuario">Usuario</label>
             </div>
 
+             <div class="input-field col s12 m6">
+              <i class="material-icons prefix form-icon">account_circle</i>
+              <input id="iniciales" type="text" class="validate" name="iniciales" required>
+              <label for="iniciales">Iniciales para ticket</label>
+            </div>
+
             <div class="input-field col s12 m6">
               <i class="material-icons prefix form-icon">vpn_key</i>
               <input id="input_text" id="clave1" type="password"  class="validate" name="clave1" minlength="6" maxlength="12" required>

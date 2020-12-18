@@ -118,6 +118,36 @@ class Producto //inicio clase
 			die($t->getMessage());
 		}
 	}
+	public function ListarProductosActivoSinexistencia1()
+	{
+		try
+		{
+		
+			$stm = $this->pdo->prepare("SELECT pro.idproducto AS idproducto, pro.nombre AS nombre, pro.descripcion AS descripcion, pro.preciocompra AS precio, pro.precio1,pro.precio2,pro.precio3, pro.stock AS stock, pro.imagen AS img, pro.idcategoria AS idcategoria, pro.idproveedor AS idproveedor, pro.idusuario AS idusuario, c.nombre AS nombrecate, CONCAT(p.nombre,' ', p.apellido) AS nombreprove, u.usuario AS nombreusuario, pro.estado AS estado FROM producto AS pro INNER JOIN categoria AS c ON pro.idcategoria = c.idcategoria INNER JOIN proveedor AS p ON pro.idproveedor = p.idproveedor INNER JOIN usuario AS u ON pro.idusuario = u.idusuario WHERE pro.estado = 1 and pro.stock = 0");
+			$stm->execute();
+
+			return $stm->fetchAll(PDO::FETCH_OBJ);
+		}
+		catch (Throwable $t)
+		{
+			die($t->getMessage());
+		}
+	}
+
+	public function ProductosRegistrados()
+	{
+		try
+		{
+			$stm = $this->pdo->prepare("SELECT COUNT(*) AS todo FROM producto WHERE estado=1");
+			$stm->execute();
+
+			return $stm->fetch(PDO::FETCH_OBJ);
+		}
+		catch (Throwable $t)
+		{
+			die($t->getMessage());
+		}
+	}
 
 	public function ContarProductos()
 	{

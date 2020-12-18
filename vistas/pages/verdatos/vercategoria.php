@@ -6,7 +6,7 @@
         <li ><a class="grey-text text-darken-1"><b>DISTRIBUIDORA ESPECIAL > CATEGORÍA</b></a></li> 
     </ul>
     <ul class="right">
-      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Categoria'); ?>&a=<?php echo base64_encode('CrearCategoria'); ?>" ><b>Nuevo categoría</b><i class="material-icons right grey-text text-darken-1">format_list_bulleted</i></a></li>
+      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Categoria'); ?>&a=<?php echo base64_encode('CrearCategoria'); ?>" ><b>Nueva categoría</b><i class="material-icons right grey-text text-darken-1">format_list_bulleted</i></a></li>
   </ul>
 </div>
 </nav>  

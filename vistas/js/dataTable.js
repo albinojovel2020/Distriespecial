@@ -1,6 +1,41 @@
 /* tabla dinámica para mostrar y buscar datos activos */
-$(document).ready(function () {
+$(document).ready(function() {
     $('#tabla-activos').DataTable({
+        "footerCallback": function(row, data, start, end, display) {
+            var api = this.api(),
+                data;
+
+            // Remove the formatting to get integer data for summation
+            var intVal = function(i) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '') * 1 :
+                    typeof i === 'number' ?
+                    i : 0;
+            };
+
+            // Total over all pages
+            total = api
+                .column(2)
+                .data()
+                .reduce(function(a, b) {
+                    var total = intVal(a) + intVal(b);
+                    return total.toFixed(2);
+                }, 0);
+
+            // Total over this page
+            pageTotal = api
+                .column(2, { page: 'current' })
+                .data()
+                .reduce(function(a, b) {
+                    var suu = intVal(a) + intVal(b);
+                    return suu.toFixed(2);
+                }, 0);
+
+            // Update footer
+            $(api.column(2).footer()).html(
+                '$' + pageTotal + ' ( $' + total + ' total)'
+            );
+        },
         "language": {
             "sProcessing": "<i class='azul-ast-text'>Procesando...</i>",
             "sLengthMenu": "<i class='azul-ast-text'>Mostrar</i> _MENU_ <i class='azul-ast-text'>Registros</i>",
@@ -16,27 +51,27 @@ $(document).ready(function () {
             "sInfoThousands": ",",
             "sLoadingRecords": "Cargando...",
             "oPaginate": {
-             "sFirst": "<i class='naranja-ast-text'>Primero</i>",
-             "sLast": "<i class='naranja-ast-text'>Último</i>",
-             "sNext": "<i class='naranja-ast-text'>Siguiente</i>",
-             "sPrevious": "<i class='naranja-ast-text'>Anterior</i>"
-         },
-         "oAria": {
-            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                "sFirst": "<i class='naranja-ast-text'>Primero</i>",
+                "sLast": "<i class='naranja-ast-text'>Último</i>",
+                "sNext": "<i class='naranja-ast-text'>Siguiente</i>",
+                "sPrevious": "<i class='naranja-ast-text'>Anterior</i>"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
         }
-    }
-});
+    });
     $("select").val('10');
     $("select").addClass("browser-default");
-   // $('label').addClass('form-inline');
-   $('input[type="search"]').addClass('browser-default buscador');
+    // $('label').addClass('form-inline');
+    $('input[type="search"]').addClass('browser-default buscador');
 
 });
 
 
 /* tabla dinámica para mostrar y buscar datos inactivos */
-$(document).ready(function () {
+$(document).ready(function() {
     $('#tabla-inactivos').DataTable({
         "language": {
             "sProcessing": "<i class='naranja-ast-text'>Procesando...</i>",
@@ -66,11 +101,11 @@ $(document).ready(function () {
     });
     $("select").val('10');
     $("select").addClass("browser-default ssl");
-     $('input[type="search"]').addClass('browser-default buscador');
-    
+    $('input[type="search"]').addClass('browser-default buscador');
+
 });
 
-$(document).ready(function () {
+$(document).ready(function() {
     $('#tabla-stok').DataTable({
         "language": {
             "sProcessing": "<i class='naranja-ast-text'>Procesando...</i>",
@@ -100,12 +135,12 @@ $(document).ready(function () {
     });
     $("select").val('10');
     $("select").addClass("browser-default ssl");
-     $('input[type="search"]').addClass('browser-default buscador');
-    
+    $('input[type="search"]').addClass('browser-default buscador');
+
 });
 
 
-$(document).ready(function () {
+$(document).ready(function() {
     $('#tabla-1').DataTable({
         "language": {
             "sProcessing": "<i class='naranja-ast-text'>Procesando...</i>",
@@ -135,6 +170,6 @@ $(document).ready(function () {
     });
     $("select").val('10');
     $("select").addClass("browser-default ssl");
-     $('input[type="search"]').addClass('browser-default buscador');
-    
+    $('input[type="search"]').addClass('browser-default buscador');
+
 });

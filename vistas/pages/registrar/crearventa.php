@@ -24,13 +24,13 @@
         <br>
         <form onkeydown="return event.key != 'Enter';" class="col s12" action="?c=<?php echo base64_encode('Movimientos'); ?>&a=<?php echo base64_encode('GuardarVenta'); ?>" method="post" enctype="multipart/form-data">
          <div class="input-field col s6">
-            <input id="txtNumeroVenta" type="number" class="validate" name="txtNumeroVenta" required>
+            <input id="txtNumeroVenta" type="text" class="validate" name="txtNumeroVenta" value="<?php echo $datosfactura->iniciales; ?><?php echo $datosfactura->idusuario; ?><?php echo $datosfactura->siguientefactura; ?>"required>
             <label for="txtNumeroVenta">Número Factura</label>
         </div>
 
 
         <div class="input-field col s6">
-            <input id="txtFechaVenta" type="text" name="txtFechaVenta" value="<?php echo date("Y-m-d").' '.date("h:i:s").' '.date('A'); ?>"  readonly>
+            <input id="txtFechaVenta" type="text" name="txtFechaVenta" value="<?php echo date("d-m-Y").' '.date("h:i:s").' '.date('A'); ?>"  readonly>
             <label for="txtFechaVenta">Fecha y Hora</label>
         </div>
 
@@ -49,30 +49,49 @@
             <label for="txtIdUsuari">Empleado responsable</label>
         </div>
 
-        <div class="col s6">  
+        <div class="col s6" class="custom-select">  
         <label>Tipo de comprobante</label>             
-            <select onchange="ActivarCampos()" class="browser-default validate " name="selComprobante" id="selComprobante" required>
+            <!--<select style="border-color: blue; border-radius:5px; " onchange="ActivarCampos()" name="selComprobante" id="selComprobante" required>
+                <option  value="" disabled selected>Seleccione una opción</option>
+                <option value="1">Factura consumidor final</option>
+                <option value="2">Factura credito fiscal</option>
+                <option value="3">Nota de envio</option>
+                <option value="4">Ticket</option>
+            </select>-->
+            <select style="border-color: blue; border-radius:5px; " onchange="ActivarCampos(this)" name="selComprobante" id="selComprobante" required>      
+                <option value="" disabled selected>Seleccione tipo de Comprobante</option>            
+              <?php foreach($this->modelComprobante->ListarComprobantes() as $r): ?>
+                <option value="<?php echo $r->id; ?>"><?php echo $r->nombrecompro; ?></option>
+              <?php endforeach; ?>
+            </select>
+        </div>
+        <!--<div class="col s6" class="custom-select" id="selComprobante1">  
+        <label>Correlativo</label>             
+            <select style="border-color: blue; border-radius:5px; " onchange="ActivarCampos()" name="selComprobante" id="selComprobante" required>
                 <option  value="" disabled selected>Seleccione una opción</option>
                 <option value="1">Factura consumidor final</option>
                 <option value="2">Factura credito fiscal</option>
                 <option value="3">Nota de envio</option>
                 <option value="4">Ticket</option>
             </select>
-        </div>
+            <select style="border-color: blue; border-radius:5px; " name="selComprobante1" id="selComprobante1" required>      
+                
+            </select>
+        </div>-->
 
 
         <div class="input-field col s12 m6" > 
-                   <div id class="input-field col s6" id="txtNRC">
+                   <div id class="input-field col s6">
             <input id="txtNRC" type="text" class="validate" name="txtNRC"  disabled required>
             <label for="txtNRC">NRC Comprador</label>
         </div>
 
-        <div class="input-field col s6" id="txtNIT" >
+        <div class="input-field col s6" >
             <input id="txtNIT" type="text" class="validate" name="txtNIT" disabled required>
             <label for="txtNIT">NIT Comprador</label>
         </div>
 
-        <div class="input-field col s6" id="txtGiro" >
+        <div class="input-field col s6" >
             <input id="txtGiro" type="text" class="validate" name="txtGiro" disabled required>
             <label for="txtGiro">GIRO:</label>
         </div>
@@ -237,6 +256,59 @@
 </div>
 </div>
 </div>
+<script>
+    $(document).ready(function(){
+        // Bloqueamos el SELECT de los cursos
+        
+        $("#selComprobante1").prop('disabled', true);
+        
+        // Hacemos la lógica que cuando nuestro SELECT cambia de valor haga algo
+        $("#selComprobante").change(function(){
+            // Guardamos el select de cursos
+            var cursos = $("#selComprobante1");
+            
+            // Guardamos el select de alumnos
+            var alumnos = $(this);
+            
+            if($(this).val() != '')
+            {
+                $.ajax({
+                    data: { id : alumnos.val() },
+                    url:   '?c=Movimientos&a=Correlativo',
+                    type:  'POST',
+                    dataType: 'json',
+                    beforeSend: function () 
+                    {
+                        alumnos.prop('disabled', true);
+                    },
+                    success:  function (r) 
+                    {
+                        alumnos.prop('disabled', false);
+                        
+                        // Limpiamos el select
+                        cursos.find('option').remove();
+                        
+                        $(r).each(function(i, v){ // indice, valor
+                            cursos.append('<option value="' + v.id + '">' + v.correlativo + '</option>');
+                        })
+                        
+                        cursos.prop('disabled', false);
+                    },
+                    error: function()
+                    {
+                        alert('Ocurrio un error en el servidor ..');
+                        alumnos.prop('disabled', false);
+                    }
+                });
+            }
+            else
+            {
+                cursos.find('option').remove();
+                cursos.prop('disabled', true);
+            }
+        })
+    })
+</script>
 <!-- fin del cuerpo -->
 
 <script>
@@ -333,16 +405,21 @@ function agregardetalle(producto) {
 <script>
     
 
-    function ActivarCampos(){
+    function ActivarCampos(inputSelect){
         
         var compro = document.getElementById('selComprobante').value;
+        /*document.getElementById("txtNombreCliente").value = inputSelect.options[inputSelect.selectedIndex].text;;*/
+        /* txtNombreCliente         txtNumeroVenta*/
 
         if (compro==2) {
 
-             
+            var txtNRC = document.getElementById('txtNRC'); 
+            var txtNIT = document.getElementById('txtNIT'); 
+            var txtGiro = document.getElementById('txtGiro');
             $("#txtNRC").prop('disabled', false);
             $("#txtNIT").prop('disabled', false);
             $("#txtGiro").prop('disabled', false);
+            $("#txtNRC").prop('disabled', false);
 
 
             $("#txtNRC").prop('required', true);
@@ -531,7 +608,7 @@ function calcularTotal(numeroDetalle) {
             iva = parseFloat(document.getElementById("txtMontoIva"+j).value).toFixed(2);
             tiva = parseFloat(tiva) + parseFloat(iva);
             // acumular total
-            total = parseFloat(total) + parseFloat(subtotal) + parseFloat(iva);
+            total = parseFloat(total) + parseFloat(subtotal);
         }
     //retornar el valor
     document.getElementById("txtTotal").value = parseFloat(total).toFixed(2);

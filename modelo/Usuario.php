@@ -13,6 +13,7 @@ class Usuario //inicio clase
 	public $respuestasecreta;
 	public $idtipousuario;
 	public $estado;
+    public $iniciales;
 
 	public function __CONSTRUCT()
 	{
@@ -30,8 +31,8 @@ class Usuario //inicio clase
 	{
 		try 
 		{
-			$sql = "INSERT INTO usuario(nombre, apellido, telefono, usuario, clave, fecha, idpreguntasecreta, respuestasecreta, idtipousuario) 
-			VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			$sql = "INSERT INTO usuario(nombre, apellido, telefono, usuario, clave, fecha, idpreguntasecreta, respuestasecreta, idtipousuario, iniciales, siguientefactura) 
+			VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
 
 			$this->pdo->prepare($sql)
 			->execute(
@@ -44,7 +45,8 @@ class Usuario //inicio clase
 					$data->fecha,
 					$data->idpreguntasecreta,
 					$data->respuestasecreta,
-					$data->idtipousuario
+					$data->idtipousuario,
+					$data->iniciales
 				)
 			);
 
@@ -108,6 +110,23 @@ class Usuario //inicio clase
 		{
 			$stm = $this->pdo
 			->prepare("SELECT u.idusuario AS idusuario, u.nombre AS nombre, u.apellido AS apellido, u.telefono AS telefono, u.usuario AS usuario, u.idtipousuario AS idtipousuario, tp.nombre AS tipo, u.clave AS clave, u.idpreguntasecreta AS idpreguntasecreta, u.respuestasecreta AS respuestasecreta, ps.nombre AS pregunta FROM usuario AS u INNER JOIN tiposusuario AS tp ON u.idtipousuario = tp.idtipousuario INNER JOIN preguntasecreta AS ps ON u.idpreguntasecreta = ps.idpreguntasecreta WHERE u.idusuario = ?");			          
+
+			$stm->execute(array($id));
+
+			return $stm->fetch(PDO::FETCH_OBJ);
+		}
+		catch (Throwable $t)
+		{
+			die($t->getMessage());
+		}
+	}
+
+	public function ObtenerSiguienteFactura($id)
+	{
+		try 
+		{
+			$stm = $this->pdo
+			->prepare("SELECT idusuario, iniciales, siguientefactura FROM usuario  WHERE idusuario = ?");			          
 
 			$stm->execute(array($id));
 
@@ -255,15 +274,11 @@ class Usuario //inicio clase
 					 $_SESSION["usuario"] = $data->usuario;
 					 $_SESSION["rol"] = $data->idtipousuario;
  
-                     if ($data->idtipousuario == 1 || $data->idtipousuario == 2 && $data->estado == 1) {
+                     if ($data->estado == 1 && $data->idtipousuario == 1 || $data->idtipousuario == 2) {
                     # entrar como encargado de inventario                       
                          header("Location: ?c=".base64_encode('Tablero')."&idusuario=".base64_encode($_SESSION["id"]));
 
-                    } elseif ($data->idtipousuario == 2 && $data->estado == 1) {
-                         # code...
-                         # # entrar como otro tipo de usuario        
-
-                     } else{
+					  } else{
                      	# code...
                      
                          header("Location: ?c=".base64_encode('Login')."&a=".base64_encode('Error_inactivo'));    
@@ -396,6 +411,17 @@ class Usuario //inicio clase
 			die($t->getMessage());
 		}
 
+	}
+
+	public function UsuariosDia(){
+		try {
+			$stm = $this->pdo->prepare("SELECT u.idusuario AS idusuario, u.nombre AS nombre, u.apellido AS apellido, u.telefono AS telefono, u.usuario AS usuario, u.fecha AS fecha, tp.nombre AS tipo  FROM usuario AS u INNER JOIN tiposusuario AS tp ON u.idtipousuario = tp.idtipousuario WHERE u.estado = 1");
+			$stm->execute();
+
+			return $stm->fetchAll(PDO::FETCH_OBJ);
+		} catch (\Throwable $t) {
+			die($t->getMessage());
+		}
 	}
 	
 

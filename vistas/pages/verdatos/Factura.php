@@ -10,7 +10,7 @@ $pdf = new Dompdf();
 
 
 //include "vistas/pages/verdatos/exFactura.php";
-$html=file_get_contents_curl("https://pruebasdstri.000webhostapp.com/?c=".base64_encode('Movimientos')."&a=".base64_encode('exFactura')."&id=".base64_encode($id)."&fe=".base64_encode($fe)."&total=".base64_encode($total));
+$html=file_get_contents_curl("http://localhost/Distriespecial/?c=".base64_encode('Movimientos')."&a=".base64_encode('exFactura')."&id=".base64_encode($id)."&fe=".base64_encode($fe)."&iva=".base64_encode($iva)."&cliente=".base64_encode($cliente)."&nombrevende=".base64_encode($nombrevende)."&anulada=".base64_encode($anulada)."&total=".base64_encode($total));
 
 
 
@@ -45,7 +45,7 @@ $dompdf = $pdf->output(); // Obtener el PDF generado
 /*1ra forma de abrir en nueva pestaña navegador */
 // Enviamos el fichero PDF al navegador.
 $id1 = base64_encode($id);
-$pdf->stream($id.'.pdf', array('Attachment'=>0));
+$pdf->stream(cliente.' '.$cliente.'.pdf', array('Attachment'=>0));
 
 /*Fin 1ra forma*/
 

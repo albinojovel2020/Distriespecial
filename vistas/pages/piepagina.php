@@ -18,18 +18,27 @@
                  <i class="material-icons large grey-text text-darken-1">assignment_ind</i>
              </center>
 
-            <h5 class="grey-text text-darken-1"><b>Practica Profesional</b></h5>
-              <p class="grey-text text-darken-3">Integrantes:<br> * Jacqueline Ivette Hernández Vásquez<br> * Brayan Eleazar Rosales Alfaro<br> * Andrés Josué Hernández Pineda<br> * Luis Alberto Carranza Muñoz<br> * Norberto Alexander Fuentes Velado<br> * Rafael Albino Jovel Alfaro</p>
+             <h5 class="grey-text text-darken-1"><b style="font-weight: bold; color: #000; text-decoration:underline;">Desarrollado por:</b></h5>
+              <p style="font-weight: bold; color: #000;" class=""> * Jacqueline Ivette Hernández Vásquez<br> * Brayan Eleazar Rosales Alfaro<br> * Andrés Josué Hernández Pineda<br> * Luis Alberto Carranza Muñoz<br> * Norberto Alexander Fuentes Velado<br> * Rafael Albino Jovel Alfaro</p>
+
 
           </div>
 
       </div>
 
   </div>
+  <div class="container">
+      <div class="row">
+      <center>
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licencia de Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Desarrollo de Sistema Web de Inventario y Facturación</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">J. Hernández & B. Rosales & A. Hernández & L. Carranza & N. Fuentes & R. Jovel </span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Reconocimiento-NoComercial-CompartirIgual 4.0 Internacional License</a>.
+      </center>
+    </div>
+    </div>
   <div class="modal-footer">
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cerrar</a>
   </div>
 </div>
+
 
 <!-- Compiled and minified JavaScript -->
 <script src="vistas/js/jquery-2.1.1.min.js"></script>

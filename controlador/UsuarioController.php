@@ -58,6 +58,7 @@ class UsuarioController
 		$this->model->idpreguntasecreta = $_REQUEST['idpreguntasecreta'];
 		$this->model->respuestasecreta = md5($_REQUEST['respuestasecreta1']);
 		$this->model->idtipousuario = $_REQUEST['idtipousuario'];
+		$this->model->iniciales = $_REQUEST['iniciales'];
 		
 
 		//Guardar Usuario

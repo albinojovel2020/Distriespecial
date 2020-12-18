@@ -3,7 +3,7 @@
 <html lang="es">
 <head>
 	<meta charset="UTF-8">
-	<title>Factura</title>
+	<title>Factura consumidor final</title>
     <!--<link rel="stylesheet" href="style.css">-->
     <style>
     @import url('fonts/BrixSansRegular.css');
@@ -49,7 +49,7 @@ p, label, span, table{
 	/*background: #0a4661;*/
 	color: #000;
 	padding: 1px;
-	margin-top: 0px;
+	margin-top:-10px;
     margin-left:68%;
 }
 #page_pdf{
@@ -176,8 +176,13 @@ p, label, span, table{
 <?php
 	$jpg = file_get_contents("img/logoblancocuadrado.jpg");
 	$jpgbase64 = base64_encode($jpg);
+	$jpg1 = file_get_contents("img/anulado.png");
+	$jpgbase641 = base64_encode($jpg1);
 ?>
-<!--<img class="anulada" src="" alt="Anulada">-->
+<?php if ($anulada==1) {?>
+	<img class="anulada" src="data:image;base64,<?= $jpgbase641;?>" alt="Anulada">
+<?php }?>
+
 <div id="page_pdf">
 	<table id="factura_head">
 		<tr>
@@ -208,7 +213,7 @@ p, label, span, table{
 				</div>
                 
 			</td>
-            <span class="h333">FECHA:  <?php date_default_timezone_set("America/Guatemala"); echo date("d-m-Y");?></span>
+            <span class="h333">FECHA: <?php echo substr($fe,0,10); ?>  </span>
 		</tr>
 	</table>
 	<table id="factura_cliente">
@@ -218,14 +223,14 @@ p, label, span, table{
 					<!--<span class="h3">Cliente</span>-->
 					<table class="datos_cliente">
 						<tr>
-							<td><label>CLIENTE:</label><p>______________________________________________________________________</p></td>
+							<td><label style="width:100px;">CLIENTE:</label><p  style="width:200px; margin-left:-50px;"><?php echo $cliente;?></p></td>
 						</tr>
                         <tr>
 							<td><label>DIRECCIÓN:</label><p>______________________________________________________________________</p></td>
 						</tr>
                         <tr>
-							<td><label >NIT ó DUI:</label><p>_______________________</p></td>
-                            <td><label style="width:132px; margin-left:-210px;">VENTA A CUENTA DE:</label><p>________________________</p></td>
+							<td><label >NIT ó DUI:</label><p>__________________________</p></td>
+                            <td><label style="width:114px; margin-left:-190px;">VENTA A CUENTA DE:</label><p style="width:200px;"><?php echo $nombrevende;?></p></td>
 						</tr>						
 					</table>
 				</div>
@@ -250,12 +255,12 @@ p, label, span, table{
 				<?php ?>
 				<?php foreach($this->modelVenta->ListarVenta11($id) as $r):?>
 				<tr>
-					<td class="textcenter"><?php echo $r->cantidad; ?></td>
+					<td class="textcenter"><?php echo $r->cantidad.'<b> '.$r->nombremedi;'</b>' ; ?></td>
 					<td><?php echo $r->pron; ?></td>
 					<td class="textcenter"></td>
 					<td class="textcenter"></td>
                     <td class="textcenter"></td>
-                    <td class="textcenter"><?php echo $r->preciov; ?></td>
+                    <td class="textcenter">$<?php echo number_format($r->preciov+$r->motoindi, 2); ?></td>
 				</tr>
 
 				<?php endforeach; ?>
@@ -266,7 +271,7 @@ p, label, span, table{
 			<tfoot id="detalle_totales">
 				<tr>
 					<td colspan="5" class="textright"><span>Sumas</span></td>
-					<td class="textcenter">$<span><?php echo $total;?></span></td>
+					<td class="textcenter">$<span><?php echo number_format($total, 2);?></span></td>
 				</tr>
                 <tr>
 					<td colspan="5" class="textright"><span>Ventas Exentas</span></td>
@@ -281,8 +286,8 @@ p, label, span, table{
 					<td class="textcenter"><span></span></td>
 				</tr>
 				<tr>
-					<td colspan="5" class="textright"><span>(13%) IVA Retenido </span></td>
-					<td class="textcenter"><span></span></td>
+					<td colspan="5" class="textright"><span>(-) IVA Retenido </span></td>
+					<td class="textcenter"></span></td>
 				</tr>
 				<tr>
 					<td colspan="5" class="textright"><span>Venta Total </span></td>

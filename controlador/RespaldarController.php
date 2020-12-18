@@ -23,7 +23,7 @@ class RespaldarController
 		$day=date("d");
 		$mont=date("m");
 		$year=date("Y");
-		$hora=date("H-i-s");
+		$hora=date("h-i-s");
 		$fecha=$day.'_'.$mont.'_'.$year;
 		$DataBASE=BD."_".$fecha."_(".$hora."_hrs).sql";
 		$tables=array();

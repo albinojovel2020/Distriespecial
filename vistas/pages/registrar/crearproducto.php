@@ -26,7 +26,7 @@
           <div class="input-field col s12 m6">
             <i class="material-icons prefix form-icon">person</i>
             <input id="nombres" type="text" class="validate" name="nombres" required autofocus>
-            <label for="nombres">Nombre</label>
+            <label for="nombres">Nombre de producto</label>
           </div>
 
           <div class="input-field col s12 m6">
@@ -45,19 +45,19 @@
           <div class="input-field col s12 m6">
             <i class="material-icons prefix form-icon">monetization_on</i>
             <input id="precio1" type="text" maxlength="6" onkeypress="return justNumbers(event);"  class="validate" name="precio1" required>
-            <label for="precio1">Precio 1</label>
+            <label for="precio1">Precio de Venta <b>uno</b></label>
           </div>
 
           <div class="input-field col s12 m6">
             <i class="material-icons prefix form-icon">monetization_on</i>
             <input id="precio2" type="text" maxlength="6" onkeypress="return justNumbers(event);"  class="validate" name="precio2" required>
-            <label for="precio2">Precio 2</label>
+            <label for="precio2">Precio de Venta <b>dos</b></label>
           </div>
 
           <div class="input-field col s12 m6">
             <i class="material-icons prefix form-icon">monetization_on</i>
             <input id="precio3" type="text" maxlength="6" onkeypress="return justNumbers(event);"  class="validate" name="precio3" required>
-            <label for="precio3">Precio 3</label>
+            <label for="precio3">Precio de Venta <b>tres</b></label>
           </div>
 
 

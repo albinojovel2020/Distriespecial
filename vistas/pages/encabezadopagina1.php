@@ -37,7 +37,7 @@ if(!isset($_SESSION["id"])){
   <li>
     <div class="user-view">
       <center>
-        <a href="#!user"><img class="circular" src="vistas/img/logoblancocuadrado.jpg"></a>
+        <a href="?c=<?php echo base64_encode('Doc');?>"><img class="circular" src="vistas/img/logoblancocuadrado.jpg"></a>
       </center>
     </div>
     <div class="lin">
@@ -45,8 +45,11 @@ if(!isset($_SESSION["id"])){
     </div>
   </li>
   <li><a href="?c=<?php echo base64_encode('Tablero');?>&idusuario=<?php echo base64_encode($_SESSION["id"]); ?>" class="grey-text text-darken-1"><i class="material-icons grey-text text-darken-1">view_quilt</i><b>TABLERO</b></a></li>
+  <?php 
+    if (isset($_SESSION['rol'])  && $_SESSION['rol'] == 1) {
+  ?>
   <li><a href="?c=<?php echo base64_encode('Usuario');?>" class="grey-text text-darken-1" ><i class="material-icons">person_add</i><b>USUARIOS</b></a></li>
-
+  <?php } ?>
 
   <li><a href="?c=<?php echo base64_encode('Categoria');?>" class="grey-text text-darken-1"><i class="material-icons">offline_pin</i><b>CATEGORIAS</b></a></li>
   <li><a href="?c=<?php echo base64_encode('Proveedor');?>" class="grey-text text-darken-1"><i class="material-icons">person</i><b>PROVEEDORES</b></a></li>
@@ -58,15 +61,21 @@ if(!isset($_SESSION["id"])){
   <li><a href="?c=<?php echo base64_encode('Producto');?>" class="grey-text text-darken-1"><i class="material-icons">playlist_add_check</i><b>PRODUCTOS</b></a></li>
   <?php } ?>
   <li><a href="?c=<?php echo base64_encode('Movimientos');?>" class="grey-text text-darken-1"><i class="material-icons">local_mall</i><b>INGRESO A ALMACEN</b></a></li>
-  <li><a href="?c=<?php echo base64_encode('Movimientos');?>&a=<?php echo base64_encode('CrearVenta');?>" class="grey-text text-darken-1"><i class="material-icons">add_shopping_cart</i><b>VENTAS</b></a></li>
-  <li><a href="?c=<?php echo base64_encode('Movimientos');?>" class="grey-text text-darken-1"><i class="material-icons">cloud_download</i><b>BACKUP</b></a></li>
+  <li><a href="?c=<?php echo base64_encode('Movimientos');?>&a=<?php echo base64_encode('CrearVenta');?>&idusuario=<?php echo base64_encode($_SESSION["id"]); ?>" class="grey-text text-darken-1"><i class="material-icons">add_shopping_cart</i><b>VENTAS</b></a></li>
+  <li><a href="?c=<?php echo base64_encode('Respaldar');?>" class="grey-text text-darken-1"><i class="material-icons">cloud_download</i><b>BACKUP</b></a></li>
   <li><a href="?c=<?php echo base64_encode('Respaldar');?>&a=<?php echo base64_encode('Restore');?>" class="grey-text text-darken-1"><i class="material-icons">settings_backup_restore</i><b>RESTAURAR</b></a></li>
   <li><a href="?c=<?php echo base64_encode('Usuario');?>&a=<?php echo base64_encode('Ver_datos_usuario');?>&idusuario=<?php echo base64_encode($_SESSION["id"]); ?>" class="grey-text text-darken-1"><i class="material-icons">perm_identity</i><b>MI USUARIO</b></a></li>
-  <li><a href="color.html" class="grey-text text-darken-1"><i class="material-icons">info</i><b>ACERCA DE</b></a></li>
+  <li><a href="?c=<?php echo base64_encode('Movimientos');?>&a=<?php echo base64_encode('VentaDia');?>" class="grey-text text-darken-1"><i class="material-icons">monetization_on</i><b>VENTAS EMPLEADO</b></a></li>
+  <li><a href="?c=<?php echo base64_encode('Doc');?>" class="grey-text text-darken-1"><i class="material-icons">info</i><b>ACERCA DE</b></a></li>
 </ul>
 <div class="bar">
   <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="menu01 material-icons">menu</i></a>
 </div>
+ <!-- Modal Trigger -->
+ <!--<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>-->
+
+<!-- Modal Structure -->
+
 <main>
 
 

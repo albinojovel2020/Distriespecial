@@ -8,9 +8,6 @@
     <ul class="right">
       <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Producto'); ?>" ><b>Lista de productos Stock</b><i class="material-icons right grey-text text-darken-1">arrow_back</i></a></li>
     </ul>
-     <ul class="right">
-      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Producto'); ?>&?c=<?php echo base64_encode('VerProductosEstado'); ?>" ><b>Lista de productos Por estado</b><i class="material-icons right grey-text text-darken-1">arrow_back</i></a></li>
-    </ul>
   </div>
 </nav>
 <br>
@@ -30,12 +27,12 @@
             <div class="input-field col s12 m6">
               <i class="material-icons prefix form-icon">person</i>
               <input id="nombres" type="text" class="validate" value="<?php echo $producto->nombre; ?>" name="nombres" required>
-              <label for="nombres">Nombre</label>
+              <label for="nombres">Nombre de Producto</label>
             </div>
             <div class="input-field col s12 m6">
               <i class="material-icons prefix form-icon">description</i>
               <input id="descripcion" type="text" class="validate" value="<?php echo $producto->descripcion; ?>" name="descripcion" required>
-              <label for="descripcion">Apellidos</label>
+              <label for="descripcion">Descripción</label>
             </div>
 
           </div>
@@ -49,19 +46,19 @@
           <div class="input-field col s12 m6">
             <i class="material-icons prefix form-icon">monetization_on</i>
             <input id="precio1" type="text" maxlength="6" onkeypress="return justNumbers(event);" value="<?php echo $producto->precio1; ?>" class="validate" name="precio1" required>
-            <label for="precio1">Precio 1</label>
+            <label for="precio1">Precio de Venta <b>uno</b></label>
           </div>
 
           <div class="input-field col s12 m6">
             <i class="material-icons prefix form-icon">monetization_on</i>
             <input id="precio2" type="text" maxlength="6" onkeypress="return justNumbers(event);" value="<?php echo $producto->precio2; ?>" class="validate" name="precio2" required>
-            <label for="precio2">Precio 2</label>
+            <label for="precio2">Precio de Venta <b>dos</b></label>
           </div>
 
           <div class="input-field col s12 m6">
             <i class="material-icons prefix form-icon">monetization_on</i>
             <input id="precio3" type="text" maxlength="6" onkeypress="return justNumbers(event);" value="<?php echo $producto->precio3; ?>" class="validate" name="precio3" required>
-            <label for="precio3">Precio 3</label>
+            <label for="precio3">Precio de Venta <b>tres</b></label>
           </div>
 
            <div class="input-field col s12 m6"> 

@@ -19,7 +19,7 @@
   </div>-->
 <div class="container">
     <div class="row">
-        <div class="col s6 offset-s3" >
+        <div class="col s12 m6 l6 offset-l3" >
             <div class="card-panel blue-text text-darken-2" style="">
                 <div class="row">
                     <center>

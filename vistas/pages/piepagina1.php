@@ -8,11 +8,13 @@
      </div>
  </div>
 </footer>-->
+
 <div class="container">
     <!-- floating button -->
     <div class="fixed-action-btn">
-    <a href="?c=<?php echo base64_encode('Login');?>&a=<?php echo base64_encode('CerrarSesion');?>" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">exit_to_app</i></a>
+    <a title="Cerrar Sesión" href="?c=<?php echo base64_encode('Login');?>&a=<?php echo base64_encode('CerrarSesion');?>" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">exit_to_app</i></a>
 </div>
+
 </main>
 <!--  Scripts-->
 <script src="vistas/js/jquery-2.1.1.min.js"></script>

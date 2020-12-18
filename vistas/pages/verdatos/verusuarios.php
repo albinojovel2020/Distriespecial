@@ -53,9 +53,15 @@
                       <td class="center">
                           <a href="?c=<?php echo base64_encode('Usuario'); ?>&a=<?php echo base64_encode('EditarUsuario'); ?>&idusuario=<?php echo base64_encode($r->idusuario); ?>" title="Editar Registro" ><i class="mini material-icons azul-ast-text hoverable circle ">edit</i></a>
                       </td>
-                      <td class="center">
+                      <?php if ($_SESSION["usuario"] != $r->usuario) {?>
+                        <td class="center">
                           <a onclick="javascript:return confirm('¿Seguro que desea desactivar este registro?');" href="?c=<?php echo base64_encode('Usuario'); ?>&a=<?php echo base64_encode('CambiarEstado'); ?>&nuevo_estado=<?php echo base64_encode('0'); ?>&idusuario=<?php echo base64_encode($r->idusuario); ?>" title="Desactivar Registro" ><i class="material-icons red-text hoverable circle mini">cancel</i></a>
-                      </td>
+                          </td>
+                        <?php }else { ?>
+                            <td class="center">
+                     <?php echo "Sesión Iniciada"; ?>
+                     </td>
+                  <?php }  ?>
                       
                   </tr>
               <?php endforeach; ?>    

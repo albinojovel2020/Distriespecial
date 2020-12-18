@@ -56,7 +56,7 @@
         
         <div class="login2 col s12 m6 l6">
             <div class="lg">
-                <a href="?c=<?php echo base64_encode('Tablero'); ?>"><img class="img_logo responsive-img" src="vistas/img/blanco_transparente.png" alt=""></a>
+                <a class="modal-trigger" href="#modal1"><img class="img_logo responsive-img" src="vistas/img/blanco_transparente.png" alt=""></a>
             </div>
         </div>
     </div>
@@ -66,7 +66,7 @@
     <div class="footer-copyright  white">
         <div class="container grey-text text-darken-1">
          <b> © 2020 Copyright Distribuidora especial</b>
-         <a class="grey-text text-darken-1 right" href="#!"><b>Equipo #2 practicas profesionales ULS</b></a>
+         <a class="grey-text text-darken-1 right" href="#!"><b>Equipo de Desarrollo Practicas Profesionales ULS</b></a>
      </div>
  </div>
 </footer>
