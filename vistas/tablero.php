@@ -7,7 +7,7 @@
     </ul>
     <ul class="right">
       <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Doc'); ?>" ><b>Info.</b><i class="material-icons right grey-text text-darken-1">info</i></a></li>
-      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="#totalventaempleado" ><b>Ventas Total Por Empleado</b><i class="material-icons right grey-text text-darken-1">monetization_on</i></a></li>
+      <!--<li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="#totalventaempleado" ><b>Ventas Total Por Empleado</b><i class="material-icons right grey-text text-darken-1">monetization_on</i></a></li>-->
   </ul>
 </div>
 </nav>  

@@ -36,6 +36,10 @@ $(document).ready(function() {
                 '$' + pageTotal + ' ( $' + total + ' total)'
             );
         },
+        "lengthMenu": [
+            [10, 25, 50, 100, 200, -1],
+            [10, 25, 50, 100, 200, "TODOS"]
+        ],
         "language": {
             "sProcessing": "<i class='azul-ast-text'>Procesando...</i>",
             "sLengthMenu": "<i class='azul-ast-text'>Mostrar</i> _MENU_ <i class='azul-ast-text'>Registros</i>",

@@ -6,7 +6,7 @@
       <li ><a class="grey-text text-darken-1"><b>DISTRIBUIDORA ESPECIAL > VENTAS DÍA</b></a></li> 
     </ul>
     <ul class="right">
-      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Movimientos'); ?>&a=<?php echo base64_encode('CrearVenta'); ?>" ><b>Nueva Venta</b><i class="material-icons right grey-text text-darken-1">add_shopping_cart</i></a></li>
+      <li><a class="waves-effect waves-light btn modal-trigger grey lighten-4 grey-text text-darken-1" href="?c=<?php echo base64_encode('Movimientos');?>&a=<?php echo base64_encode('CrearVenta');?>&idusuario=<?php echo base64_encode($_SESSION["id"]); ?>" ><b>Nueva Venta</b><i class="material-icons right grey-text text-darken-1">add_shopping_cart</i></a></li>
     </ul>
   </div>
 </nav>  

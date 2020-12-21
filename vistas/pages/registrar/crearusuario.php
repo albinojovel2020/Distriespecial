@@ -81,7 +81,7 @@
               <label for="clave2">Confirmar clave</label>
             </div>
             <div class="input-field col s12">              
-            <select id="idpreguntasecreta" name="idpreguntasecreta" class="validate" required>          <option value="" disabled selected>Seleccione una pregunta secreta</option>          
+            <select id="idpreguntasecreta" name="idpreguntasecreta" class="validate" required>          <option value="" disabled selected>Seleccione una pregunta secreta</option>         
                 <?php foreach($this->modelPreguntaSecreta->ListarPreguntasSecretas() as $r): ?>
                     <option value="<?php echo $r->idpreguntasecreta; ?>"><?php echo $r->nombre; ?></option>
                 <?php endforeach; ?>

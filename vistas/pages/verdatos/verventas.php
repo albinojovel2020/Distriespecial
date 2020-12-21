@@ -41,7 +41,7 @@
               <th>Estado</th>
               <th>Imprimir</th> 
               <th>Accion</th>                  
-              <th>Imprimir1</th>
+              <!--<th>Imprimir1</th>-->
             </tr>
           </thead>
           <tbody>
@@ -90,16 +90,13 @@
                 }  ?>
                 
 
-                <td class="center">
+                <!--<td class="center">
 
-                  <!--<?php //if ($r->anulada==0) {?>-->
+                 
                     <a href="?c=<?php echo base64_encode('Movimientos'); ?>&a=<?php echo base64_encode('exTicket'); ?>&nfac=<?php echo base64_encode($r->nfac); ?>" title="PDF del registro" ><i class="mini material-icons green-ast-text hoverable circle "></i>Prueba</a>
-                  <!--  <?php/*
-                  }elseif ($r->anulada!=0) {
-                    echo "<style></style>Anulada";
-                  }  */?>-->
                   
-                </td>
+                  
+                </td>-->
                 
 
               </tr>

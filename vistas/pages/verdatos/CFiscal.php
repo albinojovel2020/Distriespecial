@@ -10,7 +10,7 @@ $pdf = new Dompdf();
 
 
 //include "vistas/pages/verdatos/exFactura.php";
-$html=file_get_contents_curl("http://localhost/Versiones/venta7/Distriespecial-dev/?c=".base64_encode('Movimientos')."&a=".base64_encode('exCFiscal')."&id=".base64_encode($id)."&fe=".base64_encode($fe)."&iva=".base64_encode($iva)."&cliente=".base64_encode($cliente)."&nombrevende=".base64_encode($nombrevende)."&anulada=".base64_encode($anulada)."&total=".base64_encode($total));
+$html=file_get_contents_curl("http://localhost/Distriespecial/?c=".base64_encode('Movimientos')."&a=".base64_encode('exCFiscal')."&id=".base64_encode($id)."&fe=".base64_encode($fe)."&iva=".base64_encode($iva)."&cliente=".base64_encode($cliente)."&nombrevende=".base64_encode($nombrevende)."&anulada=".base64_encode($anulada)."&total=".base64_encode($total));
 
 
 

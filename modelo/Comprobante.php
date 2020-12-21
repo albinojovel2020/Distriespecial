@@ -50,7 +50,7 @@ class Comprobantes //inicio clase
 		try
 		{
 
-			$stm = $this->pdo->prepare("SELECT co.id AS id, co.nombre AS nombrecompro, co.descripcion AS descripcion, co.correlativo AS correlativo FROM cat_comprobante AS co");
+			$stm = $this->pdo->prepare("SELECT co.id AS id, co.nombre AS nombrecompro, co.descripcion AS descripcion, co.correlativo AS correlativo FROM cat_comprobante AS co ORDER BY nombrecompro ASC");
 			$stm->execute();
 
 			return $stm->fetchAll(PDO::FETCH_OBJ);

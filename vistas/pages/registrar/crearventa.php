@@ -25,7 +25,7 @@
         <form onkeydown="return event.key != 'Enter';" class="col s12" action="?c=<?php echo base64_encode('Movimientos'); ?>&a=<?php echo base64_encode('GuardarVenta'); ?>" method="post" enctype="multipart/form-data">
          <div class="input-field col s6">
             <input id="txtNumeroVenta" type="text" class="validate" name="txtNumeroVenta" value="<?php echo $datosfactura->iniciales; ?><?php echo $datosfactura->idusuario; ?><?php echo $datosfactura->siguientefactura; ?>"required>
-            <label for="txtNumeroVenta">Número Factura</label>
+            <label for="txtNumeroVenta">Número</label>
         </div>
 
 
@@ -40,7 +40,7 @@
         </div>
 
           <div class="input-field col s6">
-            <input id="txtNombreCliente" type="text" name="txtNombreCliente"  value="" required>
+            <input id="txtNombreCliente" type="text" name="txtNombreCliente"  value="Clientes Varios" required>
             <label for="txtNombreCliente">Cliente:</label>
         </div>
 
@@ -59,7 +59,7 @@
                 <option value="4">Ticket</option>
             </select>-->
             <select style="border-color: blue; border-radius:5px; " onchange="ActivarCampos(this)" name="selComprobante" id="selComprobante" required>      
-                <option value="" disabled selected>Seleccione tipo de Comprobante</option>            
+                <option value="" disabled selected>Seleccione tipo de Comprobante</option>
               <?php foreach($this->modelComprobante->ListarComprobantes() as $r): ?>
                 <option value="<?php echo $r->id; ?>"><?php echo $r->nombrecompro; ?></option>
               <?php endforeach; ?>

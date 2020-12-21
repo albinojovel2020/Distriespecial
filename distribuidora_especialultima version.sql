@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-12-2020 a las 17:52:24
+-- Tiempo de generación: 21-12-2020 a las 21:01:00
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.3
 
@@ -33,7 +33,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `ps_guardar_detalleventa` (IN `val_i
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ps_guardar_venta` (IN `val_numeroventa` INT, IN `val_fechaventa` VARCHAR(50), IN `val_total` DECIMAL(10,2), IN `val_idusuario` INT, IN `val_tipo_comprobante` INT, IN `val_tiva` DECIMAL(10,2), IN `val_cliente` VARCHAR(200), IN `val_giro` VARCHAR(500), IN `val_nrc` VARCHAR(20), IN `val_nit` VARCHAR(20))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ps_guardar_venta` (IN `val_numeroventa` VARCHAR(11), IN `val_fechaventa` VARCHAR(50), IN `val_total` DECIMAL(10,2), IN `val_idusuario` INT, IN `val_tipo_comprobante` INT, IN `val_tiva` DECIMAL(10,2), IN `val_cliente` VARCHAR(200), IN `val_giro` VARCHAR(500), IN `val_nrc` VARCHAR(20), IN `val_nit` VARCHAR(20))  BEGIN
 	
 	INSERT INTO `venta`(`numeroventa`, `fechaventa`, `total`, `idusuario`, `tipo_comprobante`,`tiva`,`cliente`,`giro`,`nrc`,`nit`) 
 	VALUES (val_numeroventa,val_fechaventa,val_total,val_idusuario,val_tipo_comprobante,val_tiva,val_cliente,val_giro,val_nrc,val_nit);
@@ -72,7 +72,8 @@ INSERT INTO `categoria` (`idcategoria`, `nombre`, `descripcion`, `idusuario`) VA
 (9, 'Utensilios', 'Utencilios de cocina', 15),
 (10, 'Manteca', 'Todo tipo de mantecas', 2),
 (11, 'Saborizantes', 'Todo tipo de saborizantes', 1),
-(13, 'Sopitas', 'sopitas', 16);
+(13, 'Sopitas', 'sopitas', 16),
+(14, 'Molidos', 'Molidos', 16);
 
 -- --------------------------------------------------------
 
@@ -141,7 +142,8 @@ INSERT INTO `cat_medidas` (`id`, `nombre`, `descripcion`, `codigo`) VALUES
 (3, 'Litro', 'Medida de producto en Litros', 'ULITRO'),
 (4, 'Galon', 'Medida de producto en galones', 'UGALON'),
 (5, 'Metro', 'Unidad de producto en metros', 'UMETRO'),
-(6, 'Mililitros', 'Unidad de medida en militiros', 'UMILI');
+(6, 'Mililitros', 'Unidad de medida en militiros', 'UMILI'),
+(7, 'Arroba', 'Arroba', 'ARRO');
 
 -- --------------------------------------------------------
 
@@ -185,7 +187,14 @@ INSERT INTO `detalleventa` (`iddetalleventa`, `idventa`, `idproducto`, `cantidad
 (156, 145, 16, 1, '2.50', '0.33'),
 (157, 145, 15, 1, '3.00', '0.39'),
 (158, 146, 16, 1, '2.50', '0.33'),
-(159, 146, 15, 1, '3.65', '0.47');
+(159, 146, 15, 1, '3.65', '0.47'),
+(160, 147, 16, 1, '2.50', '0.33'),
+(161, 147, 19, 1, '3.00', '0.39'),
+(162, 148, 16, 1, '2.50', '0.33'),
+(163, 149, 16, 1, '3.50', '0.46'),
+(164, 150, 16, 1, '3.00', '0.39'),
+(165, 151, 16, 1, '2.50', '0.33'),
+(166, 151, 17, 1, '3.50', '0.46');
 
 -- --------------------------------------------------------
 
@@ -222,7 +231,14 @@ INSERT INTO `ingreso_producto` (`id`, `idproducto`, `stockanterior`, `cantidad`,
 (67, 16, 195, 1, 196, 15, '2020-11-21', 'Por anulacion de venta'),
 (68, 16, 195, 1, 196, 16, '0000-00-00', 'Por anulacion de venta'),
 (69, 15, 97, 1, 98, 16, '0000-00-00', 'Por anulacion de venta'),
-(70, 16, 195, 1, 196, 16, '0000-00-00', 'Por anulacion de venta');
+(70, 16, 195, 1, 196, 16, '0000-00-00', 'Por anulacion de venta'),
+(71, 17, 0, 100, 100, 16, '2020-12-20', 'Por compra a proveedores'),
+(72, 18, 0, 256, 256, 16, '2020-12-20', 'Por compra a proveedores'),
+(73, 19, 0, 200, 200, 16, '2020-12-20', 'Por compra a proveedores'),
+(74, 20, 0, 653, 653, 16, '2020-12-20', 'Por compra a proveedores'),
+(75, 21, 0, 200, 200, 16, '2020-12-20', 'Por compra a proveedores'),
+(76, 16, 190, 1, 191, 16, '0000-00-00', 'Por anulacion de venta'),
+(77, 17, 99, 1, 100, 16, '0000-00-00', 'Por anulacion de venta');
 
 --
 -- Disparadores `ingreso_producto`
@@ -280,9 +296,12 @@ CREATE TABLE `producto` (
 
 INSERT INTO `producto` (`idproducto`, `nombre`, `descripcion`, `preciocompra`, `stock`, `imagen`, `idcategoria`, `idproveedor`, `idusuario`, `estado`, `umedida`, `precio1`, `precio2`, `precio3`) VALUES
 (15, 'Harina de Trigo', 'Harina de trigo suave', '2.00', 97, 'img/producto.jpg', 8, 3, 16, 1, 2, '3.00', '3.65', '3.85'),
-(16, 'harina arroz', 'arroz', '2.00', 195, 'img/logoulsfull_oficial_web.jpg', 1, 1, 15, 1, 2, '2.50', '3.00', '3.50'),
-(17, 'Producto Uno', 'Agotado', '3.00', 0, 'img/693300.png', 5, 2, 15, 1, 2, '3.25', '3.50', '3.75'),
-(18, 'Producto Dos', 'agotado 2', '1.00', 0, 'img/1513772868_581978_1513774571_noticia_normal.jpg', 6, 3, 15, 1, 3, '2.00', '3.00', '4.00');
+(16, 'Harina arroz', 'arroz', '2.00', 191, 'img/logoulsfull_oficial_web.jpg', 1, 1, 15, 1, 2, '2.50', '3.00', '3.50'),
+(17, 'Producto Uno', 'Agotado', '3.00', 100, 'img/693300.png', 5, 2, 15, 1, 2, '3.25', '3.50', '3.75'),
+(18, 'Producto Dos', 'agotado 2', '1.00', 256, 'img/1513772868_581978_1513774571_noticia_normal.jpg', 6, 3, 15, 1, 3, '2.00', '3.00', '4.00'),
+(19, 'Margarina Mirasol', 'Margarina de Girasol', '2.00', 199, 'img/WhatsApp Image 2020-11-19 at 5.08.23 PM.jpeg', 10, 3, 16, 1, 1, '2.50', '3.00', '3.30'),
+(20, 'Azúcar', 'Azucar refinada', '0.50', 653, 'img/WhatsApp Image 2020-11-19 at 5.08.26 PM.jpeg', 11, 1, 16, 1, 2, '1.00', '1.15', '1.20'),
+(21, 'Producto', 'Producto', '2.63', 200, 'img/FONDO.jpg', 6, 1, 16, 1, 6, '3.00', '3.10', '3.60');
 
 -- --------------------------------------------------------
 
@@ -307,10 +326,11 @@ CREATE TABLE `proveedor` (
 --
 
 INSERT INTO `proveedor` (`idproveedor`, `nombre`, `apellido`, `dui`, `telefono`, `direccionempresa`, `nombreempresa`, `idusuario`, `estado`) VALUES
-(1, 'Distribuidora Morazan', 'SA de CV', '00000000-0', '7777-7777', 'Calle a morazan #3', 'Distribuidora Morazan', 1, 1),
+(1, 'Distribuidora El Porvenir', 'SA de CV', '00000000-0', '7777-7777', 'Calle a morazan #3', 'Distribuidora  El Porvenir', 1, 1),
 (2, 'Lido', 'SA de CV', '00000000-0', '7777-7777', 'CALLE EL NANCE', 'NESTLE', 16, 1),
-(3, 'Inversiones rugamas', 'sa de cv', '88888888-8', '8787-8787', 'ALALALALA', 'Inversiones rugamas', 16, 1),
-(4, 'Chocolate and co', 'sa de cv', '00000000-0', '7878-7878', 'calle a mariona', 'Chocolate and co', 16, 1);
+(3, 'Inversiones rugamas', 'sa de cv', '88888888-8', '8787-8787', 'Calle el matazano', 'Inversiones rugamas', 16, 1),
+(4, 'Chocolate and co', 'sa de cv', '00000000-0', '7878-7878', 'calle a mariona', 'Chocolate and co', 16, 0),
+(5, 'Tortillas la fuente', 'Tortillas la fuente', '05050505-8', '2222-2222', 'Tortillas la fuente COL MAQUILISHUAT', 'Tortillas la fuente', 16, 1);
 
 -- --------------------------------------------------------
 
@@ -360,13 +380,12 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`idusuario`, `nombre`, `apellido`, `telefono`, `usuario`, `clave`, `fecha`, `idpreguntasecreta`, `respuestasecreta`, `idtipousuario`, `estado`, `iniciales`, `siguientefactura`) VALUES
 (1, 'Luis', 'Carranza', '2222-0505', 'usuario1', 'f688ae26e9cfa3ba6235477831d5122e', 'Ultima modificación: 2020-09-20 a las 08:29:08 AM', 1, 'brayan', 1, 0, 'LC', 1),
-(2, 'Brayan', 'Salomon Fuentes Quijano', '7777-7779', 'el brayan', '81dc9bdb52d04dc20036dbd8313ed055', 'Modificación: 2020-09-20 a las 07:21:45 AM', 2, 'andres', 1, 1, 'BS', 1),
+(2, 'Brayan', 'Salomon Fuentes Quijano', '7777-7779', 'bfquijano', '81dc9bdb52d04dc20036dbd8313ed055', 'Modificación: 2020-12-20 a las 08:27:01 AM', 2, 'andres', 1, 1, 'BS', 1),
 (15, 'Andres', 'Pineda', '2322-4344', 'andrew', '231badb19b93e44f47da1bd64a8147f2', 'Modificación: 2020-09-20 a las 08:28:20 AM', 1, '231badb19b93e44f47da1bd64a8147f2', 1, 1, 'AP', 1),
-(16, 'Rafael Albino', 'Jovel Alfaro', '7786-7999', 'albino', 'cbe7855c7afdb4a521ee4d1a63d89e89', 'Modificación: 2020-11-11 a las 08:35:27 PM', 1, 'cbe7855c7afdb4a521ee4d1a63d89e89', 1, 1, 'RA', 2),
+(16, 'Rafael Albino', 'Jovel Alfaro', '7786-7999', 'albino', 'cbe7855c7afdb4a521ee4d1a63d89e89', 'Modificación: 2020-11-11 a las 08:35:27 PM', 1, 'cbe7855c7afdb4a521ee4d1a63d89e89', 1, 1, 'RA', 7),
 (17, 'Carlos', 'Alfaro', '2222-2222', 'davialfa', 'a008167316b8afef949b8f3146ed42e5', '2020-09-30 a las 10:27:41 PM', 1, 'eb8dd5745ad86bcbd8f87b4ed20013b4', 1, 1, 'CA', 1),
-(18, 'Rafael', 'Jovel', '7777-7777', 'rafael.jovel@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '2020-10-09 a las 01:27:41 PM', 1, '35cd2d0d62d9bc5e60a3ca9f7593b05b', 1, 1, 'RJ', 1),
-(20, 'Antonio', 'Garcia', '7786-7999', 'ag5', 'e10adc3949ba59abbe56e057f20f883e', '2020-12-18 a las 07:51:01 AM', 1, '885383f16fccd10370814fcd862aa10d', 1, 1, 'AG', 1),
-(21, 'albert', 'albert', '2222-2222', 'albert', 'e10adc3949ba59abbe56e057f20f883e', '2020-12-18 a las 10:46:28 AM', 1, '6c5bc43b443975b806740d8e41146479', 1, 1, 'AH', 1);
+(20, 'Antonio', 'Garcia', '7786-7999', 'ag5trest', 'e10adc3949ba59abbe56e057f20f883e', '2020-12-18 a las 07:51:01 AM', 1, '885383f16fccd10370814fcd862aa10d', 1, 1, 'AG', 1),
+(22, 'Roberto', 'Jovel', '2257-7777', 'rjovel', 'e10adc3949ba59abbe56e057f20f883e', '2020-12-20 a las 10:37:33 AM', 1, '3e73d993ae9d5a05e3c18e854620b896', 1, 0, 'RJ', 1);
 
 -- --------------------------------------------------------
 
@@ -376,7 +395,7 @@ INSERT INTO `usuario` (`idusuario`, `nombre`, `apellido`, `telefono`, `usuario`,
 
 CREATE TABLE `venta` (
   `idventa` int(11) NOT NULL,
-  `numeroventa` int(11) NOT NULL,
+  `numeroventa` varchar(11) NOT NULL,
   `fechaventa` varchar(100) NOT NULL,
   `total` decimal(10,2) NOT NULL,
   `idusuario` int(11) NOT NULL,
@@ -394,19 +413,24 @@ CREATE TABLE `venta` (
 --
 
 INSERT INTO `venta` (`idventa`, `numeroventa`, `fechaventa`, `total`, `idusuario`, `tipo_comprobante`, `anulada`, `tiva`, `cliente`, `giro`, `nrc`, `nit`) VALUES
-(134, 7777, '06-11-2020 11:09:02 PM', '7.35', 16, 1, 1, '0.85', 'Consumidor final', '', '', ''),
-(135, 6112020, '06-11-2020 02:54:52 PM', '7.35', 15, 4, 0, '0.85', 'Publico General', '', '', ''),
-(136, 61120201, '06-11-2020  03:33:17 PM', '6.95', 15, 1, 1, '0.80', 'Publico General', '', '', ''),
-(137, 61120202, '06-11-2020 04:14:50 PM', '7.35', 15, 4, 1, '0.85', 'publico general', '', '', ''),
-(138, 191120202, '19-11-2020 03:37:19 PM', '3.39', 15, 1, 0, '0.39', 'fian', '', '', ''),
-(139, 21112020, '21-11-2020 10:38:35 AM', '15.88', 15, 2, 1, '1.83', 'Credito fiscal', 'Pasteleria', '9999', '6666'),
-(140, 211120203, '21-11-2020 06:53:33 PM', '11.86', 15, 2, 0, '1.36', 'Prueba de fecha', 'Venta', '1', '333'),
-(141, 1231, '17-12-2020 11:43:11 PM', '6.15', 16, 1, 0, '0.80', 'rafael', NULL, NULL, NULL),
-(142, 0, '18-12-2020 08:20:30 AM', '6.00', 16, 1, 0, '0.78', 'Albino Jovel', NULL, NULL, NULL),
-(143, 0, '18-12-2020 08:24:42 AM', '2.50', 16, 1, 1, '0.33', 'rtyrty', NULL, NULL, NULL),
-(144, 0, '18-12-2020 10:30:47 AM', '6.15', 16, 1, 0, '0.80', 'lakjsdkajs', NULL, NULL, NULL),
-(145, 0, '18-12-2020 10:32:08 AM', '5.50', 16, 1, 1, '0.72', 'asdd', NULL, NULL, NULL),
-(146, 0, '18-12-2020 10:37:09 AM', '6.15', 16, 1, 0, '0.80', 'ASLD', NULL, NULL, NULL);
+(134, '7777', '06-11-2020 11:09:02 PM', '7.35', 16, 1, 1, '0.85', 'Consumidor final', '', '', ''),
+(135, '6112020', '06-11-2020 02:54:52 PM', '7.35', 15, 4, 0, '0.85', 'Publico General', '', '', ''),
+(136, '61120201', '06-11-2020  03:33:17 PM', '6.95', 15, 1, 1, '0.80', 'Publico General', '', '', ''),
+(137, '61120202', '06-11-2020 04:14:50 PM', '7.35', 15, 4, 1, '0.85', 'publico general', '', '', ''),
+(138, '191120202', '19-11-2020 03:37:19 PM', '3.39', 15, 1, 0, '0.39', 'fian', '', '', ''),
+(139, '21112020', '21-11-2020 10:38:35 AM', '15.88', 15, 2, 1, '1.83', 'Credito fiscal', 'Pasteleria', '9999', '6666'),
+(140, '211120203', '21-11-2020 06:53:33 PM', '11.86', 15, 2, 0, '1.36', 'Prueba de fecha', 'Venta', '1', '333'),
+(141, '1231', '17-12-2020 11:43:11 PM', '6.15', 16, 1, 0, '0.80', 'rafael', NULL, NULL, NULL),
+(142, '1231', '18-12-2020 08:20:30 AM', '6.00', 16, 1, 0, '0.78', 'Albino Jovel', NULL, NULL, NULL),
+(143, '1231', '18-12-2020 08:24:42 AM', '2.50', 16, 1, 1, '0.33', 'rtyrty', NULL, NULL, NULL),
+(144, '1231', '18-12-2020 10:30:47 AM', '6.15', 16, 1, 0, '0.80', 'lakjsdkajs', NULL, NULL, NULL),
+(145, '1231', '18-12-2020 10:32:08 AM', '5.50', 16, 1, 1, '0.72', 'asdd', NULL, NULL, NULL),
+(146, '1231', '18-12-2020 10:37:09 AM', '6.15', 16, 1, 0, '0.80', 'ASLD', NULL, NULL, NULL),
+(147, '1231', '20-12-2020 09:06:13 AM', '5.50', 16, 4, 0, '0.72', 'Clientes Varios', NULL, NULL, NULL),
+(148, '1231', '20-12-2020 09:07:31 AM', '2.50', 16, 4, 0, '0.33', 'Clientes Varios', NULL, NULL, NULL),
+(149, '23', '20-12-2020 09:12:07 AM', '3.50', 16, 1, 0, '0.46', 'Clientes Varios', NULL, NULL, NULL),
+(150, 'RA165', '20-12-2020 09:17:29 AM', '3.00', 16, 1, 0, '0.39', 'Clientes Varios', NULL, NULL, NULL),
+(151, 'RA166', '20-12-2020 10:47:19 AM', '6.00', 16, 4, 1, '0.79', 'Clientes Varios', NULL, NULL, NULL);
 
 --
 -- Disparadores `venta`
@@ -462,7 +486,14 @@ INSERT INTO `ventas_producto` (`id`, `idventa`, `idproducto`, `stockanterior`, `
 (64, 145, 16, 196, 1, 195, 16, '2.00', '2.50', '18-12-2020 10:31:41 AM'),
 (65, 145, 15, 98, 1, 97, 16, '2.00', '3.00', '18-12-2020 10:31:41 AM'),
 (66, 146, 16, 196, 1, 195, 16, '2.00', '2.50', '18-12-2020 10:36:45 AM'),
-(67, 146, 15, 98, 1, 97, 16, '2.00', '3.65', '18-12-2020 10:36:45 AM');
+(67, 146, 15, 98, 1, 97, 16, '2.00', '3.65', '18-12-2020 10:36:45 AM'),
+(68, 147, 16, 195, 1, 194, 16, '2.00', '2.50', '20-12-2020 09:05:39 AM'),
+(69, 147, 19, 200, 1, 199, 16, '2.00', '3.00', '20-12-2020 09:05:39 AM'),
+(70, 148, 16, 194, 1, 193, 16, '2.00', '2.50', '20-12-2020 09:07:19 AM'),
+(71, 149, 16, 193, 1, 192, 16, '2.00', '3.50', '20-12-2020 09:11:55 AM'),
+(72, 150, 16, 192, 1, 191, 16, '2.00', '3.00', '20-12-2020 09:17:17 AM'),
+(73, 151, 16, 191, 1, 190, 16, '2.00', '2.50', '20-12-2020 10:44:47 AM'),
+(74, 151, 17, 100, 1, 99, 16, '3.00', '3.50', '20-12-2020 10:44:47 AM');
 
 --
 -- Disparadores `ventas_producto`
@@ -580,7 +611,7 @@ ALTER TABLE `ventas_producto`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `idcategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idcategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `cat_comprobante`
@@ -598,19 +629,19 @@ ALTER TABLE `cat_impuesto`
 -- AUTO_INCREMENT de la tabla `cat_medidas`
 --
 ALTER TABLE `cat_medidas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `detalleventa`
 --
 ALTER TABLE `detalleventa`
-  MODIFY `iddetalleventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160;
+  MODIFY `iddetalleventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
 
 --
 -- AUTO_INCREMENT de la tabla `ingreso_producto`
 --
 ALTER TABLE `ingreso_producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntasecreta`
@@ -622,13 +653,13 @@ ALTER TABLE `preguntasecreta`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `idproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-  MODIFY `idproveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idproveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `tiposusuario`
@@ -640,19 +671,19 @@ ALTER TABLE `tiposusuario`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
+  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas_producto`
 --
 ALTER TABLE `ventas_producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- Restricciones para tablas volcadas

@@ -19,7 +19,7 @@ const USER = "root";
 const SERVER = "localhost"; 
 
 //Nombre de la base de datos
-const BD = "distribuidora_especial";
+const BD = "distribuidora_especial2";
 
 //Contraseña de myqsl
 const PASS = "";
