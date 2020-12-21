@@ -24,7 +24,7 @@
         <br>
         <form onkeydown="return event.key != 'Enter';" class="col s12" action="?c=<?php echo base64_encode('Movimientos'); ?>&a=<?php echo base64_encode('GuardarVenta'); ?>" method="post" enctype="multipart/form-data">
          <div class="input-field col s6">
-            <input id="txtNumeroVenta" type="text" class="validate" name="txtNumeroVenta" value="<?php echo $datosfactura->iniciales; ?><?php echo $datosfactura->idusuario; ?><?php echo $datosfactura->siguientefactura; ?>"required>
+            <input id="txtNumeroVenta" readonly type="text" class="validate" name="txtNumeroVenta" value="<?php echo $datosfactura->iniciales; ?><?php echo $datosfactura->idusuario; ?><?php echo $datosfactura->siguientefactura; ?>"required>
             <label for="txtNumeroVenta">Número</label>
         </div>
 
@@ -168,13 +168,13 @@
                     <tr id="filaIva" style="display:none;">
                         <td colspan="5" class="right-align"><strong>IVA</strong></td>
                         <td colspan="2">
-                            <span>$</span><input class="right-align orange lighten-4" id="txtTotalIva"  type="text" name="txtTotalIva" value="" style="width: 80px;" />
+                            <span>$</span><input class="right-align orange lighten-4" id="txtTotalIva"  type="text" name="txtTotalIva" value="" style="width: 80px;" readonly/>
                         </td>
                     </tr>
                     <tr id="filaTotal" style="display:none;">
                         <td colspan="5" class="right-align"><strong>Total</strong></td>
                         <td colspan="2">
-                            <span>$</span><input class="right-align deep-orange lighten-4" id="txtTotal"  type="text" name="txtTotal" value="" style="width: 80px;" />
+                            <span>$</span><input class="right-align deep-orange lighten-4" id="txtTotal"  type="text" name="txtTotal" value="" style="width: 80px;" readonly/>
                         </td>
                     </tr>
                 </tbody>
